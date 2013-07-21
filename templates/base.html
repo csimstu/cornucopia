@@ -1,0 +1,153 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="{% static "js/jquery-1.10.2.js" %}"></script>
+    <script src="{% static "js/blockUI.js" %}"></script>
+    <title>{% block title %}Defalt Title{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static "base/style.css" %}">
+    <link rel="stylesheet" href="{% static "font-awesome/css/font-awesome.min.css" %}">
+
+    <script>
+        $(function () {
+            $('#login-box-btn').click(function () {
+                $.blockUI({
+                    message: $('#login-box'),
+                    css: {
+                        margin: 0, border: 0,
+                        textAlign: 'left'
+                    }
+                });
+                $('.blockOverlay').click($.unblockUI);
+            });
+        });
+    </script>
+
+</head>
+<body>
+<div id="wrapper">
+
+    <header id="top-wrap">
+        <div class="logo" id="logo-shadow2"></div>
+        <div class="logo" id="logo-shadow1"></div>
+        <div class="logo">
+            <a href="{% url 'home' %}">
+                Teen
+                <span>-Hope</span>
+            </a>
+        </div>
+
+        <div class="quote">
+            <div>
+                “Life's challenges are not supposed to paralyze you, they're supposed to help you discover who you are.”
+                <div class="author">
+                    Bernice Johnson Reagon
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="page-wrap">
+        <div class="page-wrap" id="page-wrap-shadow1"></div>
+        <div class="page-wrap" id="page-wrap-shadow2"></div>
+
+        <nav class="main-nav">
+            <ul>
+                <li>
+                    <a href="{% url 'home' %}">
+                        <i class="icon-home"></i>
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'forum:index' %}">
+                        <i class="icon-comments"></i>
+                        Forum
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="icon-file"></i>
+                        Pages
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="icon-camera"></i>
+                        Gallery
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="icon-money"></i>
+                        Donate
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="main-wrap">
+            <div class="left-wrap">
+                {% block content %}
+                    something about content
+                {% endblock %}
+            </div>
+
+            <div class="right-wrap">
+                <div class="user-box">
+
+                    {% if user.is_authenticated %}
+                        <span id="welcome">Welcome back, {{ user.username }}.</span>
+
+                        <a id="update_profile" href="{% url 'accounts:update_profile' %}">Update Your Profile</a>
+                        <a id="logout" href="{% url 'accounts:logout' %}">Log out</a>
+                    {% else %}
+                        <h4>Howdy Stranger!</h4>
+                        <p>
+                            Get help, give help. Join our friendly
+                            community.
+                        </p>
+                        <div class="user-buttons">
+                            <a class="button blue-button" id="login-box-btn">Log In</a>
+                            <a class="button blue-button" id="register-btn" href="{% url 'accounts:register' %}">Join
+                                Now</a>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <a href="{% url 'forum:new_topic' %}" class="button new-topic-button">
+                    Start New Topic
+                </a>
+            </div>
+
+            <div style="clear: both"></div>
+        </div>
+    </div>
+
+    <div id="login-box">
+        <div class="content">
+            <h1>Member Login</h1>
+            <form method="post" action="{% url "accounts:login" %}"> {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="username">
+                    <label for="id_username">Username</label>
+                    <input type="text" id="id_username" name="username" class="input-box">
+                </div>
+                <div class="password">
+                    <label for="id_password">Password</label>
+                    <input type="password" id="id_password" name="password" class="input-box">
+                </div>
+
+                <input class="button blue-button" type="submit" value="Log In"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="blockOverlay"
+     style="z-index: 1000; border: none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; background-color: rgb(0, 0, 0); opacity: 0.6; cursor: wait; position: fixed; display:none">
+
+</div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Demo</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js">
+    </script>
+    <script src="jquery.form.js">
+    </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script>
+        $(document).ready(function () {
+            $("#log-in-panel").hide();
+            $("#log-in-button").click(function () {
+                $("#log-in-panel").animate({
+                    height: 'show'
+                }, 300);
+            });
+            $("#log-in-panel").mouseleave(function () {
+                $(this).hide(300);
+            });
+            $("#log-in-form").ajaxSubmit({
+                target: "#preview",
+                success: function () {
+                    alert("Success!");
+                    $("log-in-button").hide(300);
+                }
+            });
+        })
+    </script>
+</head>
+<body>
+<div class="admin-bar">
+    <ul class="top-nav">
+        <li>
+            <a id="log-in-button">Log in</a>
+        </li>
+        <li>
+            <a id="sign-up-button">Sign up</a>
+        </li>
+    </ul>
+
+
+</div>
+
+<div id="log-in-panel">
+    <form id="log-in-form" method="post" action="{% url 'login' %}"> {% csrf_token %}
+        <div>
+            <label for="id_username">Username:</label>
+            <input id="id_username" name="username" type="text">
+        </div>
+        <div>
+            <label for="id_password">Password:</label>
+            <input id="id_password" name="password" type="password">
+        </div>
+
+        <input type="submit" value="log in"/>
+    </form>
+</form>
+</div>
+
+<header id="top" class="top-wrap">
+    <div class="logo">
+        <div class="logo" id="logo-shadow1"></div>
+        <div class="logo" id="logo-shadow2"></div>
+        <a href="">
+            Teen
+            <span>-Hope</span>
+        </a>
+    </div>
+</header>
+
+<div class="page-wrap">
+    <div id="page-wrap-shadow1"></div>
+    <div id="page-wrap-shadow2"></div>
+    <div id="preview"></div>
+</div>
+</body>
+</html>

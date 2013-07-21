@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Update your profile{% endblock %}
+{% block content %}
+{{ form.non_field_errors }}
+<form method="post" action=""> {% csrf_token %}
+
+    <label for="id_old_password">Old password</label>
+    {{ form.old_password }}
+    <br/> <br/>
+
+    <label for="id_new_password">New password</label>
+    {{ form.new_password }}
+    <br/> <br/>
+
+    <label for="id_re_password">Re-enter new password</label>
+    {{ form.re_password }}
+    <br/> <br/>
+
+    <label for="id_email">Email</label>
+    {{ form.email }}
+    <br/> <br/>
+
+    <label for="id_name">Name</label>
+    {{ form.name }}
+    <br/> <br/>
+
+    <input type="submit" value="Submit"/>
+
+</form>
+{% endblock %}
