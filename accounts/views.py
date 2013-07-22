@@ -27,7 +27,7 @@ from django.contrib.auth.decorators import login_required
 
 def logout(request):
     auth.logout(request)
-    return HttpResponseRedirect(reverse('forum.views.index'))
+    return HttpResponseRedirect(reverse('home'))
 
 @login_required
 def update_profile(request):
@@ -42,7 +42,7 @@ def update_profile(request):
             user.save()
             profile.name = form.cleaned_data['name']
             profile.save()
-            return HttpResponseRedirect(reverse('forum.views.index'))
+            return HttpResponseRedirect(reverse('home'))
     else:
         form = ProfileForm(initial={
             'name' : user.get_profile().name, 'email': user.email},)
