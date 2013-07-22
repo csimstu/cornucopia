@@ -19,7 +19,7 @@ def login(request):
             x = "Unknown error."
             for field, errors in form.errors.items():
                 for error in errors:
-                    x = error;
+                    x = error
             return HttpResponseBadRequest(x)
     return Http404()
 
@@ -55,7 +55,8 @@ from forms import RegistrationForm
 from django.contrib.auth.models import User
 from models import Profile
 
-def registration_view(request):
+
+def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -66,9 +67,11 @@ def registration_view(request):
             user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
             auth.login(request, user)
             Profile.objects.create(user=user, name=user.username)
-            return HttpResponseRedirect(reverse('accounts.views.update_profile'))
-    else:
-        form = RegistrationForm()
-    return render(request, 'accounts/register.html', {
-            'form': form,
-    })
+            return HttpResponse() # always done in JS
+        else:
+            x = "Unknown error."
+            for field, errors in form.errors.items():
+                for error in errors:
+                    x = error
+            return HttpResponseBadRequest(x)
+    return Http404()
