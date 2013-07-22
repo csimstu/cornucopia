@@ -1,6 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.contrib import auth
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse, Http404, HttpResponseBadRequest
 from django.shortcuts import render
 
 from forms import ProfileForm, LoginForm
@@ -14,18 +14,20 @@ def login(request):
             password = form.cleaned_data['password']
             user = auth.authenticate(username=username, password=password)
             auth.login(request, user)
-            return HttpResponseRedirect(reverse('forum.views.index'))
-    else:
-        form = LoginForm()
-
-    return render(request, 'accounts/login.html', {'form': form})
-
+            return HttpResponse() # already done in JS
+        else:
+            x = "Unknown error."
+            for field, errors in form.errors.items():
+                for error in errors:
+                    x = error;
+            return HttpResponseBadRequest(x)
+    return Http404()
 
 from django.contrib.auth.decorators import login_required
 
 def logout(request):
     auth.logout(request)
-    return HttpResponseRedirect(reverse('forum.views.index'));
+    return HttpResponseRedirect(reverse('forum.views.index'))
 
 @login_required
 def update_profile(request):

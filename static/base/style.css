@@ -1,87 +1,5 @@
-@font-face {
-    font-family: "Chunkfive";
-    src: url("Chunkfive.otf");
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "SourceSansPro";
-    src: url("SourceSansPro-Bold.otf");
-    font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "SourceSansPro";
-    src: url("SourceSansPro-Regular.otf");
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "SourceSansPro";
-    src: url("SourceSansPro-Light.otf.otf");
-    font-weight: lighter;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "Whitney Condensed";
-    src: url("WhitneyCondensed-Bold.otf");
-    font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "Whitney Condensed";
-    src: url("WhitneyCondensed-Light.otf");
-    font-weight: lighter;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "Whitney Condensed";
-    src: url("WhitneyCondensed-Medium.otf");
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "PTC55F";
-    src: url("PTC55F.ttf");
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "KaushanScript";
-    src: url("KaushanScript-Regular.otf");
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "Gotham";
-    src: url("Gotham-Bold.otf");
-    font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "Gotham";
-    src: url("Gotham-Light.otf");
-    font-weight: lighter;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "Gotham";
-    src: url("Gotham-Medium.otf");
-    font-weight: normal;
-    font-style: normal;
-}
-
+@import url('../font/font.css');
+@import url('../font/font-awesome/css/font-awesome.min.css');
 * {
     margin: 0;
     padding: 0;
@@ -95,7 +13,7 @@ a {
 }
 
 body {
-    background-image: url('bg.png');
+    background-image: url('img/bg.png');
 }
 
 #top-wrap {
@@ -116,8 +34,6 @@ body {
     text-align: right;
     text-transform: uppercase;
 
-    font-family: "Chunkfive";
-    font-weight: 100;
     font-size: 50px;
 
     letter-spacing: 3px;
@@ -164,7 +80,7 @@ body {
     position: absolute;
     top: 30px;
     text-shadow: 0 0 3px white;
-    font-family: "PTC55F";
+    font-family: "source_sans_pro";
     font-size: 24px;
     color: #FCFCFC;
     line-height: 30px;
@@ -172,7 +88,7 @@ body {
 
 .quote .author {
     position: relative;
-    font-family: "KaushanScript";
+    font-family: "kaushan_script";
     text-align: right;
 }
 
@@ -242,7 +158,7 @@ body {
     background: #afafaf;
     color: #545353;
     text-align: center;
-    font-family: SourceSansPro;
+    font-family: source_sans_pro;
     font-weight: bold;
     font-size: 28px;
     line-height: 50px;
@@ -262,7 +178,7 @@ body {
     position: relative;
     height: auto;
     width: 100%;
-    background: url('witewall_3.png') repeat;
+    background: url('img/witewall_3.png') repeat;
     font-size: 16px;
     padding: 20px 20px 20px;
     color: rgb(51, 51, 51);
@@ -284,7 +200,7 @@ body {
     margin: 0 0 20px 0;
     position: relative;
 
-    font-family: "Whitney Condensed";
+    font-family: "whitneycondensed";
     font-weight: normal;
 }
 
@@ -325,7 +241,7 @@ body {
 .meta {
     font-size: 14px;
     color: #999;
-    font-family: SourceSansPro;
+    font-family: source_sans_pro;
 }
 
 .meta>span {
@@ -351,12 +267,12 @@ body {
 }
 
 .user-box {
-    font-family: SourceSansPro;
+    font-family: source_sans_pro;
 }
 
 .user-box h4 {
     font-size: 24px;
-    font-family: "Whitney Condensed";
+    font-family: "whitneycondensed";
     margin: 0 0 5px 0;
 }
 
@@ -431,7 +347,7 @@ body {
 }
 
 #login-box h1 {
-    font-family: "Whitney Condensed";
+    font-family: "whitneycondensed";
 }
 
 #login-box form {
@@ -454,7 +370,7 @@ body {
 #login-box input {
     width: 90%;
     font-size: 20px;
-    font-family: SourceSansPro;
+    font-family: source_sans_pro;
     font-weight: bold;
 }
 
@@ -478,4 +394,14 @@ input[type='search'], input[type='url'], input[type='email'], input[type='text']
     outline: 0;
     word-break: normal;
     -webkit-appearance: none;
+}
+
+.error_msg {
+    color: red;
+    font-family: Gotham;
+    font-size: 13px;
+}
+
+#login-box .error_msg {
+    margin: 10px;
 }

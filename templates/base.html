@@ -6,9 +6,61 @@
     <script src="{% static "js/blockUI.js" %}"></script>
     <title>{% block title %}Defalt Title{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{% static "base/style.css" %}">
-    <link rel="stylesheet" href="{% static "font-awesome/css/font-awesome.min.css" %}">
 
     <script>
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        var submit_login_form = function () {
+            var username = $("#id_username").val();
+            var password = $("#id_password").val();
+            var data = {username: username, password: password};
+            $.ajax({
+                type: "POST", url: "{% url "accounts:login" %}",
+                data: data, complete: after_submit
+            })
+
+            return false;
+        }
+
+        var after_submit = function (res, status) {
+            if (status == "success")
+                window.location = window.location.href;
+            else {
+                $('.error_msg').remove();
+                var error_msg = res.responseText;
+                var error_div = $('<div class="error_msg"><p>'+error_msg+'</p></div>');
+                error_div.insertAfter($('#login-h1')).hide().fadeIn(500);
+            }
+        };
+
         $(function () {
             $('#login-box-btn').click(function () {
                 $.blockUI({
@@ -20,6 +72,8 @@
                 });
                 $('.blockOverlay').click($.unblockUI);
             });
+
+            $("#login-submit-btn").click(submit_login_form);
         });
     </script>
 
@@ -127,9 +181,9 @@
 
     <div id="login-box">
         <div class="content">
-            <h1>Member Login</h1>
-            <form method="post" action="{% url "accounts:login" %}"> {% csrf_token %}
-                {{ form.non_field_errors }}
+            <h1 id="login-h1">Member Login</h1>
+
+            <form method="post" action="{% url "home" %}"> {% csrf_token %}
                 <div class="username">
                     <label for="id_username">Username</label>
                     <input type="text" id="id_username" name="username" class="input-box">
@@ -139,7 +193,7 @@
                     <input type="password" id="id_password" name="password" class="input-box">
                 </div>
 
-                <input class="button blue-button" type="submit" value="Log In"/>
+                <input id="login-submit-btn" class="button blue-button" type="submit" value="Log In"/>
             </form>
         </div>
     </div>
