@@ -1,0 +1,48 @@
+.forum-detail-content {
+    margin: 0 20px;
+}
+
+.author-info {
+    margin: 10px 10px;
+    text-transform: uppercase;
+    word-spacing: 2px;
+}
+
+.post {
+    position: relative;
+    width: 100%;
+}
+
+.post .portrait {
+    width: 150px;
+    height: 150px;
+    border: #808080 solid medium;
+}
+
+.post-left-wrap {
+    float: left;
+    position: relative;
+    margin: 10px 20px;
+}
+
+.post-right-wrap {
+    margin: 0 20px;
+    position: relative;
+}
+
+.post-author {
+    color: #859ce6;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.post-date {
+    text-transform: uppercase;
+    margin: 7px 3px;
+}
+
+.post-content {
+    margin: 5px;
+    font-family: source_sans_pro;
+}

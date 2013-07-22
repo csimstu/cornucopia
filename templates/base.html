@@ -7,6 +7,9 @@
     <title>{% block title %}Defalt Title{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{% static "base/style.css" %}">
 
+    {% block head %}
+    {% endblock %}
+
     <script>
         function getCookie(name) {
             var cookieValue = null;
@@ -182,9 +185,11 @@
 
         <div class="main-wrap">
             <div class="left-wrap">
-                {% block content %}
-                    something about content
-                {% endblock %}
+                <div class="left-main-content paper-wrap">
+                    {% block content %}
+                        something about content
+                    {% endblock %}
+                </div>
             </div>
 
             <div class="right-wrap">
@@ -195,7 +200,8 @@
                             <h4>Welcome, {{ user.get_profile.name }}.</h4>
                         </div>
                         <div class="user-buttons">
-                            <a class="button blue-button" id="update_profile" href="{% url 'accounts:update_profile' %}">Edit profile</a>
+                            <a class="button blue-button" id="update_profile"
+                               href="{% url 'accounts:update_profile' %}">Edit profile</a>
                             <a class="button blue-button" id="logout" href="{% url 'accounts:logout' %}">Log out</a>
                         </div>
                     {% else %}

@@ -1,13 +1,43 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static "forum/detail.css" %}">
+{% endblock %}
 {% block title %}Topic: {{ topic.title }}{% endblock %}
 {% block content %}
-<ul>
-    {% for post in topic.post_set.all %}
-        Author: {{ post.author.get_profile.name }} <br/>
-        Published on: {{ post.date_published|date:"P D d M Y" }} <br/>
+    <div class="forum-detail-content">
         <div>
-            {{ post.content }}
+            <h1 class="forum-main-header">
+                Topic: {{ topic.title }}
+            </h1>
         </div>
-    {% endfor %}
-</ul>
+        <div class="author-info meta">
+            Started by {{ first_post.author.get_profile.name }}
+            on {{ first_post.date_published|date:"M d, Y" }}
+        </div>
+        <ul>
+            {% for post in topic.post_set.all %}
+                <div class="paper-wrap post">
+                    <div class="post-left-wrap">
+                        <img class="portrait" src="{% static "forum/default_portrait.jpg" %}">
+
+                        <div class="post-author">
+                            {{ post.author.get_profile.name }} <br/>
+                        </div>
+                    </div>
+                    <div class="post-right-wrap">
+
+                        <div class="post-date meta">
+                            #{{ post.date_published|date:"P M d, Y" }} <br/>
+                        </div>
+
+                        <div class="post-content">
+                            {{ post.content|safe }}
+                        </div>
+                    </div>
+                    <div style="clear:both"></div>
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

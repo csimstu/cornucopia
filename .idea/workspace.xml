@@ -2,244 +2,36 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c25999b-26a2-4473-81c9-8e722a4fef69" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/bootstrap.less" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/scss/font-awesome.scss" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/base/Chunkfive.otf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/base/KaushanScript-Regular.otf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/base/PTC55F.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/base/SourceSansPro-Bold.otf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/base/SourceSansPro-Italic.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/base/SourceSansPro-Light.otf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/base/SourceSansPro-Regular.otf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/base/WhitneyCondensed-Bold.otf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/base/WhitneyCondensed-Light.otf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/base/WhitneyCondensed-Medium.otf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/less/font-awesome.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/bootstrap.less" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/base/Gotham-Bold.otf" afterPath="$PROJECT_DIR$/static/font/gotham/Gotham-Bold.otf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/base/Gotham-Light.otf" afterPath="$PROJECT_DIR$/static/font/gotham/Gotham-Light.otf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/base/Gotham-Medium.otf" afterPath="$PROJECT_DIR$/static/font/gotham/Gotham-Medium.otf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/base/admin-bar.png" afterPath="$PROJECT_DIR$/static/base/img/admin-bar.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/base/bg.png" afterPath="$PROJECT_DIR$/static/base/img/bg.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/base/forum-repeat-bg.jpg" afterPath="$PROJECT_DIR$/static/base/img/forum-repeat-bg.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/base/witewall_3.png" afterPath="$PROJECT_DIR$/static/base/img/witewall_3.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/.gitignore" afterPath="$PROJECT_DIR$/static/font/font-awesome/.gitignore" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/.ruby-version" afterPath="$PROJECT_DIR$/static/font/font-awesome/.ruby-version" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/CONTRIBUTING.md" afterPath="$PROJECT_DIR$/static/font/font-awesome/CONTRIBUTING.md" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/Gemfile" afterPath="$PROJECT_DIR$/static/font/font-awesome/Gemfile" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/Gemfile.lock" afterPath="$PROJECT_DIR$/static/font/font-awesome/Gemfile.lock" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/README.md" afterPath="$PROJECT_DIR$/static/font/font-awesome/README.md" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/_config.yml" afterPath="$PROJECT_DIR$/static/font/font-awesome/_config.yml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/composer.json" afterPath="$PROJECT_DIR$/static/font/font-awesome/composer.json" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/css/font-awesome-ie7.css" afterPath="$PROJECT_DIR$/static/font/font-awesome/css/font-awesome-ie7.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/css/font-awesome-ie7.min.css" afterPath="$PROJECT_DIR$/static/font/font-awesome/css/font-awesome-ie7.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/css/font-awesome.css" afterPath="$PROJECT_DIR$/static/font/font-awesome/css/font-awesome.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/css/font-awesome.min.css" afterPath="$PROJECT_DIR$/static/font/font-awesome/css/font-awesome.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/font/FontAwesome.otf" afterPath="$PROJECT_DIR$/static/font/font-awesome/font/FontAwesome.otf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/font/fontawesome-webfont.eot" afterPath="$PROJECT_DIR$/static/font/font-awesome/font/fontawesome-webfont.eot" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/font/fontawesome-webfont.svg" afterPath="$PROJECT_DIR$/static/font/font-awesome/font/fontawesome-webfont.svg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/font/fontawesome-webfont.ttf" afterPath="$PROJECT_DIR$/static/font/font-awesome/font/fontawesome-webfont.ttf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/font/fontawesome-webfont.woff" afterPath="$PROJECT_DIR$/static/font/font-awesome/font/fontawesome-webfont.woff" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/less/bootstrap.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/less/bootstrap.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/less/core.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/less/core.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/less/extras.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/less/extras.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/less/font-awesome-ie7.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/less/font-awesome-ie7.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/less/font-awesome.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/scss/font-awesome.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/less/icons.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/less/icons.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/less/mixins.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/less/mixins.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/less/path.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/less/path.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/less/variables.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/less/variables.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/package.json" afterPath="$PROJECT_DIR$/static/font/font-awesome/package.json" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/scss/_bootstrap.scss" afterPath="$PROJECT_DIR$/static/font/font-awesome/scss/_bootstrap.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/scss/_core.scss" afterPath="$PROJECT_DIR$/static/font/font-awesome/scss/_core.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/scss/_extras.scss" afterPath="$PROJECT_DIR$/static/font/font-awesome/scss/_extras.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/scss/_icons.scss" afterPath="$PROJECT_DIR$/static/font/font-awesome/scss/_icons.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/scss/_mixins.scss" afterPath="$PROJECT_DIR$/static/font/font-awesome/scss/_mixins.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/scss/_path.scss" afterPath="$PROJECT_DIR$/static/font/font-awesome/scss/_path.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/scss/_variables.scss" afterPath="$PROJECT_DIR$/static/font/font-awesome/scss/_variables.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/scss/font-awesome-ie7.scss" afterPath="$PROJECT_DIR$/static/font/font-awesome/scss/font-awesome-ie7.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/scss/font-awesome.scss" afterPath="$PROJECT_DIR$/static/font/font-awesome/less/font-awesome.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/CNAME" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/CNAME" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/Makefile" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/Makefile" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/ads/carbon-dark-vertical.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/ads/carbon-dark-vertical.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/ads/carbon-light-horizontal.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/ads/carbon-light-horizontal.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/ads/carbon-light-vertical.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/ads/carbon-light-vertical.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/brand-license.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/brand-license.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/cheatsheet.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/cheatsheet.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/community.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/community.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/community/getting-support.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/community/getting-support.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/community/project-milestones.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/community/project-milestones.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/community/reporting-bugs.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/community/reporting-bugs.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/community/requesting-new-icons.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/community/requesting-new-icons.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/community/submitting-pull-requests.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/community/submitting-pull-requests.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/examples.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/examples.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/examples/animated-spinner.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/examples/animated-spinner.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/examples/bordered-pulled.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/examples/bordered-pulled.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/examples/bulleted-lists.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/examples/bulleted-lists.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/examples/button-dropdowns.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/examples/button-dropdowns.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/examples/button-groups.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/examples/button-groups.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/examples/buttons.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/examples/buttons.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/examples/custom.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/examples/custom.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/examples/form-inputs.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/examples/form-inputs.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/examples/inline-icons.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/examples/inline-icons.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/examples/larger-icons.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/examples/larger-icons.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/examples/navigation.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/examples/navigation.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/examples/new.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/examples/new.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/examples/rotated-flipped.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/examples/rotated-flipped.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/examples/stacked.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/examples/stacked.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/footer.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/footer.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/get-started.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/get-started.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/icons.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/icons.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/icons/brand.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/icons/brand.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/icons/currency.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/icons/currency.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/icons/directional.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/icons/directional.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/icons/medical.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/icons/medical.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/icons/new.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/icons/new.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/icons/text-editor.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/icons/text-editor.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/icons/video-player.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/icons/video-player.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/icons/web-application.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/icons/web-application.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/jumbotron-slider.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/jumbotron-slider.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/jumbotron.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/jumbotron.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/license-code.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/license-code.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/license.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/license.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/navbar.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/navbar.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/stripe-ad.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/stripe-ad.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/stripe-social.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/stripe-social.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/tell-me-thanks.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/tell-me-thanks.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/tests/rotated-flipped-inside-anchor.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/tests/rotated-flipped-inside-anchor.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/tests/rotated-flipped-inside-btn.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/tests/rotated-flipped-inside-btn.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/tests/rotated-flipped.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/tests/rotated-flipped.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/tests/stacked-inside-anchor.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/tests/stacked-inside-anchor.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/tests/stacked.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/tests/stacked.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/thanks-to.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/thanks-to.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/whats-new.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/whats-new.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_includes/why.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_includes/why.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_layouts/base.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_layouts/base.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_layouts/icon.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_layouts/icon.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_plugins/icon_page_generator.rb" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_plugins/icon_page_generator.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/_plugins/site.rb" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/_plugins/site.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/css/prettify.css" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/css/prettify.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/css/pygments.css" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/css/pygments.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/font/FontAwesome.otf" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/font/FontAwesome.otf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/font/fontawesome-webfont.eot" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/font/fontawesome-webfont.eot" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/font/fontawesome-webfont.svg" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/font/fontawesome-webfont.svg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/font/fontawesome-webfont.ttf" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/font/fontawesome-webfont.ttf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/font/fontawesome-webfont.woff" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/font/fontawesome-webfont.woff" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/less/bootstrap.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/less/bootstrap.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/less/core.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/less/core.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/less/extras.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/less/extras.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/less/font-awesome-ie7.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/less/font-awesome-ie7.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/less/icons.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/less/icons.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/less/mixins.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/less/mixins.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/less/path.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/less/path.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/less/variables.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/less/variables.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/scss/_bootstrap.scss" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/scss/_bootstrap.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/scss/_core.scss" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/scss/_core.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/scss/_extras.scss" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/scss/_extras.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/scss/_icons.scss" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/scss/_icons.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/scss/_mixins.scss" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/scss/_mixins.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/scss/_path.scss" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/scss/_path.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/scss/_variables.scss" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/scss/_variables.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/scss/font-awesome-ie7.scss" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/scss/font-awesome-ie7.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/font-awesome/scss/font-awesome.scss" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/font-awesome/less/font-awesome.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/ico/favicon.ico" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/ico/favicon.ico" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/img/contribution-sample.png" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/img/contribution-sample.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/img/fort_awesome.jpg" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/img/fort_awesome.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/img/glyphicons-halflings-white.png" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/img/glyphicons-halflings-white.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/img/glyphicons-halflings.png" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/img/glyphicons-halflings.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/img/icon-flag.pdf" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/img/icon-flag.pdf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/js/ZeroClipboard-1.1.7.min.js" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/js/ZeroClipboard-1.1.7.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/js/ZeroClipboard-1.1.7.swf" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/js/ZeroClipboard-1.1.7.swf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/js/backbone.min.js" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/js/backbone.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/js/bootstrap-2.3.1.min.js" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/js/bootstrap-2.3.1.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/js/bootstrap-222.min.js" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/js/bootstrap-222.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/js/jquery-1.7.1.min.js" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/js/jquery-1.7.1.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/js/prettify.min.js" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/js/prettify.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/js/site.js" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/js/site.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/js/underscore.min.js" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/js/underscore.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/accordion.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/accordion.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/alerts.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/alerts.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/breadcrumbs.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/breadcrumbs.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/button-groups.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/button-groups.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/buttons.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/buttons.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/carousel.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/carousel.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/close.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/close.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/code.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/code.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/component-animations.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/component-animations.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/dropdowns.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/dropdowns.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/forms.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/forms.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/grid.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/grid.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/hero-unit.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/hero-unit.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/labels-badges.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/labels-badges.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/layouts.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/layouts.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/media.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/media.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/mixins.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/mixins.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/modals.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/modals.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/navbar.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/navbar.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/navs.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/navs.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/pager.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/pager.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/pagination.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/pagination.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/popovers.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/popovers.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/progress-bars.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/progress-bars.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/reset.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/reset.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/responsive-1200px-min.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/responsive-1200px-min.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/responsive-767px-max.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/responsive-767px-max.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/responsive-768px-979px.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/responsive-768px-979px.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/responsive-navbar.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/responsive-navbar.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/responsive-utilities.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/responsive-utilities.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/responsive.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/responsive.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/scaffolding.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/scaffolding.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/sprites.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/sprites.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/tables.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/tables.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/thumbnails.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/thumbnails.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/tooltip.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/tooltip.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/type.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/type.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/utilities.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/utilities.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/variables.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/variables.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/bootstrap-2.3.2/wells.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/bootstrap-2.3.2/wells.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/lazy.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/lazy.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/mixins.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/mixins.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/responsive-1200px-min.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/responsive-1200px-min.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/responsive-767px-max.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/responsive-767px-max.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/responsive-768px-979px.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/responsive-768px-979px.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/responsive-navbar.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/responsive-navbar.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/responsive.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/responsive.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/site.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/site.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/sticky-footer.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/sticky-footer.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/assets/less/variables.less" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/assets/less/variables.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/cheatsheet.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/cheatsheet.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/community.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/community.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/design.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/design.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/examples.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/examples.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/get-started.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/get-started.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/icons.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/icons.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/icons.yml" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/icons.yml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/index.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/license.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/license.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/test.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/test.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/font-awesome/src/whats-new.html" afterPath="$PROJECT_DIR$/static/font/font-awesome/src/whats-new.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/js/blockUI.js" afterPath="$PROJECT_DIR$/static/base/js/blockUI.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/js/jquery-1.10.2.js" afterPath="$PROJECT_DIR$/static/base/js/jquery-1.10.2.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/js/jquery.form.js" afterPath="$PROJECT_DIR$/static/base/js/jquery.form.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/db.sqlite3" afterPath="$PROJECT_DIR$/database/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/base.html" afterPath="$PROJECT_DIR$/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/base/style.css" afterPath="$PROJECT_DIR$/static/base/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/accounts/views.py" afterPath="$PROJECT_DIR$/accounts/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/forum/admin.py" afterPath="$PROJECT_DIR$/forum/admin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TeenHope/settings.py" afterPath="$PROJECT_DIR$/TeenHope/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TeenHope/urls.py" afterPath="$PROJECT_DIR$/TeenHope/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TeenHope.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/style.css" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374457112086" ignored="false" />
-    <file path="/base.html" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374455749594" ignored="false" />
+    <file path="/style.css" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374472838525" ignored="false" />
+    <file path="/base.html" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374472832115" ignored="false" />
     <file path="/testTextAdjusting.html" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374330798490" ignored="false" />
     <file path="/testZInde.html" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374332609754" ignored="false" />
-    <file path="/index.html" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374374873533" ignored="false" />
-    <file path="/views.py" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374409091966" ignored="false" />
-    <file path="/urls.py" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374376814098" ignored="false" />
-    <file path="/Dummy.txt" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374455256724" ignored="false" />
+    <file path="/index.html" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374471914875" ignored="false" />
+    <file path="/views.py" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374475578057" ignored="false" />
+    <file path="/urls.py" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374469386315" ignored="false" />
+    <file path="/Dummy.txt" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374469004241" ignored="false" />
     <file path="/font.css" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374457027443" ignored="false" />
+    <file path="/register.html" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374458280338" ignored="false" />
+    <file path="$PROJECT_DIR$/../djangoCKEditorTesting/djangoCKEditorTesting/settings.py" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374465377612" ignored="false" />
+    <file path="/settings.py" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374469511097" ignored="false" />
+    <file path="$PROJECT_DIR$/../djangoCKEditorTesting/djangoCKEditorTesting/urls.py" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374465490820" ignored="false" />
+    <file path="/models.py" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374464177820" ignored="false" />
+    <file path="$PROJECT_DIR$/../djangoCKEditorTesting/testing/models.py" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374464179058" ignored="false" />
+    <file path="$PROJECT_DIR$/../djangoCKEditorTesting/testing/admin.py" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374464214724" ignored="false" />
+    <file path="/admin.py" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374469644183" ignored="false" />
+    <file path="/detail.html" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374474563853" ignored="false" />
+    <file path="/index.css" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374472063198" ignored="false" />
+    <file path="/detail.css" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374474923377" ignored="false" />
+    <file path="/new_topic.html" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374475902202" ignored="false" />
+    <file path="/new_topic.css" changelist="0c25999b-26a2-4473-81c9-8e722a4fef69" time="1374475909840" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -259,28 +51,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="base.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/base.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="0" selection-start="317" selection-end="317" vertical-scroll-proportion="-5.3333335">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="style.css" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/static/base/style.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="61" selection-start="94" selection-end="94" vertical-scroll-proportion="0.04639175">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/accounts/views.py">
+        <entry file="file://$PROJECT_DIR$/forum/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="43" selection-start="855" selection-end="855" vertical-scroll-proportion="0.0">
+            <state line="28" column="0" selection-start="1061" selection-end="1061" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="forms.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/forum/forms.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -313,17 +96,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/design/testTextAdjusting.html" />
-        <option value="$PROJECT_DIR$/design/testZInde.html" />
-        <option value="$PROJECT_DIR$/forum/templates/forum/index.html" />
-        <option value="$PROJECT_DIR$/forum/urls.py" />
-        <option value="$PROJECT_DIR$/forum/views.py" />
-        <option value="$PROJECT_DIR$/accounts/views.py" />
-        <option value="$PROJECT_DIR$/static/css/base/style.css" />
-        <option value="$PROJECT_DIR$/static/font/gotham/stylesheet.css" />
         <option value="$PROJECT_DIR$/static/font/font.css" />
+        <option value="$PROJECT_DIR$/accounts/templates/accounts/register.html" />
+        <option value="$PROJECT_DIR$/accounts/urls.py" />
+        <option value="$PROJECT_DIR$/accounts/views.py" />
+        <option value="$PROJECT_DIR$/TeenHope/urls.py" />
+        <option value="$PROJECT_DIR$/forum/admin.py" />
+        <option value="$PROJECT_DIR$/forum/templates/forum/index.html" />
+        <option value="$PROJECT_DIR$/forum/static/forum/index.css" />
         <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/static/base/style.css" />
+        <option value="$PROJECT_DIR$/TeenHope/settings.py" />
+        <option value="$PROJECT_DIR$/forum/templates/forum/detail.html" />
+        <option value="$PROJECT_DIR$/forum/static/forum/detail.css" />
+        <option value="$PROJECT_DIR$/forum/views.py" />
+        <option value="$PROJECT_DIR$/forum/templates/forum/new_topic.html" />
+        <option value="$PROJECT_DIR$/forum/static/forum/new_topic.css" />
       </list>
     </option>
   </component>
@@ -388,43 +176,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TeenHope" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TeenHope" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="font" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TeenHope" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TeenHope" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="base" />
+              <option name="myItemId" value="static_root" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -457,10 +209,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="forum" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -478,20 +226,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TeenHope" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TeenHope" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TeenHope" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -499,11 +233,12 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="recentsLimit" value="5" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../django-ckeditor-master" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -519,11 +254,11 @@
       <recent name="$PROJECT_DIR$/static/base/icons" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/forum/static/forum" />
+      <recent name="$PROJECT_DIR$/forum/static" />
       <recent name="$PROJECT_DIR$/static/font" />
       <recent name="$PROJECT_DIR$/static/font/gotham" />
       <recent name="$PROJECT_DIR$/static/base" />
-      <recent name="$PROJECT_DIR$/static/css" />
-      <recent name="$PROJECT_DIR$/static/img" />
     </key>
   </component>
   <component name="RunManager" selected="Django server.TeenHope">
@@ -657,18 +392,18 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="833" y="55" width="767" height="845" extended-state="4" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26008344" sideWeight="0.66436464" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32962447" sideWeight="0.9515906" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33563536" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.048409406" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -741,44 +476,104 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/forum/templates/forum/detail.html">
+    <entry file="file://$PROJECT_DIR$/accounts/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="19" selection-start="167" selection-end="195" vertical-scroll-proportion="-3.3333333">
+        <state line="59" column="0" selection-start="1909" selection-end="1909" vertical-scroll-proportion="0.26334518">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TeenHope/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="4" selection-start="629" selection-end="629" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/forum/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="6" selection-start="539" selection-end="539" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/forum/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="280" selection-end="280" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/forum/static/forum/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/base/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="186" column="0" selection-start="3053" selection-end="3053" vertical-scroll-proportion="0.33333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/forum/static/forum/detail.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="14" selection-start="359" selection-end="359" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TeenHope/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="169" column="24" selection-start="5683" selection-end="5683" vertical-scroll-proportion="0.6563877">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/forum/templates/forum/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="18" selection-start="1633" selection-end="1633" vertical-scroll-proportion="1.0">
+        <state line="0" column="0" selection-start="0" selection-end="1844" vertical-scroll-proportion="-0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/forum/models.py">
+    <entry file="file://$PROJECT_DIR$/forum/templates/forum/detail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="4" selection-start="271" selection-end="271" vertical-scroll-proportion="0.21145375">
+        <state line="15" column="26" selection-start="0" selection-end="1531" vertical-scroll-proportion="0.1">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/accounts/models.py">
+    <entry file="file://$PROJECT_DIR$/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/forum/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="57" selection-start="214" selection-end="214" vertical-scroll-proportion="0.13215859">
-          <folding>
-            <element signature="e#0#42#0" expanded="true" />
-          </folding>
+        <state line="220" column="46" selection-start="7841" selection-end="7841" vertical-scroll-proportion="-12.703704">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/lib/python2.7/dist-packages/django/forms/forms.py">
+    <entry file="file://$PROJECT_DIR$/forum/templates/forum/new_topic.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="120" column="8" selection-start="4654" selection-end="4662" vertical-scroll-proportion="0.33241758">
+        <state line="13" column="20" selection-start="453" selection-end="472" vertical-scroll-proportion="-8.666667">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/forum/static/forum/new_topic.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="4" selection-start="72" selection-end="72" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/forum/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="0" selection-start="1061" selection-end="1061" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -790,65 +585,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/forum/views.py">
+    <entry file="file://$PROJECT_DIR$/forum/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="37" selection-start="878" selection-end="878" vertical-scroll-proportion="0.58567774">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/font/whitneycondensed/stylesheet.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="34" selection-start="114" selection-end="130" vertical-scroll-proportion="0.23017903">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/font/sourcesanspro/stylesheet.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="18" selection-start="114" selection-end="129" vertical-scroll-proportion="-1.0434783">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/accounts/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="43" selection-start="855" selection-end="855" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/font/kaushanscript/stylesheet.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="32" selection-start="114" selection-end="128" vertical-scroll-proportion="0.23017903">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/font/gotham/stylesheet.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="14" selection-start="305" selection-end="305" vertical-scroll-proportion="0.78996867">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/font/font.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="37" selection-start="175" selection-end="175" vertical-scroll-proportion="0.12616822">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="317" selection-end="317" vertical-scroll-proportion="-5.3333335">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/base/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="61" selection-start="94" selection-end="94" vertical-scroll-proportion="0.04639175">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>

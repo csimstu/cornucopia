@@ -1,0 +1,29 @@
+.discussion-tab {
+    padding: 0 0 0 20px;
+}
+
+.datalist-discussion ul {
+    list-style: none;
+    margin-top: 10px;
+}
+
+.datalist-discussion li {
+    background: whitesmoke;
+    padding: 10px 20px 10px 40px;
+    margin: 0 0 10px -20px;
+    position: relative;
+}
+
+.datalist-discussion .item-content h2 {
+    font-size: 21px;
+    margin: 0 0 3px 0;
+    width: 80%;
+}
+
+.datalist-discussion .item-content a {
+    color: rgb(17, 17, 17);
+}
+
+.datalist-discussion .item-content a:hover, a:focus {
+    color: rgb(100, 100, 100);
+}

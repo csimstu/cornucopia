@@ -20,7 +20,11 @@ def index(request):
 
 def detail(request, topic_id):
     topic = get_object_or_404(Topic, id=topic_id)
-    return render(request, 'forum/detail.html', {'topic': topic})
+    return render(request, 'forum/detail.html', {
+        'topic': topic, 'first_post': topic.post_set.order_by('-date_published')[0],
+    })
 
 def new_topic(request):
-    return HttpResponseRedirect('/');
+    return render(request, 'forum/new_topic.html', {
+
+    })

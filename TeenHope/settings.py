@@ -52,18 +52,18 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'uploads')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = ''
+MEDIA_URL = '/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(PROJECT_PATH, 'static_root')
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -125,6 +125,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'forum',
     'accounts',
+    'ckeditor',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -165,9 +166,12 @@ USERNAME_LENGTH_LIMIT = 20
 PROFILE_NAME_LENGTH_LIMIT = 20
 CATEGORY_TITLE_LENGTH_LIMIT = 50
 TOPIC_TITLE_LENGTH_LIMIT = 50
-POST_LENGTH_LIMIT = 1000
-REPLY_LENGTH_LIMIT = 100
+POST_LENGTH_LIMIT = 10000
+REPLY_LENGTH_LIMIT = 500
 
 USERNAME_PATTERN = r'[A-Za-z]\w{5,19}' # regex for username, 6<=len<=20 with leading alpha
 PASSWORD_PATTERN = r'\w{6,20}' # regex for username, 6<=len<=20
 EMAIL_PATTERN = r'\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*'
+
+CKEDITOR_UPLOAD_PATH = os.path.join(PROJECT_PATH, "uploads")
+CKEDITOR_UPLOAD_PREFIX = "/media/"
