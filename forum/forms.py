@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib import auth
 from django.contrib.auth.models import User
+from django.forms import CheckboxSelectMultiple
 from TeenHope import settings
 import re
 from models import Category
@@ -8,10 +9,13 @@ from ckeditor.widgets import CKEditorWidget
 
 class NewPostForm(forms.Form):
     category = forms.ModelMultipleChoiceField(
+        widget=CheckboxSelectMultiple(),
         queryset=Category.objects.all()
     )
     title = forms.CharField()
-    content = forms.CharField(widget=CKEditorWidget())
+    content = forms.CharField(widget=CKEditorWidget(
+        config_name='basic_ckeditor'
+    ))
 
     def clean(self):
         cleaned_data = super(NewPostForm, self).clean()

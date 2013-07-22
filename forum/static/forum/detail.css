@@ -21,14 +21,18 @@
 
 .post-left-wrap {
     float: left;
+    width: 22%;
     position: relative;
-    margin: 10px 20px;
+    padding: 10px 20px;
 }
 
 .post-right-wrap {
-    margin: 0 20px;
+    float: right;
+    width: 78%;
     position: relative;
+    padding: 10px 20px;
 }
+
 
 .post-author {
     color: #859ce6;
@@ -39,10 +43,11 @@
 
 .post-date {
     text-transform: uppercase;
-    margin: 7px 3px;
+    text-align: center;
 }
 
 .post-content {
     margin: 5px;
     font-family: source_sans_pro;
+    overflow: hidden;
 }

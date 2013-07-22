@@ -22,15 +22,15 @@
                         <img class="portrait" src="{% static "forum/default_portrait.jpg" %}">
 
                         <div class="post-author">
-                            {{ post.author.get_profile.name }} <br/>
+                            {{ post.author.get_profile.name }}
+                        </div>
+
+                        <div class="post-date meta">
+                            {{ post.date_published|date:"P" }} <br>
+                            {{ post.date_published|date:"M d, Y" }}
                         </div>
                     </div>
                     <div class="post-right-wrap">
-
-                        <div class="post-date meta">
-                            #{{ post.date_published|date:"P M d, Y" }} <br/>
-                        </div>
-
                         <div class="post-content">
                             {{ post.content|safe }}
                         </div>

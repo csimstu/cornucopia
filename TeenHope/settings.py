@@ -175,3 +175,13 @@ EMAIL_PATTERN = r'\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*'
 
 CKEDITOR_UPLOAD_PATH = os.path.join(PROJECT_PATH, "uploads")
 CKEDITOR_UPLOAD_PREFIX = "/media/"
+
+CKEDITOR_CONFIGS = {
+    'basic_ckeditor': {
+        'toolbar': 'Full',
+        'width': '100%',
+    },
+    'default': {
+        'toolbar': 'Full',
+    }
+}

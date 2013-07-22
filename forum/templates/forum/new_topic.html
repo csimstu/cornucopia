@@ -13,21 +13,36 @@
         </div>
         <div class="new-topic-form-wrap">
             <form method="POST" action=""> {% csrf_token %}
-                {{ form.non_field_errors }}
-                <div class="fieldWrapper">
-                    <label for="id_category">Category</label>
-                    {{ form.category }}
+                <div class="error_msg">
+                    {{ form.non_field_errors }}
                 </div>
                 <div class="fieldWrapper">
-                    <label for="id_title">Title</label>
-                    {{ form.title }}
+                    <label class="new-topic-label" for="id_category">Category</label>
+
+                    <div class="new-topic-checkbox">
+                        {{ form.category }}
+                    </div>
                 </div>
                 <div class="fieldWrapper">
-                    <label for="id_content">Content</label>
-                    {{ form.content }}
+                    <label class="new-topic-label" for="id_title">Title</label>
+
+                    <div class="new-topic-title">
+                        {{ form.title }}
+                    </div>
+
+                </div>
+                <div class="fieldWrapper">
+                    <label class="new-topic-label" for="id_content">Content</label>
+
+                    <div class="content-tip meta">
+                        Tip: try paste formatted content directly!
+                    </div>
+                    <div class="ckeditor-div">
+                        {{ form.content }}
+                    </div>
                 </div>
                 <p>
-                    <input type="submit" value="submit">
+                    <input class="button blue-button new-topic-submit" type="submit" value="submit">
                 </p>
             </form>
         </div>

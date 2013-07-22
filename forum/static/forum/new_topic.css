@@ -5,3 +5,59 @@
 .new-topic-form-wrap {
 
 }
+
+.error_msg ul {
+    float: right;
+    list-style: none;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.fieldWrapper {
+    position:relative;
+    width: 100%;
+    margin: 10px 20px;
+}
+
+.new-topic-label {
+    font-size: 24px;
+    margin: 10px;
+}
+
+.new-topic-checkbox ul {
+    list-style: none;
+    margin: 10px 20px;
+}
+
+.new-topic-checkbox li{
+    display: inline;
+    font-family: source_sans_pro;
+    margin: 0 5px 0 5px;
+}
+
+.new-topic-title {
+    display: block;
+    margin: 10px 20px;
+}
+
+.new-topic-title input {
+    border: #ccc solid 1px;
+    width: 80%;
+    font-family: source_sans_pro;
+    font-size: 20px;
+}
+
+.content-tip {
+    margin: 5px 30px 10px 30px;
+}
+
+.ckeditor-div {
+    margin: 0 50px 0 5px;
+}
+
+.new-topic-submit {
+    margin: 30px 0 0 40px;
+    width: 20%;
+    font-size: 20px;
+    line-height: 1;
+}
