@@ -14,8 +14,7 @@
 }
 
 .post .portrait {
-    width: 150px;
-    height: 150px;
+    width: 100%;
     border: #808080 solid medium;
 }
 
@@ -24,6 +23,7 @@
     width: 22%;
     position: relative;
     padding: 10px 20px;
+    overflow: hidden;
 }
 
 .post-right-wrap {
@@ -31,6 +31,7 @@
     width: 78%;
     position: relative;
     padding: 10px 20px;
+    overflow: hidden;
 }
 
 
@@ -50,4 +51,23 @@
     margin: 5px;
     font-family: source_sans_pro;
     overflow: hidden;
+}
+
+.forum-reply {
+    position: relative;
+    float: right;
+    color: #859ce6;
+    font-size: 24px;
+}
+
+.forum-reply:hover {
+    cursor: pointer;
+    color: #6A7DB8;
+}
+
+.new-post-submit {
+    margin: 30px 0 0 40px;
+    width: 20%;
+    font-size: 20px;
+    line-height: 1;
 }

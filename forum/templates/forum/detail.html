@@ -2,10 +2,16 @@
 {% load staticfiles %}
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{% static "forum/detail.css" %}">
+    <script>
+        $(function () {
+            $('#id_content').ckeditor()
+        })
+    </script>
 {% endblock %}
 {% block title %}Topic: {{ topic.title }}{% endblock %}
 {% block content %}
     <div class="forum-detail-content">
+
         <div>
             <h1 class="forum-main-header">
                 Topic: {{ topic.title }}
@@ -15,9 +21,12 @@
             Started by {{ first_post.author.get_profile.name }}
             on {{ first_post.date_published|date:"M d, Y" }}
         </div>
-        <ul>
+        <ul class="post-list">
             {% for post in topic.post_set.all %}
                 <div class="paper-wrap post">
+                    <div class="forum-reply">
+                        <h4><i class="icon-long-arrow-left"></i> Reply</h4>
+                    </div>
                     <div class="post-left-wrap">
                         <img class="portrait" src="{% static "forum/default_portrait.jpg" %}">
 
@@ -39,5 +48,23 @@
                 </div>
             {% endfor %}
         </ul>
+
+        <div class="post-box">
+            <h2>Follow up</h2>
+
+            <div class="content-tip meta">
+                Tip: try paste formatted content directly!
+            </div>
+            <form method="POST" action="{% url 'forum:new_post' topic_id=topic.id %}"> {% csrf_token %}
+                <div class="error_msg">
+                    {{ post_form.non_field_errors }}
+                </div>
+                <div class="textarea-div">
+                    {{ post_form.content }}
+                </div>
+
+                <input class="button blue-button new-post-submit" type="submit" value="submit">
+            </form>
+        </div>
     </div>
 {% endblock %}

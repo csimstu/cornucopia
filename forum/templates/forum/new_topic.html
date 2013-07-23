@@ -2,6 +2,11 @@
 {% load staticfiles %}
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{% static "forum/new_topic.css" %}">
+    <script>
+        $(function () {
+            $('#id_content').ckeditor()
+        })
+    </script>
 {% endblock %}
 {% block title %}Topic: {{ topic.title }}{% endblock %}
 {% block content %}
@@ -37,12 +42,13 @@
                     <div class="content-tip meta">
                         Tip: try paste formatted content directly!
                     </div>
-                    <div class="ckeditor-div">
+                    <div class="textarea-div">
                         {{ form.content }}
                     </div>
                 </div>
                 <p>
-                    <input class="button blue-button new-topic-submit" type="submit" value="submit">
+                    <input class="button blue-button new-topic-submit"
+                           id="new-post-sumbit" type="submit" value="submit">
                 </p>
             </form>
         </div>

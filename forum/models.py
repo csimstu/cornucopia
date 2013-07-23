@@ -19,7 +19,7 @@ class Topic(models.Model):
     def __unicode__(self):
         return "Topic: " + self.title
 
-    def get_absolute_url(self):
+    def get_topic_url(self):
         return reverse('forum:detail', kwargs={'topic_id': self.id})
 
 
@@ -32,6 +32,9 @@ class Post(models.Model):
 
     def __unicode__(self):
         return "Post #%d for Topic %s" % (self.id, self.topic.title)
+
+    def get_absolute_url(self):
+        return reverse('forum:detail', kwargs={'topic_id': self.topic.id})
 
 
 class Reply(models.Model):

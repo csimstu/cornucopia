@@ -20,6 +20,4 @@ urlpatterns = patterns('',
     url(r'^lodge/', include('accounts.urls', namespace="accounts")),
 
     url(r'^$', "forum.views.index", name="home"),
-
-    url(r'^ckeditor/', include('ckeditor.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -71,9 +71,9 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-# Put strings here, like "/home/html/static" or "C:/www/django/static".
-# Always use forward slashes, even on Windows.
-# Don't forget to use absolute paths, not relative paths.
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_PATH, "static"),
 )
 
@@ -125,7 +125,6 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'forum',
     'accounts',
-    'ckeditor',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -160,7 +159,6 @@ LOGGING = {
 # Customized settings below
 AUTH_PROFILE_MODULE = 'accounts.Profile'
 
-
 TOPIC_PER_PAGE = 10
 USERNAME_LENGTH_LIMIT = 20
 PROFILE_NAME_LENGTH_LIMIT = 20
@@ -172,16 +170,3 @@ REPLY_LENGTH_LIMIT = 500
 USERNAME_PATTERN = r'[A-Za-z]\w{5,19}' # regex for username, 6<=len<=20 with leading alpha
 PASSWORD_PATTERN = r'\w{6,20}' # regex for username, 6<=len<=20
 EMAIL_PATTERN = r'\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*'
-
-CKEDITOR_UPLOAD_PATH = os.path.join(PROJECT_PATH, "uploads")
-CKEDITOR_UPLOAD_PREFIX = "/media/"
-
-CKEDITOR_CONFIGS = {
-    'basic_ckeditor': {
-        'toolbar': 'Full',
-        'width': '100%',
-    },
-    'default': {
-        'toolbar': 'Full',
-    }
-}

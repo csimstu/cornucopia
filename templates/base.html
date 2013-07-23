@@ -4,7 +4,9 @@
 <head>
     <script src="{% static "base/js/jquery-1.10.2.js" %}"></script>
     <script src="{% static "base/js/blockUI.js" %}"></script>
-    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+{#    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>#}
+    <script src="{% static 'ckeditor4.2/ckeditor.js' %}"></script>
+    <script src="{% static 'ckeditor4.2/adapters/jquery.js' %}"></script>
     <title>{% block title %}Defalt Title{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{% static "base/style.css" %}">
 
@@ -80,7 +82,6 @@
 
         var after_submit_register = function (res, status) {
             if (status == "success") {
-                alert(">>");
                 window.location = window.location.href;
             }
             else {
@@ -91,8 +92,9 @@
             }
         };
 
-
         $(function () {
+            //$('#ckeditor-test').ckeditor();
+
             $('#login-box-btn').click(function () {
                 $.blockUI({
                     message: $('#login-box'),
@@ -117,6 +119,8 @@
                 $('.blockOverlay').click($.unblockUI);
             });
             $("#register-submit-btn").click(submit_registration_form);
+
+
         });
     </script>
 
@@ -192,7 +196,6 @@
                     {% endblock %}
                 </div>
             </div>
-
             <div class="right-wrap">
                 <div class="user-box">
 
