@@ -6,4 +6,5 @@ urlpatterns = patterns('',
                        url(r'^(?P<topic_id>\d+)/$', views.detail, name='detail'),
                        url(r'^new_topic/$', views.new_topic, name="new_topic"),
                        url(r'^new_post/(?P<topic_id>\d+)$', views.new_post, name="new_post"),
+                       url(r'^(?P<post_id>\d+)/post_reply/$', views.post_reply, name="post_reply"),
 )

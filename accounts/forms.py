@@ -88,3 +88,4 @@ class ProfileForm(forms.Form):
         return password and re.compile(settings.PASSWORD_PATTERN).match(password)
     def check_email(self, email):
         return email and re.compile(settings.EMAIL_PATTERN).match(email)
+

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, HttpResponse, HttpResponseBadRequest
 from forum.models import *
 from forum.forms import *
 
@@ -80,4 +80,26 @@ def new_post(request, topic_id):
             'post_form': form
         })
 
+    return Http404()
+
+
+@login_required
+def post_reply(request, post_id):
+    user = request.user
+    if request.method == 'POST':
+        form = NewReplyForm(request.POST)
+
+        if form.is_valid():
+            post = Post.objects.get(id=post_id)
+            reply = Reply(post=post, author=user,
+                          date_published=datetime.datetime.now(),
+                          content=form.cleaned_data['content'])
+            reply.save()
+            return HttpResponse() # already done in JS
+        else:
+            x = "Unknown error."
+            for field, errors in form.errors.items():
+                for error in errors:
+                    x = error
+            return HttpResponseBadRequest(x)
     return Http404()

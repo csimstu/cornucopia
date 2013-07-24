@@ -1,10 +1,8 @@
 from django import forms
-from django.contrib import auth
-from django.contrib.auth.models import User
 from django.forms import CheckboxSelectMultiple
 from TeenHope import settings
-import re
 from models import Category
+
 
 class NewTopicForm(forms.Form):
     category = forms.ModelMultipleChoiceField(
@@ -50,5 +48,21 @@ class NewPostForm(forms.Form):
             raise forms.ValidationError("Content cannot be empty.")
         elif len(content) > settings.POST_LENGTH_LIMIT:
             raise forms.ValidationError("Post content must be no longer"
+                                        "than %d characters." % settings.POST_LENGTH_LIMIT)
+        return cleaned_data
+
+
+class NewReplyForm(forms.Form):
+    content = forms.CharField()
+
+    def clean(self):
+        cleaned_data = super(NewReplyForm, self).clean()
+
+        content = cleaned_data.get('content')
+
+        if content is None:
+            raise forms.ValidationError("Content cannot be empty.")
+        elif len(content) > settings.REPLY_LENGTH_LIMIT:
+            raise forms.ValidationError("Reply content must be no longer"
                                         "than %d characters." % settings.POST_LENGTH_LIMIT)
         return cleaned_data

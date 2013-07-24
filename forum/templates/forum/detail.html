@@ -1,10 +1,62 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load access_to_settings %}
+
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{% static "forum/detail.css" %}">
     <script>
+        var reply_post_id = -1;
+        var submit_reply_form = function () {
+            var content = CKEDITOR.instances["reply-textarea"].getData();
+            var url_mask = "{% url 'forum:post_reply' post_id=12345 %}".replace(/12345/, reply_post_id.toString());
+            $.ajax({
+                type: "POST", url: url_mask,
+                data: {content: content}, complete: function (res, status) {
+                    if (status == "success") {
+                        alert("reply succeed");
+                        window.location = window.location.href;
+                    } else {
+                        var error_msg = res.responseText;
+                        var error_item = $('.reply-box .error_msg');
+                        error_item.text(error_msg);
+                        error_item.css({opacity: 0});
+
+                        error_item.animate({
+                            opacity: 1
+                        }, 500)
+                    }
+                }
+            })
+            return false;
+        };
         $(function () {
-            $('#id_content').ckeditor()
+            $('#id_content').ckeditor();
+
+            var reply_textarea = CKEDITOR.replace('reply-textarea', {
+                'height': '100%',
+                'width': '100%'
+            });
+
+
+            $('.forum-reply-btn').click(function () {
+                reply_post_id = /\d+$/.exec($(this).parent().attr('id'));
+                $('.reply-box').css({display: 'block'});
+                $('.reply-box').animate({
+                    opacity: 1
+                }, 500, function () {
+                });
+            })
+
+            $('#reply-close-btn').click(function () {
+                $('.reply-box').animate({
+                    opacity: 0
+                }, 500, function () {
+                    $('.reply-box').css({display: 'none'});
+                });
+            })
+
+            $('#reply-submit-btn').click(submit_reply_form);
+
         })
     </script>
 {% endblock %}
@@ -23,8 +75,8 @@
         </div>
         <ul class="post-list">
             {% for post in topic.post_set.all %}
-                <div class="paper-wrap post">
-                    <div class="forum-reply">
+                <div class="paper-wrap post" id="post_{{ post.id }}">
+                    <div class="forum-reply-btn">
                         <h4><i class="icon-long-arrow-left"></i> Reply</h4>
                     </div>
                     <div class="post-left-wrap">
@@ -44,7 +96,36 @@
                             {{ post.content|safe }}
                         </div>
                     </div>
+
                     <div style="clear:both"></div>
+
+
+                    <div class="reply-list">
+                        {% for reply in post.reply_set.all %}
+                            <div class="paper-wrap post">
+                                <div class="left-border"></div>
+                                <div class="post-left-wrap">
+                                    <img class="portrait" src="{% static "forum/default_portrait.jpg" %}">
+
+                                    <div class="post-author">
+                                        {{ reply.author.get_profile.name }}
+                                    </div>
+
+                                    <div class="post-date meta">
+                                        {{ reply.date_published|date:"P" }} <br>
+                                        {{ reply.date_published|date:"M d, Y" }}
+                                    </div>
+                                </div>
+                                <div class="post-right-wrap">
+                                    <div class="post-content">
+                                        {{ reply.content|safe }}
+                                    </div>
+                                </div>
+
+                                <div style="clear:both"></div>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
             {% endfor %}
         </ul>
@@ -67,4 +148,25 @@
             </form>
         </div>
     </div>
-{% endblock %}
+
+    <div class="reply-box">
+        <div class="reply-btn-wrapper">
+            <div class="button">
+                <ul>
+                    <li>
+                        <a id="reply-submit-btn"><i class="icon-ok"></i> Reply</a>
+                    </li>
+                    <li>
+                        <a id="reply-close-btn"><i class="icon-remove"></i> Close</a>
+                    </li>
+                    <li>
+                       <span class="error_msg">
+                       </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="ckeditor-wrapper">
+            <textarea id="reply-textarea"></textarea>
+        </div>
+    </div>{% endblock %}

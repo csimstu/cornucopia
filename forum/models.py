@@ -40,6 +40,7 @@ class Post(models.Model):
 class Reply(models.Model):
     post = models.ForeignKey(Post)      # reply to a single post
     author = models.ForeignKey(User)    # who replies
+    date_published = models.DateTimeField() # time published
     content = models.CharField(max_length=settings.REPLY_LENGTH_LIMIT)  # content of the reply
 
     def __unicode(self):
