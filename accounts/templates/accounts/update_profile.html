@@ -1,30 +1,100 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% block title %}Update your profile{% endblock %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static "forum/update_profile.css" %}">
+{% endblock %}
 {% block content %}
-{{ form.non_field_errors }}
-<form method="post" action=""> {% csrf_token %}
+    <div class="update-profile-wrapper">
+        <div class="header-container">
+            <h1>Profile Editing</h1>
+        </div>
 
-    <label for="id_old_password">Old password</label>
-    {{ form.old_password }}
-    <br/> <br/>
+        <div class="main-profile">
+            <div class="portrait-wrapper">
+                <img class="portrait" src="{% static 'forum/default_portrait.jpg' %}">
+            </div>
+            <form method="POST" action=""> {% csrf_token %}
+                <div class="error_msg">
+                    {{ form.non_field_errors }}
+                </div>
 
-    <label for="id_new_password">New password</label>
-    {{ form.new_password }}
-    <br/> <br/>
+                <div class="section" id="name">
+                    <h2>Name</h2>
 
-    <label for="id_re_password">Re-enter new password</label>
-    {{ form.re_password }}
-    <br/> <br/>
+                    <div>
+                        <label for="id_first_name">First Name</label>
+                        {{ form.first_name }}
+                    </div>
+                    <div>
+                        <label for="id_last_name">Last Name</label>
+                        {{ form.last_name }}
+                    </div>
+                    <div>
+                        <label for="id_nickname">Nickname</label>
+                        {{ form.nickname }}
+                    </div>
+                </div>
 
-    <label for="id_email">Email</label>
-    {{ form.email }}
-    <br/> <br/>
+                <div class="section" id="contact_info">
+                    <h2>Contact Info</h2>
 
-    <label for="id_name">Name</label>
-    {{ form.name }}
-    <br/> <br/>
+                    <div>
+                        <label for="id_website">Personal Website</label>
+                        {{ form.website }}
+                    </div>
+                    <div>
+                        <label for="id_renren">Renren</label>
+                        {{ form.renren }}
+                    </div>
+                    <div>
+                        <label for="id_qq">QQ</label>
+                        {{ form.qq }}
+                    </div>
 
-    <input type="submit" value="Submit"/>
+                    <div>
+                        <label for="id_phone">Phone</label>
+                        {{ form.phone }}
+                    </div>
+                </div>
 
-</form>
+                <div class="section" id="biography">
+                    <h2>About Yourself</h2>
+
+                    <div>
+                        <label for="id_biography">Biographical Info</label>
+                        {{ form.biography }}
+                    </div>
+                    <div>
+                        <label for="id_motto">Motto</label>
+                        {{ form.motto }}
+                    </div>
+                </div>
+
+                <div class="section" id="account">
+                    <h2>Account</h2>
+
+                    <div>
+                        <label for="id_email">Email</label>
+                        {{ form.email }}
+                    </div>
+                    <div>
+                        <label for="id_password">New Password</label>
+                        {{ form.new_password }}
+                    </div>
+                    <div>
+                        <label for="id_re_password">Re-enter New Password</label>
+                        {{ form.re_password }}
+                    </div>
+                </div>
+
+                <input class="button blue-button"
+                       type="submit" value="Update Profile"/>
+
+            </form>
+
+        </div>
+
+
+    </div>
 {% endblock %}

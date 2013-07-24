@@ -1,0 +1,71 @@
+.header-container {
+    margin: 20px;
+    font-size: 24px;
+}
+
+.portrait-wrapper {
+    float: right;
+    width: 30%;
+    margin-right: 20px;
+}
+
+.portrait {
+    width: 100%;
+    border: #808080 solid medium;
+}
+
+.main-profile form {
+    margin: 10px 0 10px 20px;
+}
+
+.main-profile .section {
+    position: relative;
+    margin: 10px;
+    padding: 5px;
+}
+
+.main-profile h2 {
+    font-size: 28px;
+}
+
+.main-profile .section:before {
+    content: "";
+    width: 50%;
+    height: 4px;
+    background: gray;
+    position: absolute;
+    top: -4px;
+    left: -10px;
+}
+
+.main-profile form label {
+    margin: 5px 10px 5px 20px;
+    font-family: Gotham;
+    font-size: 16px;
+}
+
+.main-profile form input[type="text"], .main-profile form input[type="password"] {
+    margin: 10px;
+    border: #ccc solid 1px;
+    width: 30%;
+    font-family: source_sans_pro;
+    font-size: 20px;
+}
+
+label[for="id_biography"], label[for="id_motto"]{
+    display: block;
+    padding: 10px 0;
+}
+
+#id_biography, #id_motto {
+    margin-left: 40px;
+    border: #ccc solid 1px;
+    width: 70%;
+    font-family: source_sans_pro;
+    font-size: 20px;
+}
+
+input[type="submit"] {
+    margin: 20px 0 0 0;
+    width: auto;
+}

@@ -13,7 +13,6 @@
                 type: "POST", url: url_mask,
                 data: {content: content}, complete: function (res, status) {
                     if (status == "success") {
-                        alert("reply succeed");
                         window.location = window.location.href;
                     } else {
                         var error_msg = res.responseText;

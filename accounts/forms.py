@@ -54,10 +54,20 @@ class RegistrationForm(forms.Form):
         return email and re.compile(settings.EMAIL_PATTERN).match(email)
 
 class ProfileForm(forms.Form):
-    name = forms.CharField()
-    old_password = forms.CharField(widget=forms.PasswordInput)
-    new_password = forms.CharField(widget=forms.PasswordInput)
-    re_password = forms.CharField(widget=forms.PasswordInput)
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+    nickname = forms.CharField()
+
+    website = forms.CharField()
+    renren = forms.CharField()
+    qq = forms.CharField()
+    phone = forms.CharField()
+
+    biography = forms.CharField(widget=forms.Textarea)
+    motto = forms.CharField(widget=forms.Textarea)
+
+    new_password = forms.CharField(required=False, widget=forms.PasswordInput)
+    re_password = forms.CharField(required=False, widget=forms.PasswordInput)
     email = forms.CharField()
 
     def __init__(self, user=None, *args, **kwargs):
@@ -67,18 +77,25 @@ class ProfileForm(forms.Form):
 
     def clean(self):
         cleaned_data = super(ProfileForm, self).clean()
-        name = cleaned_data.get('name')
-        old_password = cleaned_data.get('old_password')
+        first_name = cleaned_data.get('first_name')
+        last_name = cleaned_data.get('last_name')
+        nickname = cleaned_data.get('nickname')
+        website = cleaned_data.get('website')
+        renren = cleaned_data.get('renren')
+        qq = cleaned_data.get('qq')
+        phone = cleaned_data.get('phone')
+        biography = cleaned_data.get('biography')
+        motto = cleaned_data.get('motto')
         new_password = cleaned_data.get('new_password')
         re_password = cleaned_data.get('re_password')
         email = cleaned_data.get('email')
 
-        if not self.__user.check_password(old_password):
-            raise forms.ValidationError('Wrong password.')
-        if not self.check_password(new_password):
-            raise forms.ValidationError('Invalid new password.')
-        if new_password != re_password:
-            raise forms.ValidationError('Inconsistent new passwords.')
+        if new_password is not None and len(new_password) > 0:
+            if not self.check_password(new_password):
+                raise forms.ValidationError('Invalid new password.')
+            if new_password != re_password:
+                raise forms.ValidationError('Inconsistent new passwords.')
+
         if not self.check_email(email):
             raise forms.ValidationError('Invalid new email address.')
 
