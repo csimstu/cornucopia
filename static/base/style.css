@@ -304,7 +304,6 @@ body {
     color: rgb(51, 51, 51);
     padding: 11px 10px;
     position: fixed;
-    height: 400px;
     width: 320px;
     box-shadow: 0 0 10px black;
 
@@ -371,7 +370,7 @@ body {
     color: rgb(51, 51, 51);
     padding: 11px 10px;
     position: fixed;
-    height: 550px;
+    height: auto;
     width: 320px;
     box-shadow: 0 0 10px black;
 
@@ -468,4 +467,19 @@ input[type='search'], input[type='url'], input[type='email'], input[type='text']
 
 .content-tip {
     margin: 5px 30px 10px 30px;
+}
+
+.blue-link {
+    font-family: source_sans_pro;
+    color: dodgerblue;
+    font-size: 20px;
+}
+
+.blue-link:hover {
+    color: deepskyblue;
+    cursor: pointer;
+}
+
+#register-in-login {
+    margin: 15px 0 0 10px;
 }

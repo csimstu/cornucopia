@@ -4,7 +4,7 @@
 <head>
     <script src="{% static "base/js/jquery-1.10.2.js" %}"></script>
     <script src="{% static "base/js/blockUI.js" %}"></script>
-{#    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>#}
+    {#    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>#}
     <script src="{% static 'ckeditor4.2/ckeditor.js' %}"></script>
     <script src="{% static 'ckeditor4.2/adapters/jquery.js' %}"></script>
     <title>{% block title %}Defalt Title{% endblock %}</title>
@@ -73,10 +73,7 @@
             if (status == "success")
                 window.location = window.location.href;
             else {
-                $('.error_msg').remove();
-                var error_msg = res.responseText;
-                var error_div = $('<div class="error_msg"><p>' + error_msg + '</p></div>');
-                error_div.insertAfter($('#login-h1')).hide().fadeIn(500);
+                $('#login-box .error_msg').text(res.responseText).hide().fadeIn(500);
             }
         };
 
@@ -85,42 +82,57 @@
                 window.location = window.location.href;
             }
             else {
-                $('.error_msg').remove();
-                var error_msg = res.responseText;
-                var error_div = $('<div class="error_msg"><p>' + error_msg + '</p></div>');
-                error_div.insertAfter($('#register-h1')).hide().fadeIn(500);
+                $('#register-box .error_msg').text(res.responseText).hide().fadeIn(500);
             }
         };
 
+        var pop_up_login_box = function () {
+            $('#login-box .error_msg').text("");
+            $.blockUI({
+                message: $('#login-box'),
+                css: {
+                    margin: 0, border: 0,
+                    textAlign: 'left'
+                }
+            });
+            $('.blockOverlay').click($.unblockUI);
+        }
+
+        var pop_up_register_box = function () {
+            $('#register-box .error_msg').text("");
+            $.blockUI({
+                message: $('#register-box'),
+                css: {
+                    margin: 0, border: 0,
+                    textAlign: 'left'
+                }
+            });
+            $('.blockOverlay').click($.unblockUI);
+        }
+        var need_to_login_first = function () {
+            {% if user.is_authenticated %}
+                return true;
+            {% endif %}
+            pop_up_login_box();
+            $('#login-box .error_msg').text("You need to login first.").hide().fadeIn(500);
+            return false;
+
+        }
         $(function () {
+
             //$('#ckeditor-test').ckeditor();
 
-            $('#login-box-btn').click(function () {
-                $.blockUI({
-                    message: $('#login-box'),
-                    css: {
-                        margin: 0, border: 0,
-                        textAlign: 'left'
-                    }
-                });
-                $('.blockOverlay').click($.unblockUI);
-            });
+            $('#login-box-btn').click(pop_up_login_box);
 
             $("#login-submit-btn").click(submit_login_form);
 
-            $('#register-box-btn').click(function () {
-                $.blockUI({
-                    message: $('#register-box'),
-                    css: {
-                        margin: 0, border: 0,
-                        textAlign: 'left'
-                    }
-                });
-                $('.blockOverlay').click($.unblockUI);
-            });
+            $('#register-box-btn').click(pop_up_register_box);
             $("#register-submit-btn").click(submit_registration_form);
 
-
+            $("#register-in-login").click(function () {
+                pop_up_register_box();
+            })
+            $("#start_new_topic_btn").click(need_to_login_first);
         });
     </script>
 
@@ -222,7 +234,7 @@
                     {% endif %}
                 </div>
 
-                <a href="{% url 'forum:new_topic' %}" class="button new-topic-button">
+                <a id="start_new_topic_btn" href="{% url 'forum:new_topic' %}" class="button new-topic-button">
                     Start New Topic
                 </a>
             </div>
@@ -238,6 +250,7 @@
     <div class="content">
         <h1 id="login-h1">Member Login</h1>
 
+        <div class="error_msg"></div>
         <form method="post"> {% csrf_token %}
             <div>
                 <label for="id_username">Username</label>
@@ -249,6 +262,8 @@
             </div>
 
             <input id="login-submit-btn" class="button blue-button" type="submit" value="Log In"/>
+
+            <div class="blue-link" id="register-in-login">Aren't a member of us?</div>
         </form>
     </div>
 </div>
@@ -257,6 +272,7 @@
     <div class="content">
         <h1 id="register-h1">Registration</h1>
 
+        <div class="error_msg"></div>
         <form method="post">{% csrf_token %}
             <div>
                 <label for="id_username">Username</label>

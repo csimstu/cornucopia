@@ -16,7 +16,7 @@
             </div>
             <form method="POST" action=""> {% csrf_token %}
                 <div class="error_msg">
-                    {{ form.non_field_errors }}
+                    {{ form.errors }}
                 </div>
 
                 <div class="section" id="name">

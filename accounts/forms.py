@@ -54,17 +54,17 @@ class RegistrationForm(forms.Form):
         return email and re.compile(settings.EMAIL_PATTERN).match(email)
 
 class ProfileForm(forms.Form):
-    first_name = forms.CharField()
-    last_name = forms.CharField()
+    first_name = forms.CharField(required=False)
+    last_name = forms.CharField(required=False)
     nickname = forms.CharField()
 
-    website = forms.CharField()
-    renren = forms.CharField()
-    qq = forms.CharField()
-    phone = forms.CharField()
+    website = forms.CharField(required=False)
+    renren = forms.CharField(required=False)
+    qq = forms.CharField(required=False)
+    phone = forms.CharField(required=False)
 
-    biography = forms.CharField(widget=forms.Textarea)
-    motto = forms.CharField(widget=forms.Textarea)
+    biography = forms.CharField(required=False, widget=forms.Textarea)
+    motto = forms.CharField(required=False, widget=forms.Textarea)
 
     new_password = forms.CharField(required=False, widget=forms.PasswordInput)
     re_password = forms.CharField(required=False, widget=forms.PasswordInput)

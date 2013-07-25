@@ -56,6 +56,8 @@
 
             $('#reply-submit-btn').click(submit_reply_form);
 
+            $('#post-submit-btn').click(need_to_login_first);
+            $('#pop-up-reply-box').click(need_to_login_first);
         })
     </script>
 {% endblock %}
@@ -69,20 +71,20 @@
             </h1>
         </div>
         <div class="author-info meta">
-            Started by {{ first_post.author.get_profile.name }}
+            Started by {{ first_post.author.get_profile.nickname }}
             on {{ first_post.date_published|date:"M d, Y" }}
         </div>
         <ul class="post-list">
             {% for post in topic.post_set.all %}
                 <div class="paper-wrap post" id="post_{{ post.id }}">
                     <div class="forum-reply-btn">
-                        <h4><i class="icon-long-arrow-left"></i> Reply</h4>
+                        <h4 id="pop-up-reply-box"><i class="icon-long-arrow-left"></i> Reply</h4>
                     </div>
                     <div class="post-left-wrap">
                         <img class="portrait" src="{% static "forum/default_portrait.jpg" %}">
 
                         <div class="post-author">
-                            {{ post.author.get_profile.name }}
+                            {{ post.author.get_profile.nickname }}
                         </div>
 
                         <div class="post-date meta">
@@ -107,7 +109,7 @@
                                     <img class="portrait" src="{% static "forum/default_portrait.jpg" %}">
 
                                     <div class="post-author">
-                                        {{ reply.author.get_profile.name }}
+                                        {{ reply.author.get_profile.nickname }}
                                     </div>
 
                                     <div class="post-date meta">
@@ -143,7 +145,7 @@
                     {{ post_form.content }}
                 </div>
 
-                <input class="button blue-button new-post-submit" type="submit" value="submit">
+                <input id="post-submit-btn" class="button blue-button new-post-submit" type="submit" value="submit">
             </form>
         </div>
     </div>
