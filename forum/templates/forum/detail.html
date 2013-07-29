@@ -29,7 +29,7 @@
             return false;
         };
         $(function () {
-            $('#id_content').ckeditor();
+            CKEDITOR.replace('id_content');
 
             var reply_textarea = CKEDITOR.replace('reply-textarea', {
                 'height': '100%',
@@ -81,7 +81,7 @@
                         <h4 id="pop-up-reply-box"><i class="icon-long-arrow-left"></i> Reply</h4>
                     </div>
                     <div class="post-left-wrap">
-                        <img class="portrait" src="{% static "forum/default_portrait.jpg" %}">
+                        <img class="portrait" src="{% static "accounts/default_portrait.jpg" %}">
 
                         <div class="post-author">
                             {{ post.author.get_profile.nickname }}
@@ -106,7 +106,7 @@
                             <div class="paper-wrap post">
                                 <div class="left-border"></div>
                                 <div class="post-left-wrap">
-                                    <img class="portrait" src="{% static "forum/default_portrait.jpg" %}">
+                                    <img class="portrait" src="{% static "accounts/default_portrait.jpg" %}">
 
                                     <div class="post-author">
                                         {{ reply.author.get_profile.nickname }}

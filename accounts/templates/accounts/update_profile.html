@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block title %}Update your profile{% endblock %}
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="{% static "forum/update_profile.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "accounts/update_profile.css" %}">
 {% endblock %}
 {% block content %}
     <div class="update-profile-wrapper">
@@ -12,7 +12,7 @@
 
         <div class="main-profile">
             <div class="portrait-wrapper">
-                <img class="portrait" src="{% static 'forum/default_portrait.jpg' %}">
+                <img class="portrait" src="{% static 'accounts/default_portrait.jpg' %}">
             </div>
             <form method="POST" action=""> {% csrf_token %}
                 <div class="error_msg">

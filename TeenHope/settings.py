@@ -125,6 +125,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'forum',
     'accounts',
+    'pages',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -159,6 +160,9 @@ LOGGING = {
 # Customized settings below
 AUTH_PROFILE_MODULE = 'accounts.Profile'
 
+
+# Forum constants
+
 TOPIC_PER_PAGE = 10
 USERNAME_LENGTH_LIMIT = 20
 PROFILE_NAME_LENGTH_LIMIT = 20
@@ -166,6 +170,8 @@ CATEGORY_TITLE_LENGTH_LIMIT = 50
 TOPIC_TITLE_LENGTH_LIMIT = 50
 POST_LENGTH_LIMIT = 10000
 REPLY_LENGTH_LIMIT = 500
+
+# Accounts constants
 WEBSITE_LENGTH_LIMIT = 50
 RENREN_LENGTH_LIMIT = 50
 QQ_LENGTH_LIMIT = 20
@@ -173,6 +179,13 @@ PHONE_LENGTH_LIMIT = 20
 BIOGRAPHY_LENGTH_LIMIT = 200
 MOTTO_LENGTH_LIMIT = 50
 
+# Pages constants
+TAG_LENGTH_LIMIT = 50
+ARTICLE_TITLE_LENGTH_LIMIT = 50
+ARTICLE_LENGTH_LIMIT = 50000
+COMMENT_LENGTH_LIMIT = 500
+
+# Validation regex
 USERNAME_PATTERN = r'[A-Za-z]\w{5,19}' # regex for username, 6<=len<=20 with leading alpha
 PASSWORD_PATTERN = r'\w{6,20}' # regex for username, 6<=len<=20
 EMAIL_PATTERN = r'\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*'

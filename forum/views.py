@@ -31,7 +31,7 @@ from django.contrib.auth.decorators import login_required
 import datetime
 
 
-@login_required
+@login_required()
 def new_topic(request):
     user = request.user
     if request.method == 'POST':
@@ -51,7 +51,7 @@ def new_topic(request):
                               date_published=topic.date_published,
                               content=form.cleaned_data['content'])
             first_post.save()
-            return HttpResponseRedirect(topic.get_topic_url())
+            return HttpResponseRedirect(topic.get_absolute_url())
     else:
         form = NewTopicForm()
 

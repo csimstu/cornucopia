@@ -19,7 +19,7 @@ class Topic(models.Model):
     def __unicode__(self):
         return "Topic: " + self.title
 
-    def get_topic_url(self):
+    def get_absolute_url(self):
         return reverse('forum:detail', kwargs={'topic_id': self.id})
 
 

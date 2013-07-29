@@ -180,7 +180,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="{% url 'pages:index' %}">
                         <i class="icon-file"></i>
                         Pages
                     </a>
@@ -234,8 +234,11 @@
                     {% endif %}
                 </div>
 
-                <a id="start_new_topic_btn" href="{% url 'forum:new_topic' %}" class="button new-topic-button">
-                    Start New Topic
+                <a id="start_new_topic_btn" href="{% url 'forum:new_topic' %}" class="button functional-button">
+                    Start new topic
+                </a>
+                <a id="start_new_article_btn" href="{% url 'pages:new_article' %}" class="button functional-button">
+                    Write new article
                 </a>
             </div>
 

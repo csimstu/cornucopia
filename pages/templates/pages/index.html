@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static "pages/index.css" %}">
+{% endblock %}
+{% block title %}Pages{% endblock %}
+{% block content %}
+    <div class="pages-list-main-content">
+        <div class="pages-tab">
+            <h1 class="pages-main-header">
+                All Pages
+            </h1>
+        </div>
+        {% if article_list %}
+            <div class="datalist-pages">
+                <ul>
+                    {% for article in article_list %}
+                        <li>
+                            <div class="item-content">
+                                <h2>
+                                    <a href="{% url 'pages:detail' article.id %}">{{ article.title }}</a>
+                                </h2>
+
+                                <div class="meta">
+                                    <span class="written-by">
+                                        Written by {{ article.author.get_profile.nickname }}
+                                    </span>
+                                    <span class="written-date">
+                                        {{ article.date_published|date:"P M d" }}
+                                    </span>
+                                    <span class="article-tags">
+                                        {% for tag in article.tags.all %}
+                                            {{ tag.title }}
+                                        {% endfor %}
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load access_to_settings %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static "pages/detail.css" %}">
+    <script>
+
+        $(function () {
+            CKEDITOR.replace('id_content');
+        })
+    </script>
+{% endblock %}
+{% block title %}Article: {{ article.title }}{% endblock %}
+{% block content %}
+    <div class="pages-detail-content">
+
+        <div>
+            <h1 class="pages-main-header">
+                Article: {{ article.title }}
+            </h1>
+        </div>
+        <div class="author-info meta">
+            Written by {{ article.author.get_profile.nickname }}
+            on {{ article.date_published|date:"M d, Y" }}
+        </div>
+        <div class="paper-wrap article-wrapper">
+            {{ article.content|safe }}
+        </div>
+        <ul class="comment-list">
+            {% for comment in article.comment_set.all %}
+                <div class="paper-wrap comment" id="comment_{{ comment.id }}">
+                    <div class="comment-left-wrap">
+                        <img class="portrait" src="{% static "accounts/default_portrait.jpg" %}">
+
+                        <div class="comment-author">
+                            {{ comment.author.get_profile.nickname }}
+                        </div>
+
+                        <div class="comment-date meta">
+                            {{ comment.date_published|date:"P" }} <br>
+                            {{ comment.date_published|date:"M d, Y" }}
+                        </div>
+                    </div>
+                    <div class="comment-right-wrap">
+                        <div class="comment-content">
+                            {{ comment.content|safe }}
+                        </div>
+                    </div>
+
+                    <div style="clear:both"></div>
+
+                </div>
+            {% endfor %}
+        </ul>
+
+        <div class="comment-box">
+            <h2>Comment</h2>
+
+            <div class="content-tip meta">
+                Tip: try paste formatted content directly!
+            </div>
+            <form method="post" action="{% url 'pages:new_comment' article_id=article.id %}"> {% csrf_token %}
+                <div class="error_msg">
+                    {{ comment_form.non_field_errors }}
+                </div>
+                <div class="textarea-div">
+                    {{ comment_form.content }}
+                </div>
+
+                <input id="comment-submit-btn" class="button blue-button new-comment-submit" type="submit"
+                       value="submit">
+            </form>
+        </div>
+    </div>
+{% endblock %}
