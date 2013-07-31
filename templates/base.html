@@ -2,17 +2,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <script src="{% static "base/js/jquery-1.10.2.js" %}"></script>
-    <script src="{% static "base/js/blockUI.js" %}"></script>
-    {#    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>#}
     <script src="{% static 'ckeditor4.2/ckeditor.js' %}"></script>
-    <script src="{% static 'ckeditor4.2/adapters/jquery.js' %}"></script>
-    <title>{% block title %}Defalt Title{% endblock %}</title>
+    <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static "bootstrap/css/bootstrap.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "font/font-awesome/css/font-awesome.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "base/style.css" %}">
 
     {% block head %}
     {% endblock %}
-
+    <title>{% block title %}Defalt Title{% endblock %}</title>
     <script>
         function getCookie(name) {
             var cookieValue = null;
@@ -73,7 +74,8 @@
             if (status == "success")
                 window.location = window.location.href;
             else {
-                $('#login-box .error_msg').text(res.responseText).hide().fadeIn(500);
+                $('#login-box .alert').show()
+                $('#login-box .error-msg').text(res.responseText).hide().fadeIn(500);
             }
         };
 
@@ -82,39 +84,17 @@
                 window.location = window.location.href;
             }
             else {
-                $('#register-box .error_msg').text(res.responseText).hide().fadeIn(500);
+                $('#register-box .alert').show()
+                $('#register-box .error-msg').text(res.responseText).hide().fadeIn(500);
             }
         };
 
-        var pop_up_login_box = function () {
-            $('#login-box .error_msg').text("");
-            $.blockUI({
-                message: $('#login-box'),
-                css: {
-                    margin: 0, border: 0,
-                    textAlign: 'left'
-                }
-            });
-            $('.blockOverlay').click($.unblockUI);
-        }
-
-        var pop_up_register_box = function () {
-            $('#register-box .error_msg').text("");
-            $.blockUI({
-                message: $('#register-box'),
-                css: {
-                    margin: 0, border: 0,
-                    textAlign: 'left'
-                }
-            });
-            $('.blockOverlay').click($.unblockUI);
-        }
         var need_to_login_first = function () {
             {% if user.is_authenticated %}
                 return true;
             {% endif %}
-            pop_up_login_box();
-            $('#login-box .error_msg').text("You need to login first.").hide().fadeIn(500);
+            $('#login-box').modal('show');
+            $('#login-box .text-error').text("You need to login first.").hide().fadeIn(500);
             return false;
 
         }
@@ -122,187 +102,159 @@
 
             //$('#ckeditor-test').ckeditor();
 
-            $('#login-box-btn').click(pop_up_login_box);
+            $("#login-box-submit-btn").click(submit_login_form);
 
-            $("#login-submit-btn").click(submit_login_form);
+            $("#register-box-submit-btn").click(submit_registration_form);
 
-            $('#register-box-btn').click(pop_up_register_box);
-            $("#register-submit-btn").click(submit_registration_form);
-
-            $("#register-in-login").click(function () {
-                pop_up_register_box();
-            })
             $("#start_new_topic_btn").click(need_to_login_first);
+
+            $('.modal').on('show', function () {
+                $(this).css({'margin-top': ($(window).height() - $(this).height()) / 2, 'top': '0'});
+                $(this).css({'margin-left': ($(window).width() - $(this).width()) / 2, 'left': '0'});
+            });
+
+            $('#login-box-join-btn').click(function () {
+                $('#login-box').modal('hide');
+                $('#register-box').modal('show');
+            })
+
         });
     </script>
 
 </head>
 <body>
-<div id="wrapper">
 
-    <header id="top-wrap">
-        <div class="logo" id="logo-shadow2"></div>
-        <div class="logo" id="logo-shadow1"></div>
-        <div class="logo">
-            <a href="{% url 'home' %}">
-                Teen
-                <span>-Hope</span>
-            </a>
-        </div>
+<div class="navbar navbar-fixed-top active">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="brand" href="#">Cornucopia</a>
 
-        <div class="quote">
-            <div>
-                “Life's challenges are not supposed to paralyze you, they're supposed to help you discover who you are.”
-                <div class="author">
-                    Bernice Johnson Reagon
-                </div>
-            </div>
-        </div>
-    </header>
+            <div class="nav-collapse">
+                <ul class="nav">
+                    {% url 'home' as home_url %}
+                    <li{% if request.path == home_url %}
+                        class="active"
+                    {% endif %}><a href="{{ home_url }}"><i class="icon-home"></i>
+                        Home</a></li>
 
+                    {% url 'forum:index' as forum_url %}
+                    <li{% if request.path == forum_url %}
+                        class="active"
+                    {% endif %}><a href="{{ forum_url }}"><i class="icon-comments"></i>
+                        Forum</a></li>
 
-    <div class="page-wrap">
-        <div class="page-wrap" id="page-wrap-shadow1"></div>
-        <div class="page-wrap" id="page-wrap-shadow2"></div>
+                    {% url 'pages:index' as pages_url %}
+                    <li{% if request.path == pages_url %}
+                        class="active"
+                    {% endif %}><a href="{{ pages_url }}"><i class="icon-file"></i>
+                        Pages</a></li>
 
-        <nav class="main-nav">
-            <ul>
-                <li>
-                    <a href="{% url 'home' %}">
-                        <i class="icon-home"></i>
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'forum:index' %}">
-                        <i class="icon-comments"></i>
-                        Forum
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'pages:index' %}">
-                        <i class="icon-file"></i>
-                        Pages
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <i class="icon-camera"></i>
-                        Gallery
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <i class="icon-money"></i>
-                        Donate
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
-        <div class="main-wrap">
-            <div class="left-wrap">
-                <div class="left-main-content paper-wrap">
-                    {% block content %}
-                        something about content
-                    {% endblock %}
-                </div>
-            </div>
-            <div class="right-wrap">
-                <div class="user-box">
-
+                    <li><a href="#about"><i class="icon-money"></i>
+                        Donate</a></li>
+                </ul>
+                <div class="pull-right">
                     {% if user.is_authenticated %}
-                        <div class="welcome">
-                            <h4>Welcome, {{ user.get_profile.nickname }}.</h4>
-                        </div>
-                        <div class="user-buttons">
-                            <a class="button blue-button" id="update_profile"
-                               href="{% url 'accounts:update_profile' %}">Edit profile</a>
-                            <a class="button blue-button" id="logout" href="{% url 'accounts:logout' %}">Log out</a>
-                        </div>
+                        <span>
+                        <img class="navbar-img" src="{% static 'accounts/default_portrait.jpg' %}">
+                        </span>
+                        <a id="profile-link" class="navbar-text"
+                                href="{% url 'accounts:manage' %}">
+                            <strong>{{ user.get_profile.nickname }}</strong>
+                        </a>
+                        <a class="navbar-user-btn" href="#">
+                            <i class="icon-envelope icon-large"></i>
+                        </a>
+                        <a class="navbar-user-btn" href="{% url 'accounts:update_profile' %}">
+                            <i class="icon-cogs icon-large"></i>
+                        </a>
+                        <a class="navbar-user-btn" href="{% url 'accounts:logout' %}">
+                            <i class="icon-signout icon-large"></i>
+                        </a>
+
                     {% else %}
-                        <h4>Howdy Stranger!</h4>
-                        <p>
-                            Get help, give help. Join our friendly
-                            community.
-                        </p>
-                        <div class="user-buttons">
-                            <a class="button blue-button" id="login-box-btn">Log In</a>
-                            <a class="button blue-button" id="register-box-btn">Join
-                                Now</a>
+                        <div class="btn-group">
+                            <a class="btn btn-primary" data-target="#login-box" data-toggle="modal">
+                                <i class="icon-user icon-large"></i>
+                                Log in</a>
+                            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a data-toggle="modal" data-target="#register-box">
+                                    Not a member?</a></li>
+                                <li><a>Forgot something?</a></li>
+                            </ul>
                         </div>
                     {% endif %}
                 </div>
-
-                <a id="start_new_topic_btn" href="{% url 'forum:new_topic' %}" class="button functional-button">
-                    Start new topic
-                </a>
-                <a id="start_new_article_btn" href="{% url 'pages:new_article' %}" class="button functional-button">
-                    Write new article
-                </a>
             </div>
-
-            <div style="clear: both"></div>
         </div>
     </div>
-
 </div>
+
+{% block content %}
+{% endblock %}
 
 <!-- hidden login box -->
-<div id="login-box">
-    <div class="content">
-        <h1 id="login-h1">Member Login</h1>
+<form id="login-box" class="modal hide fade"
+      tabindex=-1 method="post" style="max-width: 300px;"> {% csrf_token %}
 
-        <div class="error_msg"></div>
-        <form method="post"> {% csrf_token %}
-            <div>
-                <label for="id_username">Username</label>
-                <input type="text" id="id_username" name="username" class="input-box">
-            </div>
-            <div>
-                <label for="id_password">Password</label>
-                <input type="password" id="id_password" name="password" class="input-box">
-            </div>
-
-            <input id="login-submit-btn" class="button blue-button" type="submit" value="Log In"/>
-
-            <div class="blue-link" id="register-in-login">Aren't a member of us?</div>
-        </form>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3 id="login-box-label">Member Login</h3>
     </div>
-</div>
 
-<div id="register-box">
-    <div class="content">
-        <h1 id="register-h1">Registration</h1>
+    <div class="modal-body">
+        <div class="alert alert-error hide">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Error!</strong>
 
-        <div class="error_msg"></div>
-        <form method="post">{% csrf_token %}
-            <div>
-                <label for="id_username">Username</label>
-                <input type="text" id="id_username" name="username" class="input-box">
-            </div>
-            <div>
-                <label for="id_password">Password</label>
-                <input type="password" id="id_password" name="password" class="input-box">
-            </div>
-            <div>
-                <label for="id_re_password">Re-enter password</label>
-                <input type="password" id="id_re_password" name="re_password" class="input-box">
-            </div>
-            <div>
-                <label for="id_email">Email</label>
-                <input type="text" id="id_email" name="email" class="input-box">
-
-            </div>
-            <input id="register-submit-btn" class="button blue-button"
-                   type="submit" value="Submit"/>
-        </form>
+            <p class="error-msg"></p>
+        </div>
+        <input type="text" class="input-block-level"
+               id="id_username" name="username" placeholder="Username">
+        <input type="password" class="input-block-level"
+               id="id_password" name="password" placeholder="Password">
     </div>
-</div>
+    <div class="modal-footer">
+        <input id="login-box-submit-btn" class="btn btn-primary" type="submit" value="Log in"/>
 
-<!-- block over layer -->
-<div class="blockOverlay">
-</div>
+        <div class="btn btn-navbar" id="login-box-join-btn">
+            Aren't a member of us?
+        </div>
+    </div>
+</form>
+
+<!-- hidden register box -->
+<form id="register-box" class="modal hide fade"
+      tabindex=-1 method="post" style="max-width: 300px;"> {% csrf_token %}
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3 id="register-box-label">Registration</h3>
+    </div>
+
+    <div class="modal-body">
+        <div class="alert alert-error hide">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Error!</strong>
+
+            <p class="error-msg"></p>
+        </div>
+        <input type="text" class="input-block-level"
+               id="id_username" name="username" placeholder="Username">
+        <input type="password" class="input-block-level"
+               id="id_password" name="password" placeholder="Password">
+        <input type="password" class="input-block-level"
+               id="id_re_password" name="re_password" placeholder="Re-enter password">
+        <input type="text" class="input-block-level"
+               id="id_email" name="email" placeholder="Email">
+    </div>
+
+    <div class="modal-footer">
+        <input id="register-box-submit-btn" class="btn btn-primary"
+               type="submit" value="Join in"/>
+    </div>
+</form>
 
 </body>
 </html>

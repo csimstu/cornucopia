@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     'forum',
     'accounts',
     'pages',
+    'myAdmin',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -160,6 +161,11 @@ LOGGING = {
 # Customized settings below
 AUTH_PROFILE_MODULE = 'accounts.Profile'
 
+# add a request variable in each template
+TEMPLATE_CONTEXT_PROCESSORS = (
+  'django.core.context_processors.request',
+  'django.contrib.auth.context_processors.auth',
+)
 
 # Forum constants
 

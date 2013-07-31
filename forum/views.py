@@ -103,3 +103,6 @@ def post_reply(request, post_id):
                     x = error
             return HttpResponseBadRequest(x)
     return Http404()
+
+def home(request):
+    return render(request, 'home.html')

@@ -97,3 +97,4 @@ def register(request):
                     x = error
             return HttpResponseBadRequest(x)
     return Http404()
+

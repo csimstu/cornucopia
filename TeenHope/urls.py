@@ -20,5 +20,5 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('accounts.urls', namespace="accounts")),
     url(r'^pages/', include('pages.urls', namespace="pages")),
 
-    url(r'^$', "forum.views.index", name="home"),
+    url(r'^$', "forum.views.home", name="home"),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
