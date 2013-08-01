@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     url(r'^forum/', include('forum.urls', namespace="forum")),
     url(r'^accounts/', include('accounts.urls', namespace="accounts")),
     url(r'^pages/', include('pages.urls', namespace="pages")),
-
     url(r'^$', "forum.views.home", name="home"),
+    url(r'^xadmin/', include('xadmin.urls', namespace="xadmin")),
+
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

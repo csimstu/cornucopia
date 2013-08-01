@@ -1,0 +1,93 @@
+{% extends "xadmin/xadmin_base.html" %}
+
+{% block xadmin_content %}
+    <div>
+        <h2><i class="icon-dashboard"></i>
+            Dashboard</h2>
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="box well">
+                        <h4 class="box-title">Right Now</h4>
+
+                        <div class="box-content">
+                            <div class="row-fluid">
+                                <div class="span4">
+                                    <h5>Pages</h5>
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td>{{ stat.article_cnt }}</td>
+                                            <td>Articles</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ stat.comment_cnt }}</td>
+                                            <td>Comments</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ stat.tag_cnt }}</td>
+                                            <td>Tags</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="span4">
+                                    <h5>Forum</h5>
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td>{{ stat.topic_cnt }}</td>
+                                            <td>Topics</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ stat.post_cnt }}</td>
+                                            <td>Posts</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ stat.reply_cnt }}</td>
+                                            <td>Replies</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="span4">
+                                    <h5>Relationships</h5>
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td>{{ stat.friend_cnt }}</td>
+                                            <td>Friends</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ stat.follower_cnt }}</td>
+                                            <td>Followers</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ stat.following_cnt }}</td>
+                                            <td>Followings</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="box well">
+                        <h4 class="box-title">Subscribed Contents</h4>
+
+                        <div class="box-content">
+                        </div>
+                    </div>
+                    <div class="box well">
+                        <h4 class="box-title"></h4>
+
+                        <div class="box-content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>{% endblock %}

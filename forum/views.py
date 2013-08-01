@@ -40,6 +40,7 @@ def new_topic(request):
         if form.is_valid():
             category = form.cleaned_data['category']
             topic = Topic(title=form.cleaned_data['title'],
+                          author=user,
                           date_published=datetime.datetime.now()
             )
             topic.save()

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    Dashboard
+{% endblock %}
+{% block content %}
+    <div class="row-fluid">
+        <div class="span2">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Dashboard</li>
+                    <li><a href="{% url 'xadmin:dashboard' %}">Home</a></li>
+                    <li><a href="#">Friends activities</a></li>
+
+
+                    <li class="nav-header">Friends</li>
+                    <li><a href="#">Manage connections</a></li>
+                    <li><a href="#">Message box</a></li>
+
+
+                    <li class="nav-header">Forum</li>
+                    <li><a href="#">Topics</a></li>
+                    <li><a href="#">Posts</a></li>
+                    <li><a href="#">Replies</a></li>
+
+
+                    <li class="nav-header">Pages</li>
+                    <li><a href="#">Articles</a></li>
+                    <li><a href="#">Comments</a></li>
+                    <li><a href="#">Tags</a></li>
+
+
+                    <li class="nav-header">Profile</li>
+                    <li><a href="#">Update personal info</a></li>
+                    <li><a href="#">Change password</a></li>
+                </ul>
+            </div>
+            <!--/.well -->
+        </div>
+        <!--/span-->
+
+        <div class="span10">
+            {% block xadmin_content %}
+            {% endblock %}
+        </div>
+    </div>
+
+{% endblock %}

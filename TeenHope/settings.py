@@ -126,7 +126,8 @@ INSTALLED_APPS = (
     'forum',
     'accounts',
     'pages',
-    'myAdmin',
+    'xadmin',
+    'network',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -159,7 +160,7 @@ LOGGING = {
 }
 
 # Customized settings below
-AUTH_PROFILE_MODULE = 'accounts.Profile'
+AUTH_PROFILE_MODULE = "accounts.Profile"
 
 # add a request variable in each template
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -190,6 +191,9 @@ TAG_LENGTH_LIMIT = 50
 ARTICLE_TITLE_LENGTH_LIMIT = 50
 ARTICLE_LENGTH_LIMIT = 50000
 COMMENT_LENGTH_LIMIT = 500
+
+# Network constatns
+MESSAGE_LENGTH_LIMIT = 10000
 
 # Validation regex
 USERNAME_PATTERN = r'[A-Za-z]\w{5,19}' # regex for username, 6<=len<=20 with leading alpha

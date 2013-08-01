@@ -4,6 +4,7 @@ from TeenHope import settings
 from django.core.urlresolvers import reverse
 
 class Tag(models.Model):
+    author = models.ForeignKey(User)
     title = models.CharField(max_length=settings.TAG_LENGTH_LIMIT)
 
     def __unicode__(self):

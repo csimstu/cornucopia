@@ -15,6 +15,7 @@ class Topic(models.Model):
     category = models.ManyToManyField(Category)     # one topic might belong to many kinds
     title = models.CharField(max_length=settings.TOPIC_TITLE_LENGTH_LIMIT)         # title of the topic
     date_published = models.DateTimeField()
+    author = models.ForeignKey(User)
 
     def __unicode__(self):
         return "Topic: " + self.title

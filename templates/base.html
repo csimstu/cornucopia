@@ -127,7 +127,7 @@
 <div class="navbar navbar-fixed-top active">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <a class="brand" href="#">Cornucopia</a>
+            <a class="brand" href="{% url 'home' %}">Cornucopia</a>
 
             <div class="nav-collapse">
                 <ul class="nav">
@@ -158,7 +158,7 @@
                         <img class="navbar-img" src="{% static 'accounts/default_portrait.jpg' %}">
                         </span>
                         <a id="profile-link" class="navbar-text"
-                                href="{% url 'accounts:manage' %}">
+                                href="{% url 'xadmin:dashboard' %}">
                             <strong>{{ user.get_profile.nickname }}</strong>
                         </a>
                         <a class="navbar-user-btn" href="#">
