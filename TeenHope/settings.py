@@ -10,7 +10,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-PROJECT_PATH = os.getcwd()
+PROJECT_PATH = '/home/csimstu/PycharmProjects/TeenHope'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -199,3 +199,5 @@ MESSAGE_LENGTH_LIMIT = 10000
 USERNAME_PATTERN = r'[A-Za-z]\w{5,19}' # regex for username, 6<=len<=20 with leading alpha
 PASSWORD_PATTERN = r'\w{6,20}' # regex for username, 6<=len<=20
 EMAIL_PATTERN = r'\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*'
+
+

@@ -28,24 +28,13 @@ class RelationList(models.Model):
 
 
 class Message(models.Model):
-    # customer-sent messages
     sender = models.ForeignKey(User, related_name='+')
     receiver = models.ForeignKey(User, related_name='+')
     content = models.CharField(max_length=settings.MESSAGE_LENGTH_LIMIT)
+    MESSAGE_CHOICES = (
+        ('MSG', 'message'),
+        ('NTF', 'notification'),
+        ('INV', 'invitation'),
+    )
+    type = models.CharField(max_length=3, choices=MESSAGE_CHOICES, default='MSG')
     unread = models.BooleanField()
-
-
-class Notification(models.Model):
-    # system notifications
-    receiver = models.ForeignKey(User)
-    content = models.CharField(max_length=settings.MESSAGE_LENGTH_LIMIT)
-    unread = models.BooleanField()
-
-
-class Invitation(models.Model):
-    # invite receiver to be a friend of sender
-    sender = models.ForeignKey(User, related_name='+')
-    receiver = models.ForeignKey(User, related_name='+')
-    content = models.CharField(max_length=settings.MESSAGE_LENGTH_LIMIT)
-    unread = models.BooleanField()
-
