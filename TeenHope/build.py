@@ -1,5 +1,6 @@
 import os
 import settings
+
 try:
     with open(settings.DATABASES['default']['NAME']):
         pass
@@ -7,8 +8,18 @@ try:
 except IOError:
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "TeenHope.settings")
     from django.core.management import call_command
-    from django.contrib.auth.models import User
-    from accounts.models import Profile
     call_command('syncdb', interactive=False)
-    me = User.objects.create_superuser('csimstu', 'csimstu@gmail.com', '1')
-    Profile.objects.create(user=me, nickname=me.username)
+
+    from django.contrib.auth.models import User
+    llx = User.objects.create_superuser('csimstu', 'csimstu@gmail.com', '1')
+    llx2 = User.objects.create_user('sabolaji', 'sabolaji@gmail.com', '1')
+
+
+    # create stupid messages
+    from network.models import Message
+    import datetime
+    for x in range(0, 50):
+        Message.objects.create(sender=llx2, receiver=llx, unread=True,
+                               subject="Drone message #%d" % x,
+                               date_sent=datetime.datetime.now(),
+                               type="MSG")

@@ -48,7 +48,7 @@ USE_I18N = True
 USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
-USE_TZ = True
+USE_TZ = False
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
@@ -194,6 +194,7 @@ COMMENT_LENGTH_LIMIT = 500
 
 # Network constatns
 MESSAGE_LENGTH_LIMIT = 10000
+MESSAGE_SUBJECT_LENGTH_LIMIT = 100
 
 # Validation regex
 USERNAME_PATTERN = r'[A-Za-z]\w{5,19}' # regex for username, 6<=len<=20 with leading alpha

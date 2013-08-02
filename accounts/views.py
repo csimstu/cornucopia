@@ -88,7 +88,6 @@ def register(request):
             user.save()
             user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
             auth.login(request, user)
-            Profile.objects.create(user=user, nickname=user.username)
             return HttpResponse() # always done in JS
         else:
             x = "Unknown error."

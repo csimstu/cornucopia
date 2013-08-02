@@ -1,0 +1,7 @@
+.inbox-row:hover {
+    cursor: pointer;
+}
+
+.row-bold {
+    font-weight: bold;
+}

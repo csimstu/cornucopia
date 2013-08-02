@@ -1,107 +1,72 @@
 {% extends "xadmin/xadmin_base.html" %}
+{% load staticfiles %}
+{% block title %}
+    Inbox
+{% endblock %}
+{% block xadmin_head %}
+    <link rel="stylesheet" type="text/css" href="{% static "xadmin/inbox.css" %}">
 
+    <script>
+        $(function(){
+            $('.inbox-row').click(function(){
+                var url_mask = "{% url 'xadmin:show_msg_in_inbox' msg_id=12345 %}"
+                        .replace(/12345/, $(this).attr('msg_id'));
+                document.location = url_mask;
+            })
+        })
+    </script>
+{% endblock %}
 {% block xadmin_content %}
     <div>
-        <h2><i class="icon-dashboard"></i>
+        <h2><i class="icon-inbox"></i>
             Inbox</h2>
 
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span6">
-                    <div class="box well">
-                        <h4 class="box-title">Right Now</h4>
+        <div class="container">
+            <div class="navbar">
+                <div class="pagination pull-right">
+                    <ul>
+                        {% if msgs.has_previous %}
+                            <li><a href="?page={{ msgs.previous_page_number }}">«</a></li>
+                        {% else %}
+                            <li class="disabled"><a>«</a></li>
+                        {% endif %}
 
-                        <div class="box-content">
-                            <div class="row-fluid">
-                                <div class="span4">
-                                    <h5>Pages</h5>
-                                    <table>
-                                        <tbody>
-                                        <tr>
-                                            <td>{{ stat.article_cnt }}</td>
-                                            <td>Articles</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ stat.comment_cnt }}</td>
-                                            <td>Comments</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ stat.tag_cnt }}</td>
-                                            <td>Tags</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="span4">
-                                    <h5>Forum</h5>
-                                    <table>
-                                        <tbody>
-                                        <tr>
-                                            <td>{{ stat.topic_cnt }}</td>
-                                            <td>Topics</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ stat.post_cnt }}</td>
-                                            <td>Posts</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ stat.reply_cnt }}</td>
-                                            <td>Replies</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="span4">
-                                    <h5>Relationships</h5>
-                                    <table>
-                                        <tbody>
-                                        <tr>
-                                            <td>{{ stat.friend_cnt }}</td>
-                                            <td>Friends</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ stat.follower_cnt }}</td>
-                                            <td>Followers</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ stat.following_cnt }}</td>
-                                            <td>Followings</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box well">
-                        <h4 class="box-title">Notifications</h4>
+                        </li>
 
-                        <div class="box-content">
-                            <ul class="ntf-list">
-                                {% for x in ntf_list %}
-                                    <li>
-                                        <div class="alert alert-info">
-                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                            {{ x.content|safe }}
-                                        </div>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="span6">
-                    <div class="box well">
-                        <h4 class="box-title">Attention!</h4>
+                        <li>
+                            <a href="#">
+                                Page {{ msgs.number }} of {{ msgs.paginator.num_pages }}
+                            </a>
+                        </li>
 
-                        <div class="box-content">
-                            <a>{{ attention.unread_msg }} unread messages</a>
-                            <a>{{ attention.unread_ntf }} unread notifications</a>
-                            <a>{{ attention.unread_inv }} unread invitations</a>
-                        </div>
-                    </div>
-
+                        {% if msgs.has_next %}
+                            <li><a href="?page={{ msgs.next_page_number }}">»</a></li>
+                        {% else %}
+                            <li class="disabled"><a>»</a></li>
+                        {% endif %}
+                    </ul>
                 </div>
             </div>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Sent by</th>
+                    <th>Subject</th>
+                    <th>Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for msg in msgs %}
+                    <tr class="inbox-row
+                        {% if msg.unread %}row-bold{% endif %}"
+                            msg_id="{{ msg.id }}">
+                        <td>{{ msg.sender.get_profile.nickname }}</td>
+                        <td>{{ msg.subject }}</td>
+                        <td>{{ msg.date_sent|date:"M d, Y" }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
         </div>
     </div>{% endblock %}

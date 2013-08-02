@@ -1,20 +1,23 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}
-    Dashboard
+
+{% block head %}
+    {% block xadmin_head %}
+    {% endblock %}
 {% endblock %}
 {% block content %}
     <div class="row-fluid">
         <div class="span2">
             <div class="well sidebar-nav">
                 <ul class="nav nav-list">
-                    <li class="nav-header">Dashboard</li>
-                    <li><a href="{% url 'xadmin:dashboard' %}">Home</a></li>
+                    <li><a href="{% url 'xadmin:dashboard' %}">Dashboard</a></li>
 
 
-                    <li class="nav-header">Friends</li>
+                    <li class="nav-header">Message Box</li>
+                    <li><a href="{% url 'xadmin:inbox' %}">Inbox</a></li>
+                    <li><a href="{% url 'xadmin:send_msg' %}">New message</a></li>
+
                     <li><a href="#">Manage connections</a></li>
-                    <li><a href="#">Message box</a></li>
 
 
                     <li class="nav-header">Forum</li>

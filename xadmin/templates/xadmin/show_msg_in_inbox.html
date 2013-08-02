@@ -1,0 +1,18 @@
+{% extends "xadmin/xadmin_base.html" %}
+{% load staticfiles %}
+{% block title %}
+    {{ msg.subject }}
+{% endblock %}
+{% block xadmin_head %}
+    <link rel="stylesheet" type="text/css" href="{% static "xadmin/show_msg_in_inbox.css" %}">
+{% endblock %}
+{% block xadmin_content %}
+    <div>
+        <h3>{{ msg.subject }}</h3>
+        <h5>sent by {{ msg.sender.get_profile.nickname }}</h5>
+        <h5>on {{ msg.date_sent|date:"P M d, Y" }}</h5>
+        <div class="container">
+            {{ msg.content|safe }}
+        </div>
+    </div>
+{% endblock %}
