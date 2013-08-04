@@ -39,7 +39,7 @@ class Message(models.Model):
         ('INV', 'invitation'),
     )
     type = models.CharField(max_length=3, choices=MESSAGE_CHOICES, default='MSG')
-    unread = models.BooleanField()
+    unread = models.BooleanField(default=True)
 
 from django.db.models.signals import post_save
 

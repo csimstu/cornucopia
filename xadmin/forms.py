@@ -1,17 +1,21 @@
 from django import forms
 from TeenHope import settings
 
+
 class NewMessageForm(forms.Form):
     subject = forms.CharField()
-    content = forms.CharField(widget=forms.Textarea)
+    content = forms.CharField(widget=forms.Textarea())
+    receivers = forms.CharField()
 
     def clean(self):
         cleaned_data = super(NewMessageForm, self).clean()
 
         subject = cleaned_data.get('subject')
         content = cleaned_data.get('content')
+        receivers = cleaned_data.get('receivers')
 
-
+        if receivers is None or receivers == "":
+            raise forms.ValidationError("Choose at least one receiver.")
         if subject is None:
             raise forms.ValidationError("Subject cannot be empty.")
         elif len(subject) > settings.MESSAGE_SUBJECT_LENGTH_LIMIT:

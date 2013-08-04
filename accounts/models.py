@@ -21,6 +21,9 @@ class Profile(models.Model):
     def __unicode__(self):
         return self.nickname + "'s Profile"
 
+    def get_icon_url(self):
+        return "/static/accounts/default_portrait.jpg"
+
 
 from django.db.models.signals import post_save
 

@@ -1,0 +1,159 @@
+{% extends "xadmin/xadmin_base.html" %}
+{% load staticfiles %}
+{% block title %}
+    Writing a message
+{% endblock %}
+{% block xadmin_head %}
+
+    <link rel="stylesheet" type="text/css" href="{% static "xadmin/send_msg.css" %}">
+    <script>
+        var receiver_list = new Array();
+        var refresh_receiver_list = function () {
+            $("#receiver-list").empty();
+            var n = receiver_list.length;
+            for (var i = 0; i < n; i++) {
+                receiver = receiver_list[i];
+                $("<li>").append($("<img src=" + receiver.icon_url + ">"))
+                        .append($("<span>").text(receiver.label)).appendTo($("#receiver-list"));
+            }
+        }
+        var init_receiver_list = function () {
+            var str = $('input[name=receivers]').attr('value');
+            $.ajax({
+                type: "GET", url: "{% url 'network:get_initial_receiver' %}",
+                data: {term: str}, complete: function (res, status) {
+                    var user_arr = $.parseJSON(res.responseText);
+                    for (var i = 0; i < user_arr.length; i++)
+                        receiver_list.push(user_arr[i]);
+                    refresh_receiver_list();
+                }
+            })
+        }
+
+
+        var remove_duplicate = function (arr) {
+            var n = receiver_list.length,
+                    m = arr.length;
+            var res = new Array();
+            for (var i = 0; i < m; i++) {
+                var same = false;
+                for (var j = 0; j < n; j++)
+                    if (receiver_list[j].id == arr[i].id) {
+                        same = true;
+                        break;
+                    }
+                if (!same) {
+                    res.push(arr[i]);
+                }
+            }
+            return res;
+        }
+
+        $(function () {
+            CKEDITOR.replace("id_content")
+
+            $('#id_receivers').css({display: 'none'});
+
+            init_receiver_list();
+
+            $('#receiver-search-btn').click(function () {
+                var str = $('#id_receiver').val();
+                $.ajax({
+                    type: "GET", url: "{% url 'network:get_receiver_list' %}",
+                    data: {term: str}, complete: function (res, status) {
+                        var user_arr = $.parseJSON(res.responseText);
+                        user_arr = remove_duplicate(user_arr);
+                        var des = $('#search_result_box .modal-body');
+                        if (user_arr.length == 0) {
+                            des.html("<p>No result found");
+                        } else {
+                            var list = $("<div>");
+                            for (var i = 0; i < user_arr.length; i++) {
+                                $('<input />', {
+                                    type: 'checkbox', name: 'receiver_checkbox', id: "checkbox_" + i,
+                                    style: 'display:block'
+                                }).appendTo(list);
+                                $("<img src=" + user_arr[i].icon_url + ">").appendTo(list);
+                                $("<span>").text(user_arr[i].label).appendTo(list);
+                            }
+                            des.html(list);
+                        }
+                        $('#search_result_box').modal('show');
+                        $('#search-select-btn').unbind('click'); //very important
+                        $('#search-select-btn').click(function () {
+                            $("input[name=receiver_checkbox]:checked").each(function () {
+                                var t = $(this).attr("id").match(/\d+/g);
+                                receiver_list.push(user_arr[t]);
+                            });
+                            refresh_receiver_list();
+                            $('#search_result_box').modal('hide');
+                        });
+                    }
+                });
+
+                return false;
+            });
+
+            $('#new_message_submit_btn').click(function () {
+
+                var des = $('input[name=receivers]'),
+                        acc = "";
+                acc += receiver_list[0].id;
+                for (var i = 1; i < receiver_list.length; i++)
+                    acc += ',' + receiver_list[i].id;
+                des.attr('value', acc);
+
+                return true;
+            })
+        });
+    </script>
+{% endblock %}
+{% block xadmin_content %}
+    <div class="container">
+        <form method="POST" action=""> {% csrf_token %}
+            <fieldset>
+                <legend>New message</legend>
+                <div class="text-error">
+                    {{ form.non_field_errors }}
+                </div>
+                <label for="id_subject">Subject:</label>
+                {{ form.subject }}
+                <label for="id_receiver">Send to:</label>
+                <input id="id_receiver" name="receiver" type="text">
+                <a id="receiver-search-btn" class="btn btn-primary"><i class="icon-search"></i></a>
+
+                <div>
+                    <h4>Receiver List</h4>
+                    <ul id="receiver-list">
+
+                    </ul>
+                </div>
+                <div class="msg_content" style="margin-top:20px">
+                    {{ form.content }}
+                </div>
+                {{ form.receivers }}
+
+                <input id="new_message_submit_btn" type="submit"
+                       class="btn btn-primary" value="Send message"/>
+
+            </fieldset>
+        </form>
+    </div>
+
+
+    <!-- hidden search result box -->
+    <div id="search_result_box" class="modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h3>Search Result</h3>
+        </div>
+        <div class="modal-body">
+            <!-- results go here -->
+        </div>
+        <div class="modal-footer">
+            <a id="search-select-btn" href="#" class="btn btn-primary">
+                Select
+            </a>
+        </div>
+    </div>
+{% endblock %}

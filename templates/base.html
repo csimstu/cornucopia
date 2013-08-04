@@ -4,12 +4,14 @@
 <head>
 
     <script src="{% static "base/js/jquery-1.10.2.js" %}"></script>
+    <script src="{% static 'jquery-ui-1.10.3/ui/jquery-ui.js' %}"></script>
     <script src="{% static 'ckeditor4.2/ckeditor.js' %}"></script>
     <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
 
     <link rel="stylesheet" type="text/css" href="{% static "bootstrap/css/bootstrap.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "font/font-awesome/css/font-awesome.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "base/style.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "jquery-ui-1.10.3/themes/base/jquery-ui.css" %}">
 
     {% block head %}
     {% endblock %}
@@ -161,7 +163,7 @@
                                 href="{% url 'xadmin:dashboard' %}">
                             <strong>{{ user.get_profile.nickname }}</strong>
                         </a>
-                        <a class="navbar-user-btn" href="#">
+                        <a class="navbar-user-btn" href="{% url 'xadmin:inbox' %}">
                             <i class="icon-envelope icon-large"></i>
                         </a>
                         <a class="navbar-user-btn" href="{% url 'accounts:update_profile' %}">
