@@ -91,7 +91,7 @@ def send_msg(request):
 
 from network.utils import send_friend_invitation
 
-
+@login_required()
 def add_connections(request):
     user = request.user
     if request.method == 'POST':
@@ -108,3 +108,17 @@ def add_connections(request):
         form = AddConnectionsForm()
     return render(request, 'xadmin/add_connections.html',
                   {'form': form})
+
+@login_required
+def manage_connections(request):
+    user = request.user
+    friend_list = user.relationlist.friends.all()
+    paginator = Paginator(friend_list, 10)
+    page = request.GET.get('page')
+
+    try:
+        friends = paginator.page(page)
+    except PageNotAnInteger, EmptyPage:
+        friends = paginator.page(1)
+
+    return render(request, 'xadmin/manage_connections.html', {'friends': friends})

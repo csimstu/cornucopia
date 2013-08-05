@@ -1,0 +1,72 @@
+{% extends "xadmin/xadmin_base.html" %}
+{% load staticfiles %}
+{% block title %}
+    Inbox
+{% endblock %}
+{% block xadmin_head %}
+    <link rel="stylesheet" type="text/css" href="{% static "xadmin/manage_connections.css" %}">
+    <script>
+        $(function(){
+            $('.remove-friend').click(function(){
+                return window.confirm(this.title || 'Delete this friend?');
+            })
+        })
+    </script>
+{% endblock %}
+{% block xadmin_content %}
+    <div>
+        <h2><i class="icon-code-fork"></i>
+            Manage connections</h2>
+
+        <div class="container">
+            <div class="navbar">
+                <div class="pagination pull-right">
+                    <ul>
+                        {% if friends.has_previous %}
+                            <li><a href="?page={{ friends.previous_page_number }}">«</a></li>
+                        {% else %}
+                            <li class="disabled"><a>«</a></li>
+                        {% endif %}
+
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                Page {{ friends.number }} of {{ friends.paginator.num_pages }}
+                            </a>
+                        </li>
+
+                        {% if friends.has_next %}
+                            <li><a href="?page={{ friends.next_page_number }}">»</a></li>
+                        {% else %}
+                            <li class="disabled"><a>»</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Thumbnail</th>
+                    <th>Nickname</th>
+                    <th>Username</th>
+                    <th>Operation?</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for friend in friends %}
+                    <tr class="friends-row"">
+                        <td><img style="width:100px;" src="{{ friend.get_profile.get_icon_url }}"/></td>
+                        <td>{{ friend.get_profile.nickname }}</td>
+                        <td>{{ friend.username }}</td>
+                        <td><a class="btn btn-danger remove-friend"
+                                href="{% url 'network:remove_friend' %}?term={{ friend.id }}">
+                            <i class="icon-unlink"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>{% endblock %}

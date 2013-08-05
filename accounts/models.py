@@ -35,3 +35,4 @@ def auto_create_profile(sender, **kwargs):
 
 
 post_save.connect(auto_create_profile, sender=User)
+

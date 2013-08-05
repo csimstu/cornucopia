@@ -10,8 +10,8 @@
 
     <link rel="stylesheet" type="text/css" href="{% static "bootstrap/css/bootstrap.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "font/font-awesome/css/font-awesome.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "base/style.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "jquery-ui-1.10.3/themes/base/jquery-ui.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "base/style.css" %}">
 
     {% block head %}
     {% endblock %}
@@ -102,8 +102,6 @@
         }
         $(function () {
 
-            //$('#ckeditor-test').ckeditor();
-
             $("#login-box-submit-btn").click(submit_login_form);
 
             $("#register-box-submit-btn").click(submit_registration_form);
@@ -119,12 +117,27 @@
                 $('#login-box').modal('hide');
                 $('#register-box').modal('show');
             })
+            $('.messages-list').css({'margin-left': -($('.messages-list').width()) / 2});
+            $('.messages-list').hide().fadeIn(500);
+
 
         });
     </script>
 
 </head>
 <body>
+
+{% if messages %}
+    <ul class="messages-list">
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message|safe }}
+            </div>
+        {% endfor %}
+    </ul>
+
+{% endif %}
 
 <div class="navbar navbar-fixed-top active">
     <div class="navbar-inner">
@@ -160,7 +173,7 @@
                         <img class="navbar-img" src="{% static 'accounts/default_portrait.jpg' %}">
                         </span>
                         <a id="profile-link" class="navbar-text"
-                                href="{% url 'xadmin:dashboard' %}">
+                           href="{% url 'xadmin:dashboard' %}">
                             <strong>{{ user.get_profile.nickname }}</strong>
                         </a>
                         <a class="navbar-user-btn" href="{% url 'xadmin:inbox' %}">

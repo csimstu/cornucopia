@@ -12,3 +12,9 @@ def send_friend_invitation(sender, receiver):
               + "<a href=" + reverse('network:accept_invitation', kwargs={'user_id': sender.id}) + \
               ">make friend with %s</a>" % sender.get_profile().nickname
     invitation.save()
+
+def send_message(sender, receiver, subject, content):
+    Message.objects.create(sender=sender, receiver=receiver,
+                           date_sent=datetime.datetime.now(),
+                           type="MSG", unread=True, subject=subject,
+                           content=content)

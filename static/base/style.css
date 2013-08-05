@@ -24,3 +24,9 @@ body {
 .navbar-user-btn {
     margin-left: 5px;
 }
+
+.messages-list {
+    position: fixed;
+    top: 60px;
+    left: 50%;
+}

@@ -59,7 +59,7 @@ def get_user_thumb_by_id(request):
     return Http404()
 
 from network.models import Message
-
+from django.contrib import messages
 
 def accept_invitation(request, user_id):
     p1 = request.user
@@ -70,5 +70,26 @@ def accept_invitation(request, user_id):
         return Http404()
     p1.relationlist.friends.add(p2)
     p2.relationlist.friends.add(p1)
+    messages.success(request, '<i class="icon-ok"></i> You and %s become friends.' % p2.get_profile().nickname)
 
     return HttpResponseRedirect(reverse('xadmin:inbox'))
+
+from network.utils import send_message
+
+def remove_friend(request):
+    user = request.user
+    if request.method == 'GET':
+        q = request.GET.get('term', '')
+        tmp = User.objects.get(id=int(q))
+        user.relationlist.friends.remove(tmp)
+        tmp.relationlist.friends.remove(user)
+        send_message(user, tmp, 'Canceling connection',
+                     'Sadly, %s has broken the relationship'
+                     ' with you.' % user.get_profile().nickname)
+        messages.success(request, "You have broken up relationship with %s."
+        % tmp.get_profile().nickname)
+        return HttpResponseRedirect(reverse('xadmin:manage_connections'))
+    return Http404()
+
+
+

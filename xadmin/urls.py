@@ -8,5 +8,6 @@ urlpatterns = patterns('',
                        url(r'^show_msg_in_inbox/(?P<msg_id>\d+)$', views.show_msg_in_inbox, name="show_msg_in_inbox"),
                        url(r'^send_msg/$', views.send_msg, name="send_msg"),
                        url(r'add_connections/$', views.add_connections, name="add_connections"),
+                       url(r'manage_connections/$', views.manage_connections, name="manage_connections"),
 )
 

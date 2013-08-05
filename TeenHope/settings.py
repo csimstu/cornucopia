@@ -119,6 +119,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.messages',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -164,8 +165,9 @@ AUTH_PROFILE_MODULE = "accounts.Profile"
 
 # add a request variable in each template
 TEMPLATE_CONTEXT_PROCESSORS = (
-  'django.core.context_processors.request',
-  'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.request',
+    'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages',
 )
 
 # Forum constants
@@ -201,4 +203,13 @@ USERNAME_PATTERN = r'[A-Za-z]\w{5,19}' # regex for username, 6<=len<=20 with lea
 PASSWORD_PATTERN = r'\w{6,20}' # regex for username, 6<=len<=20
 EMAIL_PATTERN = r'\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*'
 
+# Modify django message system
+from django.contrib import messages
+
+MESSAGE_TAGS = {
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: '',
+    messages.ERROR: 'alert-error',
+}
 
