@@ -63,7 +63,7 @@ def show_msg_in_inbox(request, msg_id):
     return render(request, 'xadmin/show_msg_in_inbox.html', {'msg': msg})
 
 
-from forms import NewMessageForm
+from forms import NewMessageForm,AddConnectionsForm
 import datetime
 from django.http import HttpResponseRedirect
 
@@ -87,4 +87,24 @@ def send_msg(request):
     else:
         form = NewMessageForm()
     return render(request, 'xadmin/send_msg.html',
+                  {'form': form})
+
+from network.utils import send_friend_invitation
+
+
+def add_connections(request):
+    user = request.user
+    if request.method == 'POST':
+        form = AddConnectionsForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            if cd['friends'] != "":
+                for x in cd['friends'].split(','):
+                    friend = User.objects.get(id=int(x))
+                    send_friend_invitation(user,friend)
+
+            return HttpResponseRedirect(reverse('xadmin:inbox'))
+    else:
+        form = AddConnectionsForm()
+    return render(request, 'xadmin/add_connections.html',
                   {'form': form})

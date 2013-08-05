@@ -20,7 +20,7 @@
         var init_receiver_list = function () {
             var str = $('input[name=receivers]').attr('value');
             $.ajax({
-                type: "GET", url: "{% url 'network:get_initial_receiver' %}",
+                type: "GET", url: "{% url 'network:get_user_thumb_by_id' %}",
                 data: {term: str}, complete: function (res, status) {
                     var user_arr = $.parseJSON(res.responseText);
                     for (var i = 0; i < user_arr.length; i++)
@@ -52,14 +52,12 @@
         $(function () {
             CKEDITOR.replace("id_content")
 
-            $('#id_receivers').css({display: 'none'});
-
             init_receiver_list();
 
             $('#receiver-search-btn').click(function () {
                 var str = $('#id_receiver').val();
                 $.ajax({
-                    type: "GET", url: "{% url 'network:get_receiver_list' %}",
+                    type: "GET", url: "{% url 'network:search_user_thumb_list' %}",
                     data: {term: str}, complete: function (res, status) {
                         var user_arr = $.parseJSON(res.responseText);
                         user_arr = remove_duplicate(user_arr);
@@ -110,9 +108,12 @@
 {% endblock %}
 {% block xadmin_content %}
     <div class="container">
+        <h2><i class="icon-file"></i>
+            New message</h2>
+
         <form method="POST" action=""> {% csrf_token %}
             <fieldset>
-                <legend>New message</legend>
+                <legend>Write a new message</legend>
                 <div class="text-error">
                     {{ form.non_field_errors }}
                 </div>

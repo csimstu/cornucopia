@@ -1,0 +1,121 @@
+{% extends "xadmin/xadmin_base.html" %}
+{% load staticfiles %}
+{% block title %}
+    Writing a message
+{% endblock %}
+{% block xadmin_head %}
+
+    <link rel="stylesheet" type="text/css" href="{% static "xadmin/send_msg.css" %}">
+    <script>
+        var candidate_list = new Array();
+        var refresh_candidate_list = function () {
+            $("#candidate-list").empty();
+            var n = candidate_list.length;
+            for (var i = 0; i < n; i++) {
+                var tmp = candidate_list[i];
+                $("<li>").append($("<img src=" + tmp.icon_url + ">"))
+                        .append($("<span>").text(tmp.label))
+                        .appendTo($("#candidate-list"));
+            }
+        }
+
+        $(function () {
+            $('#id_search_box_btn').click(function () {
+                var str = $('#id_search_box').val();
+                $.ajax({
+                    type: "GET", url: "{% url 'network:search_user_thumb_list_exclude' %}",
+                    data: {term: str}, complete: function (res, status) {
+                        var user_arr = $.parseJSON(res.responseText);
+                        var des = $('#search_result_box .modal-body');
+                        if (user_arr.length == 0) {
+                            des.html("<p>No result found");
+                        } else {
+                            var list = $("<div>");
+                            for (var i = 0; i < user_arr.length; i++) {
+                                $('<input />', {
+                                    type: 'checkbox', name: 'candidate_checkbox', id: "checkbox_" + i,
+                                    style: 'display:block'
+                                }).appendTo(list);
+                                $("<img src=" + user_arr[i].icon_url + ">").appendTo(list);
+                                $("<span>").text(user_arr[i].label).appendTo(list);
+                            }
+                            des.html(list);
+                        }
+                        $('#search_result_box').modal('show');
+                        $('#search-select-btn').unbind('click'); //very important
+                        $('#search-select-btn').click(function () {
+                            $("input[name=candidate_checkbox]:checked").each(function () {
+                                var t = $(this).attr("id").match(/\d+/g);
+                                candidate_list.push(user_arr[t]);
+                            });
+                            refresh_candidate_list();
+                            $('#search_result_box').modal('hide');
+                        });
+                    }
+                });
+
+                return false;
+            });
+
+            $('#add_connections_submit_btn').click(function () {
+
+                var des = $('input[name=friends][type=hidden]'),
+                        acc = "";
+                acc += candidate_list[0].id;
+                for (var i = 1; i < candidate_list.length; i++)
+                    acc += ',' + candidate_list[i].id;
+                des.attr('value', acc);
+
+                return true;
+            })
+        });
+    </script>
+{% endblock %}
+{% block xadmin_content %}
+    <div class="container">
+        <h2><i class="icon-file"></i>
+            Establish new connections</h2>
+
+        <form method="POST" action=""> {% csrf_token %}
+            <fieldset>
+                <legend>Add friends</legend>
+                <div class="text-error">
+                    {{ form.non_field_errors }}
+                </div>
+                <label for="id_search_box">Search</label>
+                <input id="id_search_box" name="search_box" type="text">
+                <a id="id_search_box_btn" class="btn btn-primary"><i class="icon-search"></i></a>
+
+                <div>
+                    <h4>candidate List</h4>
+                    <ul id="candidate-list">
+
+                    </ul>
+                </div>
+                {{ form.friends }}
+                {{ form.followings }}
+
+                <input id="add_connections_submit_btn" type="submit"
+                       class="btn btn-primary" value="Add them all!"/>
+
+            </fieldset>
+        </form>
+    </div>
+
+
+    <!-- hidden search result box -->
+    <div id="search_result_box" class="modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h3>Search Result</h3>
+        </div>
+        <div class="modal-body">
+            <!-- results go here -->
+        </div>
+        <div class="modal-footer">
+            <a id="search-select-btn" href="#" class="btn btn-primary">
+                Select
+            </a>
+        </div>
+    </div>
+{% endblock %}

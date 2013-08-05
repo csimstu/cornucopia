@@ -5,7 +5,7 @@ from TeenHope import settings
 class NewMessageForm(forms.Form):
     subject = forms.CharField()
     content = forms.CharField(widget=forms.Textarea())
-    receivers = forms.CharField()
+    receivers = forms.CharField(widget=forms.HiddenInput())
 
     def clean(self):
         cleaned_data = super(NewMessageForm, self).clean()
@@ -26,5 +26,18 @@ class NewMessageForm(forms.Form):
         elif len(content) > settings.MESSAGE_LENGTH_LIMIT:
             raise forms.ValidationError("Message content must be no longer"
                                         "than %d characters." % settings.MESSAGE_LENGTH_LIMIT)
+
+        return cleaned_data
+
+
+class AddConnectionsForm(forms.Form):
+    friends = forms.CharField(widget=forms.HiddenInput())
+
+    def clean(self):
+        cleaned_data = super(AddConnectionsForm, self).clean()
+        friends = cleaned_data.get('friends')
+
+        if friends is None or friends == "":
+            raise forms.ValidationError("At least add one person.")
 
         return cleaned_data
