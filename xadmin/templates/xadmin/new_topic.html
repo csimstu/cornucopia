@@ -1,15 +1,15 @@
-{% extends "base.html" %}
+{% extends "xadmin/xadmin_base.html" %}
 {% load staticfiles %}
-{% block head %}
+{% block xadmin_head %}
     <link rel="stylesheet" type="text/css" href="{% static "forum/new_topic.css" %}">
     <script>
         $(function () {
-            $('#id_content').ckeditor()
+            CKEDITOR.replace('id_content');
         })
     </script>
 {% endblock %}
 {% block title %}Create A New Topic{% endblock %}
-{% block content %}
+{% block xadmin_content %}
     <div class="new-topic-content">
         <div class="header-container">
             <h1 class="new-topic-main-header">

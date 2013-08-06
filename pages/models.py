@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-from TeenHope import settings
 from django.core.urlresolvers import reverse
+
+from TeenHope import settings
+
 
 class Tag(models.Model):
     author = models.ForeignKey(User)
@@ -9,6 +11,19 @@ class Tag(models.Model):
 
     def __unicode__(self):
         return self.title
+
+
+from django.db.models.signals import post_save
+
+
+def auto_create_default_tag(sender, **kwargs):
+    user = kwargs["instance"]
+    if kwargs["created"]:
+        Tag.objects.create(author=user, title="default")
+
+
+post_save.connect(auto_create_default_tag, sender=User)
+
 
 class Article(models.Model):
     author = models.ForeignKey(User)
@@ -23,6 +38,9 @@ class Article(models.Model):
     def get_absolute_url(self):
         return reverse('pages:detail', kwargs={'article_id': self.id})
 
+    def trace_msg(self):
+        return "Create article#%d <strong>%s</strong>" % (self.id, self.title)
+
 
 class Comment(models.Model):
     author = models.ForeignKey(User)
@@ -32,3 +50,9 @@ class Comment(models.Model):
 
     def __unicode__(self):
         return "Comment #%d for Article %s" % (self.id, self.article.title)
+
+    def get_absolute_url(self):
+        return reverse('pages:detail', kwargs={'article_id': self.article.id})
+
+    def trace_msg(self):
+        return "Post a comment(#%d) on article <strong>%s</strong>" % (self.id, self.article.title)

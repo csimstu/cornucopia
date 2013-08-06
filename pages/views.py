@@ -22,29 +22,7 @@ from django.contrib.auth.decorators import login_required
 import datetime
 
 
-@login_required()
-def new_article(request):
-    user = request.user
-    if request.method == 'POST':
-        form = NewArticleForm(request.POST)
 
-        if form.is_valid():
-            tags = form.cleaned_data['tags']
-            article = Article(title=form.cleaned_data['title'],
-                              author=user,
-                              content=form.cleaned_data['content'],
-                              date_published=datetime.datetime.now()
-            )
-            article.save()
-            for x in tags:
-                article.tags.add(x)
-            return HttpResponseRedirect(article.get_absolute_url())
-    else:
-        form = NewArticleForm()
-
-    return render(request, 'pages/new_article.html', {
-        'form': form
-    })
 
 
 @login_required()

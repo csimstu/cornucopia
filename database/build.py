@@ -28,3 +28,14 @@ except IOError:
                                subject="Drone message #%d" % x,
                                date_sent=datetime.datetime.now(),
                                type="MSG")
+
+    from forum.models import Category
+    default_cat = Category.objects.create(title="default")
+
+    from forum.models import Topic, Post
+    topic1 = Topic.objects.create(title="Topic Test",
+                         date_published=datetime.datetime.now(),
+                         author=llx)
+    topic1.category.add(default_cat)
+    post1 = Post.objects.create(topic=topic1, author=llx, date_published=datetime.datetime.now(),
+                                content="First post by llx! Hoooray!")

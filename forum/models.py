@@ -23,6 +23,9 @@ class Topic(models.Model):
     def get_absolute_url(self):
         return reverse('forum:detail', kwargs={'topic_id': self.id})
 
+    def trace_msg(self):
+        return "Create topic#%d <strong>%s</strong>" % (self.id, self.title)
+
 
 class Post(models.Model):
     topic = models.ForeignKey(Topic)    # a post belongs to only one topic
@@ -37,6 +40,9 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('forum:detail', kwargs={'topic_id': self.topic.id})
 
+    def trace_msg(self):
+        return "Follow up#%d for topic <strong>%s</strong>" % (self.id, self.topic.title)
+
 
 class Reply(models.Model):
     post = models.ForeignKey(Post)      # reply to a single post
@@ -46,6 +52,9 @@ class Reply(models.Model):
 
     def __unicode(self):
         return "A reply by " + self.author.name
+
+    def trace_msg(self):
+        return "Reply#%d to post#%d of topic <strong>%s</strong>" % (self.id, self.post.id, self.post.author.title)
 
 
 

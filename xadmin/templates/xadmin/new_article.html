@@ -1,15 +1,21 @@
-{% extends "base.html" %}
+{% extends "xadmin/xadmin_base.html" %}
 {% load staticfiles %}
-{% block head %}
+{% block xadmin_head %}
     <link rel="stylesheet" type="text/css" href="{% static "pages/new_article.css" %}">
+
     <script>
         $(function () {
-            $('#id_content').ckeditor()
+            CKEDITOR.replace('id_content');
+            $("#id_tags").tagit({
+                singleField: true,
+                singleFieldNode: $("#id_tags")
+            });
+
         })
     </script>
 {% endblock %}
 {% block title %}Create A New Article{% endblock %}
-{% block content %}
+{% block xadmin_content %}
     <div class="new-article-content">
         <div class="header-container">
             <h1 class="new-article-main-header">
@@ -24,9 +30,7 @@
                 <div class="fieldWrapper">
                     <label class="new-article-label" for="id_category">Tag(s)</label>
 
-                    <div class="new-article-checkbox">
-                        {{ form.tags }}
-                    </div>
+                    {{ form.tags }}
                 </div>
                 <div class="fieldWrapper">
                     <label class="new-article-label" for="id_title">Title</label>
@@ -48,7 +52,7 @@
                 </div>
                 <p>
                     <input class="button blue-button new-article-submit"
-                           id="new-post-sumbit" type="submit" value="submit">
+                           id="new_article_sumbit_btn" type="submit" value="submit">
                 </p>
             </form>
         </div>

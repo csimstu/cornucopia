@@ -122,3 +122,85 @@ def manage_connections(request):
         friends = paginator.page(1)
 
     return render(request, 'xadmin/manage_connections.html', {'friends': friends})
+
+from forum.forms import NewTopicForm
+
+@login_required()
+def new_topic(request):
+    user = request.user
+    if request.method == 'POST':
+        form = NewTopicForm(request.POST)
+
+        if form.is_valid():
+            category = form.cleaned_data['category']
+            topic = Topic(title=form.cleaned_data['title'],
+                          author=user,
+                          date_published=datetime.datetime.now()
+            )
+            topic.save()
+            for x in category:
+                topic.category.add(x)
+
+            first_post = Post(topic=topic,
+                              author=user,
+                              date_published=topic.date_published,
+                              content=form.cleaned_data['content'])
+            first_post.save()
+            return HttpResponseRedirect(topic.get_absolute_url())
+    else:
+        form = NewTopicForm()
+
+    return render(request, 'xadmin/new_topic.html', {
+        'form': form
+    })
+
+from pages.forms import NewArticleForm
+
+@login_required()
+def new_article(request):
+    user = request.user
+    if request.method == 'POST':
+        form = NewArticleForm(user=user, data=request.POST)
+
+        if form.is_valid():
+            article = Article(title=form.cleaned_data['title'],
+                              author=user,
+                              content=form.cleaned_data['content'],
+                              date_published=datetime.datetime.now()
+            )
+            article.save()
+
+            tags = form.cleaned_data['tags']
+            if tags != "":
+                for tag_title in tags.split(','):
+                    try:
+                        tag = Tag.objects.get(title=tag_title, author=user)
+                    except Tag.DoesNotExist:
+                        tag = Tag.objects.create(title=tag_title, author=user)
+
+                    article.tags.add(tag)
+
+            return HttpResponseRedirect(article.get_absolute_url())
+    else:
+        form = NewArticleForm(user)
+
+    return render(request, 'xadmin/new_article.html', {
+        'form': form
+    })
+
+from forum.models import Topic, Post, Reply
+from network.models import Trace
+@login_required()
+def recent_traces(request):
+    user = request.user
+    trace_list = Trace.objects.filter(user=user).order_by("-date")
+    paginator = Paginator(trace_list, 10)
+    page = request.GET.get('page')
+
+    try:
+        traces = paginator.page(page)
+    except PageNotAnInteger, EmptyPage:
+        traces = paginator.page(1)
+
+    return render(request, 'xadmin/recent_traces.html', {'traces': traces})
+

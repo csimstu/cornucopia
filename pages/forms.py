@@ -1,24 +1,21 @@
 from django import forms
-from django.forms import CheckboxSelectMultiple
 from TeenHope import settings
 from pages.models import Tag
 
+
 class NewArticleForm(forms.Form):
-    tags = forms.ModelMultipleChoiceField(
-        widget=CheckboxSelectMultiple(),
-        queryset=Tag.objects.all()
-    )
+    tags = forms.CharField(widget=forms.HiddenInput(), required=False)
     title = forms.CharField()
     content = forms.CharField(widget=forms.Textarea())
 
+    def __init__(self, user, *args, **kwargs):
+        super(NewArticleForm, self).__init__(*args, **kwargs)
+        self.fields['tags'].queryset = Tag.objects.filter(author=user)
+
     def clean(self):
         cleaned_data = super(NewArticleForm, self).clean()
-        tags = cleaned_data.get('tags')
         title = cleaned_data.get('title')
         content = cleaned_data.get('content')
-
-        if tags is None:
-            raise forms.ValidationError("At least choose one tag")
 
         if title is None:
             raise forms.ValidationError("Title cannot be empty.")

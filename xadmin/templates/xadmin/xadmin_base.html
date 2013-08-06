@@ -22,16 +22,10 @@
                         Add connections</a></li>
 
 
-                    <li class="nav-header">Forum</li>
-                    <li><a href="#">Topics</a></li>
-                    <li><a href="#">Posts</a></li>
-                    <li><a href="#">Replies</a></li>
-
-
-                    <li class="nav-header">Pages</li>
-                    <li><a href="#">Articles</a></li>
-                    <li><a href="#">Comments</a></li>
-                    <li><a href="#">Tags</a></li>
+                    <li class="nav-header">My activities</li>
+                    <li><a href="{% url 'xadmin:new_topic' %}">New topic</a></li>
+                    <li><a href="{% url 'xadmin:new_article' %}">New article</a></li>
+                    <li><a href="{% url 'xadmin:recent_traces' %}">Recent traces</a></li>
 
 
                     <li class="nav-header">Profile</li>

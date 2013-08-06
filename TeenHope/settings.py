@@ -197,6 +197,8 @@ COMMENT_LENGTH_LIMIT = 500
 # Network constatns
 MESSAGE_LENGTH_LIMIT = 10000
 MESSAGE_SUBJECT_LENGTH_LIMIT = 100
+TRACE_DESCRIPTION_LENGTH_LIMIT = 100
+URL_LENGTH_LIMIT = 50
 
 # Validation regex
 USERNAME_PATTERN = r'[A-Za-z]\w{5,19}' # regex for username, 6<=len<=20 with leading alpha

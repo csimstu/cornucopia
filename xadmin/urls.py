@@ -9,5 +9,9 @@ urlpatterns = patterns('',
                        url(r'^send_msg/$', views.send_msg, name="send_msg"),
                        url(r'add_connections/$', views.add_connections, name="add_connections"),
                        url(r'manage_connections/$', views.manage_connections, name="manage_connections"),
+                       url(r'^new_topic/$', views.new_topic, name="new_topic"),
+                       url(r'^new_article/$', views.new_article, name="new_article"),
+                       url(r'recent_traces/$', views.recent_traces, name="recent_traces"),
 )
+
 

@@ -31,35 +31,6 @@ from django.contrib.auth.decorators import login_required
 import datetime
 
 
-@login_required()
-def new_topic(request):
-    user = request.user
-    if request.method == 'POST':
-        form = NewTopicForm(request.POST)
-
-        if form.is_valid():
-            category = form.cleaned_data['category']
-            topic = Topic(title=form.cleaned_data['title'],
-                          author=user,
-                          date_published=datetime.datetime.now()
-            )
-            topic.save()
-            for x in category:
-                topic.category.add(x)
-
-            first_post = Post(topic=topic,
-                              author=user,
-                              date_published=topic.date_published,
-                              content=form.cleaned_data['content'])
-            first_post.save()
-            return HttpResponseRedirect(topic.get_absolute_url())
-    else:
-        form = NewTopicForm()
-
-    return render(request, 'forum/new_topic.html', {
-        'form': form
-    })
-
 
 @login_required
 def new_post(request, topic_id):

@@ -58,3 +58,57 @@ def auto_create_relation_list(sender, **kwargs):
         RelationList.objects.create(holder=user)
 
 post_save.connect(auto_create_relation_list, sender=User)
+
+
+class Trace(models.Model):
+    user = models.ForeignKey(User)
+    url = models.CharField(max_length=settings.URL_LENGTH_LIMIT)
+    description = models.CharField(max_length=settings.TRACE_DESCRIPTION_LENGTH_LIMIT)
+    date = models.DateTimeField()
+
+import datetime
+
+# Add listeners in order to create trace messages
+def create_topic_trace(sender, **kwargs):
+    topic = kwargs["instance"]
+    if kwargs["created"]:
+        Trace.objects.create(user=topic.author, date=datetime.datetime.now(),
+                             url=topic.get_absolute_url(),
+                             description=topic.trace_msg())
+post_save.connect(create_topic_trace, sender=Topic)
+
+
+def create_post_trace(sender, **kwargs):
+    post = kwargs["instance"]
+    if kwargs["created"]:
+        Trace.objects.create(user=post.author, date=datetime.datetime.now(),
+                             url=post.get_absolute_url(),
+                             description=post.trace_msg())
+post_save.connect(create_post_trace, sender=Post)
+
+from forum.models import Reply
+def create_reply_trace(sender, **kwargs):
+    reply = kwargs["instance"]
+    if kwargs["created"]:
+        Trace.objects.create(user=reply.author, date=datetime.datetime.now(),
+                             url=reply.get_absolute_url(),
+                             description=reply.trace_msg())
+post_save.connect(create_reply_trace, sender=Reply)
+
+from pages.models import Article, Comment
+
+def create_article_trace(sender, **kwargs):
+    article = kwargs["instance"]
+    if kwargs["created"]:
+        Trace.objects.create(user=article.author, date=datetime.datetime.now(),
+                             url=article.get_absolute_url(),
+                             description=article.trace_msg())
+post_save.connect(create_article_trace, sender=Article)
+
+def create_comment_trace(sender, **kwargs):
+    comment = kwargs["instance"]
+    if kwargs["created"]:
+        Trace.objects.create(user=comment.author, date=datetime.datetime.now(),
+                             url=comment.get_absolute_url(),
+                             description=comment.trace_msg())
+post_save.connect(create_comment_trace, sender=Comment)

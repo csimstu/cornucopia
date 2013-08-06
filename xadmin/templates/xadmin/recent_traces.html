@@ -1,0 +1,66 @@
+{% extends "xadmin/xadmin_base.html" %}
+{% load staticfiles %}
+{% block title %}
+    Inbox
+{% endblock %}
+{% block xadmin_head %}
+    <link rel="stylesheet" type="text/css" href="{% static "xadmin/recent_traces.css" %}">
+
+    <script>
+        $(function(){
+            $('.trace-row').click(function(){
+                document.location = $(this).attr('href');
+            })
+        })
+    </script>
+{% endblock %}
+{% block xadmin_content %}
+    <div>
+        <h2><i class="icon-anchor"></i>
+            Traces</h2>
+
+        <div class="container">
+            <div class="navbar">
+                <div class="pagination pull-right">
+                    <ul>
+                        {% if traces.has_previous %}
+                            <li><a href="?page={{ traces.previous_page_number }}">«</a></li>
+                        {% else %}
+                            <li class="disabled"><a>«</a></li>
+                        {% endif %}
+
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                Page {{ traces.number }} of {{ traces.paginator.num_pages }}
+                            </a>
+                        </li>
+
+                        {% if traces.has_next %}
+                            <li><a href="?page={{ traces.next_page_number }}">»</a></li>
+                        {% else %}
+                            <li class="disabled"><a>»</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for trace in traces %}
+                    <tr class="trace-row" href={{ trace.url }}>
+                        <td>{{ trace.date|date:"M d, Y" }}</td>
+                        <td>{{ trace.description|safe }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>{% endblock %}
