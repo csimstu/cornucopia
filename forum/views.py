@@ -76,6 +76,7 @@ def post_reply(request, post_id):
             return HttpResponseBadRequest(x)
     return Http404()
 
+from pages.models import Article, Comment
 def home(request):
     reversed_topic_list = Topic.objects.order_by('-date_published')
     topic_list = []
@@ -87,6 +88,19 @@ def home(request):
                            'last_edited_time': last_post.date_published,
                            'category': x.category.all()[0].title}
         )
+    article_list = []
+    reversed_article_list = Article.objects.order_by('-date_published')
+    for x in reversed_article_list:
+        article_list.append({
+            'id': x.id, 'title': x.title,
+            'comment_cnt': x.comment_set.count(),
+            'date_published': x.date_published,
+            'author_name': x.author.get_profile().nickname,
+            'abstract': x.content,
+            'tags': x.tags.all(),
+        })
+
     return render(request, 'home.html', {
-        'hot_topics': topic_list
+        'hot_topics': topic_list,
+        'hot_articles': article_list,
     })

@@ -181,6 +181,50 @@
                         <span>pages of highlight</span>
                     </h2>
 
+                    <div class="content">
+                        <ul class="article-list">
+                            {% for article in hot_articles %}
+                                <li>
+                                    <h3>
+                                        <a class="article-title"
+                                           href="{% url 'pages:detail' article.id %}">
+                                            {{ article.title }}
+                                        </a>
+                                    </h3>
+
+                                    <ul class="meta">
+                                        <li>
+                                            <i class="icon-edit"></i>
+                                            {{ article.author_name }}
+                                        </li>
+                                        <li>
+                                            <i class="icon-time"></i>
+                                            {{ article.date_published|date:"P, M d" }}
+                                        </li>
+                                        <li>
+                                            <i class="icon-comment"></i>
+                                            {{ article.comment_cnt }} comment{{ article.comment_cnt|pluralize }}
+                                        </li>
+                                        <li>
+                                            <i class="icon-tags"></i>
+                                            {% for tag in article.tags %}
+                                                <span class="tag">{{ tag.title }}</span>
+                                            {% endfor %}
+                                        </li>
+                                    </ul>
+                                    <div class="abstract">
+                                        {{ article.abstract|safe }}
+                                    </div>
+
+                                    <a class="btn btn-primary pull-right" href="{% url 'pages:detail' article.id %}">Read
+                                        more</a>
+                                </li>
+
+                            {% endfor %}
+                        </ul>
+
+
+                    </div>
                 </div>
             </div>
             <div class="span1"></div>

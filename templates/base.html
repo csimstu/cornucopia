@@ -182,7 +182,7 @@
                         </a>
                         <a class="navbar-user-btn" href="{% url 'xadmin:inbox' %}">
                             <i class="icon-envelope icon-large"></i>
-                                <span class="subscript inbox-subscript">{{ user.get_profile.get_unread_message_cnt }}</span>
+                            <span class="subscript inbox-subscript">{{ user.get_profile.get_unread_message_cnt }}</span>
                         </a>
                         <a class="navbar-user-btn" href="{% url 'xadmin:dashboard' %}">
                             <i class="icon-dashboard icon-large"></i>
@@ -275,6 +275,16 @@
                type="submit" value="Join in"/>
     </div>
 </form>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <article class="span12">
+                    <span>cornucopia © 2013</span>
+                </article>
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>

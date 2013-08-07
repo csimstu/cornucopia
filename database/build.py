@@ -46,3 +46,30 @@ except IOError:
     topic2.category.add(default_cat)
     post2 = Post.objects.create(topic=topic2, author=llx, date_published=datetime.datetime.now(),
                                 content="Second post by llx! Hoooray!")
+
+    from pages.models import Article, Comment, Tag
+
+    tag1 = Tag.objects.create(author=llx, title="Innovation")
+    tag2 = Tag.objects.create(author=llx, title="Web Design")
+    tag3 = Tag.objects.create(author=llx, title="Fonts")
+
+    article1 = Article.objects.create(title="Creative And Innovative Navigation Designs "
+                                            "Creative And Innovative Navigation Designs",
+                                      author=llx, date_published=datetime.datetime.now(),
+                                      content="A website has a personality - it is a "
+                                              "reflection of the person or organization behin"
+                                              "d it. When people visit your website, you want it to st"
+                                              "and out from the crowd, to be memorable. You want people to c"
+                                              "ome back and use your website or get in touch with you. So, ...",
+                                      )
+    article1.tags.add(tag1, tag2, tag3)
+
+    comment1 = Comment.objects.create(author=user[0], article=article1,
+                                      date_published=datetime.datetime.now(),
+                                      content="Super awesome collection. I love typography. :)"
+    )
+
+    article2 = article1
+    article2.pk = None
+    article2.date_published = datetime.datetime.now();
+    article2.save()
