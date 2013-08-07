@@ -77,4 +77,16 @@ def post_reply(request, post_id):
     return Http404()
 
 def home(request):
-    return render(request, 'home.html')
+    reversed_topic_list = Topic.objects.order_by('-date_published')
+    topic_list = []
+    for x in reversed_topic_list:
+        last_post = x.post_set.order_by('-date_published')[0];
+        topic_list.append({'id': x.id, 'title': x.title,
+                           'post_cnt': x.post_set.count(),
+                           'last_editor': last_post.author.get_profile().nickname,
+                           'last_edited_time': last_post.date_published,
+                           'category': x.category.all()[0].title}
+        )
+    return render(request, 'home.html', {
+        'hot_topics': topic_list
+    })

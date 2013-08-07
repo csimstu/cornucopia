@@ -204,3 +204,48 @@ def recent_traces(request):
 
     return render(request, 'xadmin/recent_traces.html', {'traces': traces})
 
+from accounts.forms import ProfileForm
+
+@login_required
+def update_profile(request):
+    user = request.user
+    if request.method == 'POST':
+        form = ProfileForm(user=request.user, data=request.POST)
+        profile = user.get_profile()
+
+        if form.is_valid():
+            if form.cleaned_data['new_password'] is not None\
+                and len(form.cleaned_data['new_password']) > 0:
+                user.set_password(form.cleaned_data['new_password'])
+            user.email = form.cleaned_data['email']
+            user.save()
+
+            profile.first_name = form.cleaned_data['first_name']
+            profile.last_name = form.cleaned_data['last_name']
+            profile.nickname = form.cleaned_data['nickname']
+            profile.website = form.cleaned_data['website']
+            profile.renren = form.cleaned_data['renren']
+            profile.qq = form.cleaned_data['qq']
+            profile.phone = form.cleaned_data['phone']
+            profile.biography = form.cleaned_data['biography']
+            profile.motto = form.cleaned_data['motto']
+
+            profile.save()
+            return HttpResponseRedirect(reverse('home'))
+    else:
+        profile = user.get_profile()
+        form = ProfileForm(initial={
+            'first_name': profile.first_name,
+            'last_name': profile.last_name,
+            'nickname': profile.nickname,
+            'website': profile.website,
+            'renren': profile.renren,
+            'qq': profile.qq,
+            'phone': profile.phone,
+            'biography': profile.biography,
+            'motto': profile.motto,
+            'email': user.email},)
+
+    return render(request, 'xadmin/update_profile.html', {
+        'form': form,
+    })

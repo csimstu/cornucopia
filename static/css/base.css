@@ -1,0 +1,86 @@
+.subscript {
+    font-size: xx-small;
+    vertical-align:bottom;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.transparent {
+    opacity: 0.9;
+}
+
+.navbar-img {
+    height: 30px;
+    margin-right: 5px;
+}
+
+.navbar a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.navbar-user-btn {
+    margin-left: 5px;
+}
+
+
+.login-box-label {
+    font-size: 24px;
+}
+
+#profile-link {
+    margin: 0 10px 0 0;
+}
+
+.messages-list {
+    position: fixed;
+    top: 60px;
+    left: 50%;
+}
+
+.inbox-subscript {
+    position: relative;
+    background: white;
+    margin-left: -10px;
+    padding: 1px;
+    border: 1px solid #dedede
+    -moz-border-radium: 5px;
+    -webkit-border-radius: 5px;
+}
+
+.paper-wrapper {
+    background: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.short-headline {
+    border-bottom: 1px solid #d8dfe5;
+    margin: 0 0 1em 0;
+    text-transform: lowercase;
+    padding-bottom: 9px;
+    line-height: normal;
+}
+
+.short-headline span{
+    border-bottom: 5px solid #d8dfe5;
+    padding-bottom: 10px;
+}
+
+.meta {
+    color: #d3d3d3;
+    font-size: 12px;
+    word-spacing: 0.1em;
+}
+
+.meta>span:after {
+    content: "|";
+}
+
+.meta>span:last-child:after {
+    content: "";
+}

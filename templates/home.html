@@ -3,68 +3,187 @@
 {% block title %}
     Cornucopia
 {% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" type="text/css" media="screen"/>
+
+    <script src="{% static 'js/home-slider.js' %}"></script>
+{% endblock %}
 {% block content %}
-    <div class="container-fluid">
-    <div class="row-fluid">
+
+    <section id="feature_slider" class="">
+        <!--
+            Each slide is composed by <img> and .info
+            - .info's position is customized with css in index.css
+            - each <img> parallax effect is declared by the following params inside its class:
+
+            example: class="asset left-472 sp600 t120 z3"
+            left-472 means left: -472px from the center
+            sp600 is speed transition
+            t120 is top to 120px
+            z3 is z-index to 3
+            Note: Maintain this order of params
+
+            For the backgrounds, you can combine from the bgs folder :D
+        -->
+        <article class="slide" id="showcasing"
+                 style="background: url('{% static 'img/backgrounds/landscape.png' %}') repeat-x top center;">
+            <img class="asset left-30 sp600 t120 z1" src="{% static 'img/slides/scene1/macbook.png' %}"/>
+
+            <div class="info">
+                <h2>Beautiful theme for showcasing your works.</h2>
+            </div>
+        </article>
+        <article class="slide" id="ideas"
+                 style="background: url('{% static 'img/backgrounds/aqua.jpg' %}') repeat-x top center;">
+            <div class="info">
+                <h2>We love to turn ideas into beautiful things.</h2>
+            </div>
+            <img class="asset left-480 sp600 t260 z1" src="{% static 'img/slides/scene2/left.png' %}"/>
+            <img class="asset left-210 sp600 t213 z2" src="{% static 'img/slides/scene2/middle.png' %}"/>
+            <img class="asset left60 sp600 t260 z1" src="{% static 'img/slides/scene2/right.png' %}"/>
+        </article>
+        <article class="slide" id="tour"
+                 style="background: url('{% static 'img/backgrounds/color-splash.jpg' %}') repeat-x top center;">
+            <img class="asset left-472 sp650 t210 z3" src="{% static 'img/slides/scene3/ipad.png' %}"/>
+            <img class="asset left-365 sp600 t270 z4" src="{% static 'img/slides/scene3/iphone.png' %}"/>
+            <img class="asset left-350 sp450 t135 z2" src="{% static 'img/slides/scene3/desktop.png' %}"/>
+            <img class="asset left-185 sp550 t220 z1" src="{% static 'img/slides/scene3/macbook.png' %}"/>
+
+            <div class="info">
+                <h2>Fully Responsive theme</h2>
+                <a href="features.html">TOUR THE PRODUCT</a>
+            </div>
+        </article>
+    </section>
+
+    <div class="intro row-fluid">
+        <div class="container">
+            <div class="span9">
+                <span>Cornucopia is a non-profit community dedicating for
+                    helping physically injured teenagers.</span>
+
+                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                    deleniti atque corrupti quos dolores et quas molestias excepturi vehicula sem ut volutpat. Ut non
+                    libero magna fusce condimentum eleifend enim a feugiat.
+                </p>
+            </div>
+            <div class="span3 join-now">
+                <a class="btn btn-success btn-block btn-large">Join Us Now</a>
+            </div>
+        </div>
+    </div>
 
 
-            <div id="myCarousel" class="carousel slid span10"
-                 data-interval=0>
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class=""></li>
-                    <li data-target="#myCarousel" data-slide-to="1" class=""></li>
-                    <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-                    <li data-target="#myCarousel" data-slide-to="3" class=""></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="item">
-                        <img src="{% static 'img/home-slider1.jpg' %}" alt="">
+    <div class="main-wrapper container-fluid">
+        <div class="row-fluid">
+            <div class="span1"></div>
+            <div class="span4">
+                <div class="quote">
+                    <h2 class="short-headline">
+                        <span>quote of the day</span>
+                    </h2>
 
-                        <div class="carousel-caption">
-                            <h4>First Thumbnail label</h4>
-
-                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
-                                gravida
-                                at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        </div>
+                    <div class="content">
+                        <i class="icon-quote-left icon-large"></i>
+                        In human intercourse the tragedy begins, not when there is misunderstanding about words, but
+                        when
+                        silence is not understood.
+                        <i class="icon-quote-right icon-large"></i>
                     </div>
-                    <div class="item">
-                        <img src="{% static 'img/home-slider2.jpg' %}" alt="">
-
-                        <div class="carousel-caption">
-                            <h4>Second Thumbnail label</h4>
-
-                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
-                                gravida
-                                at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        </div>
+                    <div class="author pull-right">
+                        Henry David Thoreau
                     </div>
-                    <div class="item active">
-                        <img src="{% static 'img/home-slider3.jpg' %}" alt="">
+                </div>
 
-                        <div class="carousel-caption">
-                            <h4>Third Thumbnail label</h4>
+                <div class="hot-topics">
+                    <h2 class="short-headline">
+                        <span>hot topics this week</span>
+                    </h2>
 
-                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
-                                gravida
-                                at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        </div>
+                    <div class="content">
+                        <ul>
+                            {% for topic in hot_topics %}
+                                <li>
+                                    <h3>
+                                        <a class="topic-title"
+                                           href="{% url 'forum:detail' topic.id %}">
+                                            {{ topic.title }}
+                                        </a>
+                                    </h3>
+
+                                    <div class="meta">
+                                            <span>{{ topic.post_cnt }}
+                                                post{{ topic.post_cnt|pluralize }}
+                                            </span>
+                                            <span>
+                                                <i class="icon-edit"></i>
+                                                {{ topic.last_editor }}
+                                            </span>
+                                            <span>
+                                                <i class="icon-time"></i>
+                                                {{ topic.last_edited_time|date:"P, M d" }}
+                                            </span>
+                                            <span>
+                                                <i class="icon-tag"></i>
+                                                {{ topic.category }}
+                                            </span>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     </div>
-                    <div class="item">
-                        <img src="{% static 'img/home-slider4.jpg' %}" alt="">
+                </div>
+            </div>
 
-                        <div class="carousel-caption">
-                            <h4>Third Thumbnail label</h4>
+            <div class="span6">
+                <div class="features">
+                    <h2 class="short-headline">
+                        <span>features at cornucopia</span>
+                    </h2>
 
-                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
-                                gravida
-                                at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <div class="row-fluid">
+                        <div class="feature-item span4 forum-intro">
+                            <div class="feature-icon">
+                                <i class="icon-comments"></i>
+                            </div>
+                            <h3>forum</h3>
+                        <span>
+                            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                    deleniti atque corrupti.
+                        </span>
+                        </div>
+                        <div class="feature-item span4 blog-intro">
+                            <div class="feature-icon">
+                                <i class="icon-file"></i>
+                            </div>
+                            <h3>blog</h3>
+                        <span>
+                            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                    deleniti atque corrupti quos.
+                        </span>
+                        </div>
+                        <div class="feature-item span4 connect-intro">
+                            <div class="feature-icon">
+                                <i class="icon-code-fork"></i>
+                            </div>
+
+                            <h3>connect</h3>
+                        <span>
+                            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                    deleniti atque corrupti quos.
+                        </span>
                         </div>
                     </div>
                 </div>
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+
+                <div class="highlight-pages">
+                    <h2 class="short-headline">
+                        <span>pages of highlight</span>
+                    </h2>
+
+                </div>
             </div>
+            <div class="span1"></div>
         </div>
     </div>
 {% endblock %}

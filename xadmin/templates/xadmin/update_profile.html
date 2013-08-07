@@ -1,10 +1,10 @@
-{% extends "base.html" %}
+{% extends "xadmin/xadmin_base.html" %}
 {% load staticfiles %}
 {% block title %}Update your profile{% endblock %}
-{% block head %}
-    <link rel="stylesheet" type="text/css" href="{% static "accounts/update_profile.css" %}">
+{% block xadmin_head %}
+    <link rel="stylesheet" type="text/css" href="{% static "xadmin/update_profile.css" %}">
 {% endblock %}
-{% block content %}
+{% block xadmin_content %}
     <div class="update-profile-wrapper">
         <div class="header-container">
             <h1>Profile Editing</h1>
@@ -12,7 +12,7 @@
 
         <div class="main-profile">
             <div class="portrait-wrapper">
-                <img class="portrait" src="{% static 'accounts/default_portrait.jpg' %}">
+                <img class="portrait" src="{{ request.user.get_profile.get_icon_url }}">
             </div>
             <form method="POST" action=""> {% csrf_token %}
                 <div class="error_msg">

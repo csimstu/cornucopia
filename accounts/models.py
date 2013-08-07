@@ -24,6 +24,11 @@ class Profile(models.Model):
     def get_icon_url(self):
         return "/static/accounts/default_portrait.jpg"
 
+    def get_unread_message_cnt(self):
+        from network.models import Message
+
+        return Message.objects.filter(receiver=self.user, unread=True).count()
+
 
 from django.db.models.signals import post_save
 

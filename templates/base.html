@@ -3,17 +3,18 @@
 <html>
 <head>
 
-    <script src="{% static "base/js/jquery-1.10.2.js" %}"></script>
-    <script src="{% static 'jquery-ui-1.10.3/ui/jquery-ui.js' %}"></script>
+    <script src="{% static "js/jquery-1.10.2.js" %}"></script>
+    <script src="{% static 'js/jquery-ui-1.10.3/ui/jquery-ui.js' %}"></script>
     <script src="{% static 'ckeditor4.2/ckeditor.js' %}"></script>
     <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
     <script src="{% static 'tag-it/tag-it.js' %}"></script>
 
     <link rel="stylesheet" type="text/css" href="{% static "bootstrap/css/bootstrap.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "bootstrap/css/bootstrap-responsive.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "font/font-awesome/css/font-awesome.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "jquery-ui-1.10.3/themes/base/jquery-ui.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "js/jquery-ui-1.10.3/themes/base/jquery-ui.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "tag-it/tagit.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "base/style.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}">
 
     {% block head %}
     {% endblock %}
@@ -141,10 +142,11 @@
 
 {% endif %}
 
-<div class="navbar navbar-fixed-top active">
+<div class="navbar transparent navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
-        <div class="container-fluid">
-            <a class="brand" href="{% url 'home' %}">Cornucopia</a>
+        <div class="container">
+            <a class="brand" href="{% url 'home' %}">
+                <strong>Cornucopia</strong></a>
 
             <div class="nav-collapse">
                 <ul class="nav">
@@ -180,9 +182,10 @@
                         </a>
                         <a class="navbar-user-btn" href="{% url 'xadmin:inbox' %}">
                             <i class="icon-envelope icon-large"></i>
+                                <span class="subscript inbox-subscript">{{ user.get_profile.get_unread_message_cnt }}</span>
                         </a>
-                        <a class="navbar-user-btn" href="{% url 'accounts:update_profile' %}">
-                            <i class="icon-cogs icon-large"></i>
+                        <a class="navbar-user-btn" href="{% url 'xadmin:dashboard' %}">
+                            <i class="icon-dashboard icon-large"></i>
                         </a>
                         <a class="navbar-user-btn" href="{% url 'accounts:logout' %}">
                             <i class="icon-signout icon-large"></i>
