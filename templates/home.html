@@ -207,9 +207,13 @@
                                         </li>
                                         <li>
                                             <i class="icon-tags"></i>
-                                            {% for tag in article.tags %}
-                                                <span class="tag">{{ tag.title }}</span>
-                                            {% endfor %}
+                                            {% if article.tags %}
+                                                {% for tag in article.tags %}
+                                                    <span class="tag">{{ tag.title }}</span>
+                                                {% endfor %}
+                                            {% else %}
+                                                <span class="tag">No tag</span>
+                                            {% endif %}
                                         </li>
                                     </ul>
                                     <div class="abstract">

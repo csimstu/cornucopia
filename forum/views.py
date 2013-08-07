@@ -13,7 +13,7 @@ def index(request):
                            'post_cnt': x.post_set.count(),
                            'last_editor': last_post.author.get_profile().nickname,
                            'last_edited_time': last_post.date_published,
-                           'category': x.category.all()[0].title}
+                           'category': x.category.title}
         )
 
     return render(request, 'forum/index.html', {'topic_list': topic_list})
@@ -86,7 +86,7 @@ def home(request):
                            'post_cnt': x.post_set.count(),
                            'last_editor': last_post.author.get_profile().nickname,
                            'last_edited_time': last_post.date_published,
-                           'category': x.category.all()[0].title}
+                           'category': x.category.title}
         )
     article_list = []
     reversed_article_list = Article.objects.order_by('-date_published')

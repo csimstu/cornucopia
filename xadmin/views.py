@@ -135,11 +135,10 @@ def new_topic(request):
             category = form.cleaned_data['category']
             topic = Topic(title=form.cleaned_data['title'],
                           author=user,
-                          date_published=datetime.datetime.now()
+                          date_published=datetime.datetime.now(),
+                          category=category
             )
             topic.save()
-            for x in category:
-                topic.category.add(x)
 
             first_post = Post(topic=topic,
                               author=user,

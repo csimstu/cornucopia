@@ -12,7 +12,7 @@ class Category(models.Model):
 
 
 class Topic(models.Model):
-    category = models.ManyToManyField(Category)     # one topic might belong to many kinds
+    category = models.ForeignKey(Category, default=1)     # one topic belongs to only one kind
     title = models.CharField(max_length=settings.TOPIC_TITLE_LENGTH_LIMIT)         # title of the topic
     date_published = models.DateTimeField()
     author = models.ForeignKey(User)

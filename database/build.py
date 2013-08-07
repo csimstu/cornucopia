@@ -30,20 +30,18 @@ except IOError:
                                type="MSG")
 
     from forum.models import Category
-    default_cat = Category.objects.create(title="default")
+    default_cat = Category.objects.create(title="Uncategorized")
 
     from forum.models import Topic, Post
     topic1 = Topic.objects.create(title="A Journey Through Beautiful Typography In Web Design",
                          date_published=datetime.datetime.now(),
                          author=llx)
-    topic1.category.add(default_cat)
     post1 = Post.objects.create(topic=topic1, author=llx, date_published=datetime.datetime.now(),
                                 content="First post by llx! Hoooray!")
 
     topic2 = Topic.objects.create(title="Teaching Web Design To New Students In Higher Education",
                          date_published=datetime.datetime.now(),
                          author=llx)
-    topic2.category.add(default_cat)
     post2 = Post.objects.create(topic=topic2, author=llx, date_published=datetime.datetime.now(),
                                 content="Second post by llx! Hoooray!")
 

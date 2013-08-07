@@ -1,13 +1,12 @@
 from django import forms
-from django.forms import CheckboxSelectMultiple
 from TeenHope import settings
 from models import Category
 
 
 class NewTopicForm(forms.Form):
-    category = forms.ModelMultipleChoiceField(
-        widget=CheckboxSelectMultiple(),
-        queryset=Category.objects.all()
+    category = forms.ModelChoiceField(
+        queryset=Category.objects.all(),
+        initial=Category.objects.get(id=1)
     )
     title = forms.CharField()
     content = forms.CharField(widget=forms.Textarea)
@@ -15,12 +14,8 @@ class NewTopicForm(forms.Form):
     def clean(self):
         cleaned_data = super(NewTopicForm, self).clean()
 
-        category = cleaned_data.get('category')  # a query-set
         title = cleaned_data.get('title')
         content = cleaned_data.get('content')
-
-        if category is None:
-            raise forms.ValidationError("Please select a category.")
 
         if title is None:
             raise forms.ValidationError("Title cannot be empty.")

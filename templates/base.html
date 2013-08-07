@@ -50,80 +50,9 @@
             }
         });
 
-        var submit_login_form = function () {
-            var username = $("#login-box #id_username").val();
-            var password = $("#login-box #id_password").val();
-            var data = {username: username, password: password};
-            $.ajax({
-                type: "POST", url: "{% url "accounts:login" %}",
-                data: data, complete: after_submit_login
-            })
-
-            return false;
-        }
-
-        var submit_registration_form = function () {
-            $.ajax({
-                type: "POST", url: "{% url "accounts:register" %}",
-                data: {
-                    username: $("#register-box #id_username").val(),
-                    password: $("#register-box #id_password").val(),
-                    re_password: $("#register-box #id_re_password").val(),
-                    email: $("#register-box #id_email").val()
-                }, complete: after_submit_register
-            })
-            return false;
-        }
-
-        var after_submit_login = function (res, status) {
-            if (status == "success")
-                window.location = window.location.href;
-            else {
-                $('#login-box .alert').show()
-                $('#login-box .error-msg').text(res.responseText).hide().fadeIn(500);
-            }
-        };
-
-        var after_submit_register = function (res, status) {
-            if (status == "success") {
-                window.location = window.location.href;
-            }
-            else {
-                $('#register-box .alert').show()
-                $('#register-box .error-msg').text(res.responseText).hide().fadeIn(500);
-            }
-        };
-
-        var need_to_login_first = function () {
-            {% if user.is_authenticated %}
-                return true;
-            {% endif %}
-            $('#login-box').modal('show');
-            $('#login-box .text-error').text("You need to login first.").hide().fadeIn(500);
-            return false;
-
-        }
         $(function () {
-
-            $("#login-box-submit-btn").click(submit_login_form);
-
-            $("#register-box-submit-btn").click(submit_registration_form);
-
-            $("#start_new_topic_btn").click(need_to_login_first);
-
-            $('.modal').on('show', function () {
-                $(this).css({'margin-top': ($(window).height() - $(this).height()) / 2, 'top': '0'});
-                $(this).css({'margin-left': ($(window).width() - $(this).width()) / 2, 'left': '0'});
-            });
-
-            $('#login-box-join-btn').click(function () {
-                $('#login-box').modal('hide');
-                $('#register-box').modal('show');
-            })
             $('.messages-list').css({'margin-left': -($('.messages-list').width()) / 2});
             $('.messages-list').hide().fadeIn(500);
-
-
         });
     </script>
 
@@ -193,17 +122,9 @@
 
                     {% else %}
                         <div class="btn-group">
-                            <a class="btn btn-primary" data-target="#login-box" data-toggle="modal">
+                            <a class="btn btn-primary" href="{% url 'accounts:login' %}">
                                 <i class="icon-user icon-large"></i>
-                                Log in</a>
-                            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span>
                             </a>
-                            <ul class="dropdown-menu pull-right">
-                                <li><a data-toggle="modal" data-target="#register-box">
-                                    Not a member?</a></li>
-                                <li><a>Forgot something?</a></li>
-                            </ul>
                         </div>
                     {% endif %}
                 </div>
@@ -215,76 +136,16 @@
 {% block content %}
 {% endblock %}
 
-<!-- hidden login box -->
-<form id="login-box" class="modal hide fade"
-      tabindex=-1 method="post" style="max-width: 300px;"> {% csrf_token %}
 
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×</button>
-        <h3 id="login-box-label">Member Login</h3>
-    </div>
-
-    <div class="modal-body">
-        <div class="alert alert-error hide">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Error!</strong>
-
-            <p class="error-msg"></p>
-        </div>
-        <input type="text" class="input-block-level"
-               id="id_username" name="username" placeholder="Username">
-        <input type="password" class="input-block-level"
-               id="id_password" name="password" placeholder="Password">
-    </div>
-    <div class="modal-footer">
-        <input id="login-box-submit-btn" class="btn btn-primary" type="submit" value="Log in"/>
-
-        <div class="btn btn-navbar" id="login-box-join-btn">
-            Aren't a member of us?
+<footer>
+    <div class="container">
+        <div class="row">
+            <article class="span12">
+                <span>cornucopia © 2013</span>
+            </article>
         </div>
     </div>
-</form>
-
-<!-- hidden register box -->
-<form id="register-box" class="modal hide fade"
-      tabindex=-1 method="post" style="max-width: 300px;"> {% csrf_token %}
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×</button>
-        <h3 id="register-box-label">Registration</h3>
-    </div>
-
-    <div class="modal-body">
-        <div class="alert alert-error hide">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Error!</strong>
-
-            <p class="error-msg"></p>
-        </div>
-        <input type="text" class="input-block-level"
-               id="id_username" name="username" placeholder="Username">
-        <input type="password" class="input-block-level"
-               id="id_password" name="password" placeholder="Password">
-        <input type="password" class="input-block-level"
-               id="id_re_password" name="re_password" placeholder="Re-enter password">
-        <input type="text" class="input-block-level"
-               id="id_email" name="email" placeholder="Email">
-    </div>
-
-    <div class="modal-footer">
-        <input id="register-box-submit-btn" class="btn btn-primary"
-               type="submit" value="Join in"/>
-    </div>
-</form>
-
-    <footer>
-        <div class="container">
-            <div class="row">
-                <article class="span12">
-                    <span>cornucopia © 2013</span>
-                </article>
-            </div>
-        </div>
-    </footer>
+</footer>
 
 </body>
 </html>
