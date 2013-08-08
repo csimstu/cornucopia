@@ -112,3 +112,15 @@ footer {
     background: url('../img/backgrounds/tweed.png');
     height: 100%;
 }
+
+ul.errorlist {
+    list-style: none;
+    border: #ff0000 solid 1px;
+    padding: 1px 5px;
+    font-size: 0.8em;
+}
+
+ul.errorlist li {
+    line-height: 1em;
+}
+

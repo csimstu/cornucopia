@@ -1,0 +1,58 @@
+{% extends 'accounts/accounts.html' %}
+{% load widget_tweaks %}
+{% block accounts_content %}
+    <div class="tab-pane active" id="panel2">
+        <div class="row-fluid">
+            <div class="span5">
+                <form method="POST" id="register_form"
+                      action="{% url 'accounts:register' %}"> {% csrf_token %}
+                    <h4><i class="icon-user"></i>&nbsp;&nbsp; Register Here</h4>
+                    {{ register_form.non_field_errors }}
+
+                    <label>Username</label>
+                    {{ register_form.username.errors }}
+                    {{ register_form.username|add_class:"input-block-level" }}
+                    <label>Password </label>
+                    {{ register_form.password.errors }}
+                    {{ register_form.password|add_class:"input-block-level" }}
+                    <label>Repeat Password</label>
+                    {{ register_form.re_password.errors }}
+                    {{ register_form.re_password|add_class:"input-block-level" }}
+                    <label>Email</label>
+                    {{ register_form.email.errors }}
+                    {{ register_form.email|add_class:"input-block-level" }}
+                    <br>
+
+                    <a onclick="$('#register_form').submit();" class="btn"
+                            >Register Now&nbsp;&nbsp;&nbsp;
+                        <i class="icon-chevron-sign-right"></i></a>
+                </form>
+            </div>
+            <div class="span3">
+                <h4><i class="icon-expand-alt"></i>&nbsp;&nbsp;Social</h4>
+
+                <div class="socials clearfix">
+                    Comming soon...
+                </div>
+            </div>
+            <div class="span4">
+                <h4><i class="icon-question"></i>&nbsp;&nbsp;Login</h4>
+
+                <div class="box">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel.
+                    </p>
+
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit
+                        in.
+                    </p>
+                </div>
+                <div class="box">
+                    Already Have An Account.<br>
+                    Click Here For <a href="{% url 'accounts:login' %}">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

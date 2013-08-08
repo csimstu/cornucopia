@@ -1,0 +1,54 @@
+{% extends 'accounts/accounts.html' %}
+{% load widget_tweaks %}
+{% block accounts_content %}
+    <div class="tab-pane active" id="panel1">
+        <div class="row-fluid">
+
+            <div class="span5">
+                <form id="login_form" method="POST"
+                      action="{% url 'accounts:login' %}"> {% csrf_token %}
+                    <h4><i class="icon-user"></i>&nbsp;&nbsp; Login Here</h4>
+                    {{ login_form.non_field_errors }}
+                    <label>Username</label>
+                    {{ login_form.username.errors }}
+                    {{ login_form.username|add_class:"input-block-level" }}
+                    <label>Password<a href="#panel3" class="pull-right" tabindex=-1><i
+                            class="icon-question-sign"></i>Forgot
+                        Password</a>
+                    </label>
+                    {{ login_form.password.errors }}
+                    {{ login_form.password|add_class:"input-block-level" }}
+                    <br>
+
+                    <a onclick="$('#login_form').submit();" class="btn">Sign In&nbsp;&nbsp;&nbsp;<i
+                            class="icon-chevron-sign-right"></i></a>
+                </form>
+            </div>
+            <div class="span3">
+                <h4><i class="icon-expand-alt"></i>&nbsp;&nbsp;Social</h4>
+
+                <div class="socials clearfix">
+                    Comming soon...
+                </div>
+            </div>
+            <div class="span4">
+                <h4><i class="icon-question"></i>&nbsp;&nbsp;Registration</h4>
+
+                <div class="box">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel.
+                    </p>
+
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit
+                        in.
+                    </p>
+                </div>
+                <div class="box">
+                    Don't Have An Account.<br>
+                    Click Here For <a href="{% url 'accounts:register' %}">Free Register</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

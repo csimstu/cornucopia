@@ -53,6 +53,8 @@
         $(function () {
             $('.messages-list').css({'margin-left': -($('.messages-list').width()) / 2});
             $('.messages-list').hide().fadeIn(500);
+
+            $('.errorlist li').prepend('<i class="icon-exclamation"></i> &nbsp;');
         });
     </script>
 
@@ -124,7 +126,15 @@
                         <div class="btn-group">
                             <a class="btn btn-primary" href="{% url 'accounts:login' %}">
                                 <i class="icon-user icon-large"></i>
+                                Log in</a>
+                            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
                             </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="{% url 'accounts:register' %}">
+                                    Not a member?</a></li>
+                                <li><a>Forgot something?</a></li>
+                            </ul>
                         </div>
                     {% endif %}
                 </div>

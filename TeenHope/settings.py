@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     'pages',
     'xadmin',
     'network',
+    'widget_tweaks', # a plugin for conveniently adding css to widgets
 )
 
 # A sample logging configuration. The only tangible logging
@@ -202,7 +203,9 @@ URL_LENGTH_LIMIT = 50
 
 # Validation regex
 USERNAME_PATTERN = r'[A-Za-z]\w{5,19}' # regex for username, 6<=len<=20 with leading alpha
+USERNAME_HINT = "Username must consist of 6 to 20 alpha or digits with leading alpha."
 PASSWORD_PATTERN = r'\w{6,20}' # regex for username, 6<=len<=20
+PASSWORD_HINT = "Password must consist of 6 to 20 alpha or digits."
 EMAIL_PATTERN = r'\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*'
 
 # Modify django message system

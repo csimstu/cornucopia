@@ -1,12 +1,37 @@
+import re
+
 from django import forms
 from django.contrib import auth
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+
 from TeenHope import settings
-import re
+
+
+def username_validator(username):
+    if not username:
+        raise ValidationError("Username cannot be none.")
+    if not re.compile(settings.USERNAME_PATTERN).match(username):
+        raise ValidationError(settings.USERNAME_HINT)
+
+
+def password_validator(password):
+    if not password:
+        raise ValidationError("Password cannot be none.")
+    if not re.compile(settings.PASSWORD_PATTERN).match(password):
+        raise ValidationError(settings.PASSWORD_HINT)
+
+
+def email_validator(email):
+    if not email:
+        raise ValidationError("Email is required.")
+    if not re.compile(settings.EMAIL_PATTERN).match(email):
+        raise ValidationError("Invalid email format.")
+
 
 class LoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField() # validators=[username_validator]
+    password = forms.CharField(widget=forms.PasswordInput) # validators=[password_validator]
 
     def clean(self):
         cleaned_data = super(LoginForm, self).clean()
@@ -19,39 +44,35 @@ class LoginForm(forms.Form):
             raise forms.ValidationError("The account has been disabled.")
         return cleaned_data
 
+
 class RegistrationForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
-    re_password = forms.CharField(widget=forms.PasswordInput)
-    email = forms.CharField()
+    username = forms.CharField(validators=[username_validator])
+    password = forms.CharField(validators=[password_validator], widget=forms.PasswordInput)
+    re_password = forms.CharField(validators=[password_validator], widget=forms.PasswordInput)
+    email = forms.CharField(validators=[email_validator])
+
+    def clean_username(self):
+        tmp = self.cleaned_data['username']
+        if User.objects.filter(username=tmp).count():
+            raise forms.ValidationError("Username being occupied.")
+        return tmp
 
     def clean(self):
         cleaned_data = super(RegistrationForm, self).clean()
         username = cleaned_data.get('username')
-        if not self.check_username(username):
-            raise forms.ValidationError("Invalid username.")
-        if (User.objects.filter(username=username).count()):
-            raise forms.ValidationError("Username being occupied.")
 
         pswd1 = cleaned_data.get('password')
-        pswd2 = cleaned_data.get('re_password')
-        if not self.check_password(pswd1):
-            raise forms.ValidationError("Invalid password.")
-        if (pswd1 != pswd2):
-            raise forms.ValidationError("Inconsistent passwords.")
 
-        email = cleaned_data.get('email')
-        if not self.check_email(email):
-            raise forms.ValidationError("Incorrect email address.")
+        pswd2 = cleaned_data.get('re_password')
+        if pswd2:
+            if pswd1 != pswd2:
+                msg = "You must enter the same password twice."
+                self._errors["re_password"] = self.error_class([msg])
+
+                del cleaned_data["re_password"]
 
         return cleaned_data
 
-    def check_username(self, username):
-        return username and re.compile(settings.USERNAME_PATTERN).match(username)
-    def check_password(self, password):
-        return password and re.compile(settings.PASSWORD_PATTERN).match(password)
-    def check_email(self, email):
-        return email and re.compile(settings.EMAIL_PATTERN).match(email)
 
 class ProfileForm(forms.Form):
     first_name = forms.CharField(required=False)
@@ -103,6 +124,6 @@ class ProfileForm(forms.Form):
 
     def check_password(self, password):
         return password and re.compile(settings.PASSWORD_PATTERN).match(password)
-    def check_email(self, email):
-        return email and re.compile(settings.EMAIL_PATTERN).match(email)
+
+
 

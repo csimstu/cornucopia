@@ -1,20 +1,21 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load widget_tweaks %}
 {% block title %}Accounts management{% endblock %}
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{% static "css/accounts.css" %}">
     <script>
         $(function () {
-            $('a[href="#panel1"]').click(function () {
-                $('.nav-tabs a[href="#panel1"]').tab('show');
-            });
-            $('a[href="#panel2"]').click(function () {
-                $('.nav-tabs a[href="#panel2"]').tab('show');
-            });
-            $('a[href="#panel3"]').click(function () {
-                $('.nav-tabs a[href="#panel3"]').tab('show');
-            });
-
+            var path = window.location.pathname;
+            if (path.indexOf('login') >= 0) {
+                $('#login_tab').addClass("active");
+            }
+            if (path.indexOf('register') >= 0) {
+                $('#register_tab').addClass("active");
+            }
+            if (path.indexOf('forgot_password') >= 0) {
+                $('#forgot_password_tab').addClass("active");
+            }
 
         })
     </script>
@@ -24,172 +25,23 @@
         <div class="span8 offset2">
             <div class="tabbable custom-tabs">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#panel1" data-toggle="tab" class="active ">
+                    <li id="login_tab" class=""><a href="{% url 'accounts:login' %}">
                         <i class="icon-lock"></i>&nbsp;<span>Login Panel</span></a>
                     </li>
-                    <li class=""><a href="#panel2" data-toggle="tab">
+                    <li id="register_tab" class=""><a href="{% url 'accounts:register' %}">
                         <i class="icon-user"></i>&nbsp;<span>Register Panel</span></a>
                     </li>
-                    <li class=""><a href="#panel3" data-toggle="tab">
+                    <li id="forgot_password_tab" class=""><a href="#">
                         <i class="icon-key"></i>&nbsp;<span>Forgot Password</span></a>
                     </li>
                 </ul>
+
                 <div class="tab-content">
-                    <div class="tab-pane active" id="panel1">
-                        <div class="row-fluid">
-                            <div class="span5">
-                                <h4><i class="icon-user"></i>&nbsp;&nbsp; Login Here</h4>
-
-                                <label>Username</label>
-                                <input type="text" class="input-block-level">
-                                <label>Password<a href="#panel3" class="pull-right"><i class="icon-question-sign"></i>Forgot
-                                    Password</a>
-                                </label>
-                                <input type="password" class="input-block-level">
-                                <label>
-                                    <button type="button" data-toggle="button" class="btn btn-mini custom-checkbox"><i
-                                            class="icon-ok"></i></button>
-                                    &nbsp;&nbsp;Remember Me
-                                </label>
-                                <br>
-
-                                <a href="#" class="btn">Sign In&nbsp;&nbsp;&nbsp;<i class="icon-chevron-sign-right"></i></a>
-                            </div>
-                            <div class="span3">
-                                <h4><i class="icon-expand-alt"></i>&nbsp;&nbsp;Social</h4>
-
-                                <div class="socials clearfix">
-                                    Comming soon...
-                                </div>
-                            </div>
-                            <div class="span4">
-                                <h4><i class="icon-question"></i>&nbsp;&nbsp;Registration</h4>
-
-                                <div class="box">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel.
-                                    </p>
-
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit
-                                        in.
-                                    </p>
-                                </div>
-                                <div class="box">
-                                    Don't Have An Account.<br>
-                                    Click Here For <a href="#panel2">Free Register</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="panel2">
-                        <div class="row-fluid">
-                            <div class="span5">
-                                <h4><i class="icon-user"></i>&nbsp;&nbsp; Register Here</h4>
-
-
-                                <label>Username</label>
-                                <input type="text" class="input-block-level">
-                                <label>Password </label>
-                                <input type="password" class="input-block-level">
-                                <label>Repeat Password</label>
-                                <input type="password" class="input-block-level">
-                                <label>Email</label>
-                                <input type="text" class="input-block-level">
-                                <label>
-                                    <button type="button" data-toggle="button" class="btn btn-mini custom-checkbox"><i
-                                            class="icon-ok"></i></button>
-                                    &nbsp;&nbsp;I Agree With <a href="#">Terms &amp; Conditions</a>
-                                </label>
-                                <br>
-
-                                <a href="#" class="btn"
-                                        >Register Now&nbsp;&nbsp;&nbsp;
-                                    <i class="icon-chevron-sign-right"></i></a>
-
-                            </div>
-                            <div class="span3">
-                                <h4><i class="icon-expand-alt"></i>&nbsp;&nbsp;Social</h4>
-
-                                <div class="socials clearfix">
-                                    Comming soon...
-                                </div>
-                            </div>
-                            <div class="span4">
-                                <h4><i class="icon-question"></i>&nbsp;&nbsp;Login</h4>
-
-                                <div class="box">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel.
-                                    </p>
-
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit
-                                        in.
-                                    </p>
-                                </div>
-                                <div class="box">
-                                    Already Have An Account.<br>
-                                    Click Here For <a href="#panel1">Login</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane" id="panel3">
-                        <div class="row-fluid">
-                            <div class="span5">
-                                <h4><i class="icon-unlock"></i>&nbsp;&nbsp;Password Recovery</h4>
-
-                                <label>Email</label>
-                                <input type="text" class="input-block-level">
-                                <label>Security Question</label>
-                                <select class="input-block-level">
-                                    <option disabled="disabled" selected="selected">---Select---</option>
-                                    <option>Which Is Your First Mobile</option>
-                                    <option>What Is Your Pet Name</option>
-                                    <option>What Is Your Mother Name</option>
-                                    <option>Which Is Your First Game</option>
-                                </select>
-                                <label>Answer</label>
-                                <input type="text" class="input-block-level">
-                                <br>
-                                <br>
-                                <a href="#" class=" btn  ">Recover Password&nbsp;&nbsp;&nbsp;<i
-                                        class="icon-chevron-sign-right"></i></a>
-                            </div>
-                            <div class="span7">
-                                <h4><i class="icon-question"></i>&nbsp;&nbsp;Help</h4>
-
-                                <div class="box">
-                                    <p>Getting Error With Password Recovery Click Here For <a href="#">Support</a></p>
-                                    <ul>
-
-
-                                        <li>Vestibulum pharetra lectus montes lacus!</li>
-                                        <li>Iaculis lectus augue pulvinar taciti.</li>
-                                    </ul>
-
-                                </div>
-                                <div class="box">
-                                    <ul>
-                                        <li>Potenti facilisis felis sociis blandit euismod.</li>
-                                        <li>Odio mi hendrerit ad nostra.</li>
-                                        <li>Rutrum mi commodo molestie taciti.</li>
-                                        <li>Interdum ipsum ad risus conubia, porttitor.</li>
-                                        <li>Placerat litora, proin hac hendrerit ac volutpat.</li>
-                                        <li>Ornare, aliquam condimentum habitasse.</li>
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
+                    {% block accounts_content %}{% endblock %}
                 </div>
 
             </div>
+
         </div>
     </div>
 {% endblock %}
