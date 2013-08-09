@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static "forum/index.css" %}">
+{% endblock %}
+{% block title %}Forum{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="container">
+            <h1>
+                {{ category.title }}
+            </h1>
+
+            <div class="span2">
+                <div class="tabbable">
+                    <ul class="nav nav-list bs-docs-sidenav">
+                        <li class="active"><a href="#">All category <i class="icon-chevron-right"></i></a></li>
+                        <li ><a href="#">All category</a></li>
+                        <li ><a href="#">All category</a></li>
+                        <li ><a href="#">All category</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="span8">
+                {% if topic_list %}
+                    <ul>
+                        {% for topic in topic_list %}
+                            <li>
+                                <h3>
+                                    <a class="topic-title"
+                                       href="{% url 'forum:detail' topic.id %}">
+                                        {{ topic.title }}
+                                    </a>
+                                </h3>
+
+                                <div class="meta">
+                                            <span>{{ topic.post_cnt }}
+                                                post{{ topic.post_cnt|pluralize }}
+                                            </span>
+                                            <span>
+                                                <i class="icon-edit"></i>
+                                                {{ topic.last_editor }}
+                                            </span>
+                                            <span>
+                                                <i class="icon-time"></i>
+                                                {{ topic.last_edited_time|date:"P, M d" }}
+                                            </span>
+                                            <span>
+                                                <i class="icon-tag"></i>
+                                                {{ topic.category }}
+                                            </span>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

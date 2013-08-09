@@ -2,13 +2,20 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.contrib.auth.models import User
 from TeenHope import settings
-
+from django.db.models.signals import post_save
 
 class Category(models.Model):
     title = models.CharField(max_length=settings.CATEGORY_TITLE_LENGTH_LIMIT)  # title of the category
+    label = models.CharField(max_length=settings.CATEGORY_LABEL_LENGTH_LIMIT)
+    description = models.CharField(max_length=settings.CATEGORY_DESCRIPTION_LENGTH_LIMIT)
+    topic_cnt = models.IntegerField(default=0)
+    post_cnt = models.IntegerField(default=0)
+    last_editor_id = models.IntegerField(default=0)
+    last_modified_time = models.DateTimeField()
 
     def __unicode__(self):
         return self.title
+
 
 
 class Topic(models.Model):
@@ -58,4 +65,23 @@ class Reply(models.Model):
 
 
 
+
+def listen_to_topic(sender, **kwargs):
+    topic = kwargs["instance"]
+    if kwargs["created"]:
+        cat = topic.category
+        cat.topic_cnt += 1
+
+post_save.connect(listen_to_topic, sender=Topic)
+
+def listen_to_post(sender, **kwargs):
+    post = kwargs["instance"]
+    if kwargs["created"]:
+        topic = post.topic
+        cat = topic.category
+        cat.post_cnt += 1
+        cat.last_editor_id = post.author.id
+        cat.last_modified_time = post.date_published
+
+post_save.connect(listen_to_post, sender=Post)
 
