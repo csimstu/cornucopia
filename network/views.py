@@ -14,7 +14,7 @@ def search_user_thumb_list(request):
             user_json = {}
             user_json['label'] = user.get_profile().nickname
             user_json['value'] = user.username
-            user_json['icon_url'] = user.get_profile().get_icon_url()
+            user_json['icon_url'] = user.get_profile().thumbnail.url
             user_json['id'] = user.id
             results.append(user_json)
         data = json.dumps(results)
@@ -34,7 +34,7 @@ def search_user_thumb_list_exclude(request):
             user_json = {}
             user_json['label'] = user.get_profile().nickname
             user_json['value'] = user.username
-            user_json['icon_url'] = user.get_profile().get_icon_url()
+            user_json['icon_url'] = user.get_profile().thumnail.url
             user_json['id'] = user.id
             results.append(user_json)
         data = json.dumps(results)
@@ -51,7 +51,7 @@ def get_user_thumb_by_id(request):
                 user_json = {}
                 user_json['label'] = user.get_profile().nickname
                 user_json['value'] = user.username
-                user_json['icon_url'] = user.get_profile().get_icon_url()
+                user_json['icon_url'] = user.get_profile().thumbnail.url
                 user_json['id'] = user.id
                 results.append(user_json)
 

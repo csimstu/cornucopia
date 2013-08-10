@@ -3,7 +3,7 @@
 {% load access_to_settings %}
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="{% static "forum/detail.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "forum/topic_detail.css" %}">
     <script>
         var reply_post_id = -1;
         var submit_reply_form = function () {
@@ -81,7 +81,7 @@
                         <h4 id="pop-up-reply-box"><i class="icon-long-arrow-left"></i> Reply</h4>
                     </div>
                     <div class="post-left-wrap">
-                        <img class="portrait" src="{% static "accounts/default_portrait.jpg" %}">
+                        <img class="portrait" src="{{ request.user.get_profile.thumbnail.url }}">
 
                         <div class="post-author">
                             {{ post.author.get_profile.nickname }}
@@ -106,7 +106,7 @@
                             <div class="paper-wrap post">
                                 <div class="left-border"></div>
                                 <div class="post-left-wrap">
-                                    <img class="portrait" src="{% static "accounts/default_portrait.jpg" %}">
+                                    <img class="portrait" src="{{ request.user.get_profile.thumbnail.url }}">
 
                                     <div class="post-author">
                                         {{ reply.author.get_profile.nickname }}

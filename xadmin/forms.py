@@ -1,6 +1,8 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from TeenHope import settings
 from forum.models import *
+
 
 class NewTopicForm(forms.Form):
     category = forms.ModelChoiceField(
@@ -28,6 +30,7 @@ class NewTopicForm(forms.Form):
                                         "than %d characters." % settings.POST_LENGTH_LIMIT)
 
         return cleaned_data
+
 
 class NewMessageForm(forms.Form):
     subject = forms.CharField()
@@ -66,5 +69,67 @@ class AddConnectionsForm(forms.Form):
 
         if friends is None or friends == "":
             raise forms.ValidationError("At least add one person.")
+
+        return cleaned_data
+
+
+from accounts.models import validate_email, validate_nickname, validate_website
+
+
+class ProfileForm(forms.Form):
+    first_name = forms.CharField(required=False)
+    last_name = forms.CharField(required=False)
+    nickname = forms.CharField(validators=[validate_nickname])
+    email = forms.CharField(validators=[validate_email])
+    thumbnail = forms.ImageField(required=False)
+
+    website = forms.CharField(required=False)
+    renren = forms.CharField(required=False)
+    qq = forms.CharField(required=False)
+    phone = forms.CharField(required=False)
+
+    biography = forms.CharField(required=False, widget=forms.Textarea)
+    motto = forms.CharField(required=False, widget=forms.Textarea)
+
+    def clean_thumbnail(self):
+        image = self.cleaned_data['thumbnail']
+        if image:
+            if image.size > 4 * 1024 * 1024:
+                raise ValidationError("Image file too large (> 4mb).")
+
+
+    def clean_website(self):
+        website = self.cleaned_data['website']
+        if website:
+            validate_website(website)
+        return website
+
+
+from accounts.models import validate_password
+
+
+class ChangePasswordForm(forms.Form):
+    old_password = forms.CharField()
+    new_password = forms.CharField(validators=[validate_password])
+    re_password = forms.CharField(validators=[validate_password])
+
+    def __init__(self, user=None, *args, **kwargs):
+        super(ChangePasswordForm, self).__init__(*args, **kwargs)
+        self.__user = user
+
+    def clean_old_password(self):
+        old_password = self.cleaned_data['old_password']
+        if not self.__user.check_password(old_password):
+            raise ValidationError("Incorrect password.")
+        return old_password
+
+    def clean(self):
+        cleaned_data = super(ChangePasswordForm, self).clean()
+
+        new_password = cleaned_data.get('new_password')
+        re_password = cleaned_data.get('re_password')
+
+        if new_password != re_password:
+            raise forms.ValidationError('Inconsistent passwords.')
 
         return cleaned_data

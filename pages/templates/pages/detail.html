@@ -31,7 +31,7 @@
             {% for comment in article.comment_set.all %}
                 <div class="paper-wrap comment" id="comment_{{ comment.id }}">
                     <div class="comment-left-wrap">
-                        <img class="portrait" src="{% static "accounts/default_portrait.jpg" %}">
+                        <img class="portrait" src="{{ request.user.get_profile.thumbnail.url }}">
 
                         <div class="comment-author">
                             {{ comment.author.get_profile.nickname }}

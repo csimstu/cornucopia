@@ -1,9 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static "forum/all_category_index.css" %}">
+{% endblock %}
+{% block title %}Forum{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="container">
+            <div class="span2">
+            </div>
+            <div class="span8">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Intro</th>
+                            <th>Topics</th>
+                            <th>Posts</th>
+                            <th>Freshness</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in category_list %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'forum:specific_category_index' label=category.label %}">
+                                    {{ category.title }}</a>
+                                </td>
+                                <td>{{ category.intro }}</td>
+                                <td>{{ category.topic_cnt }}</td>
+                                <td>{{ category.post_cnt }}</td>
+                                <td>{{ category.last_editor.get_profile.nickname}}
+                                    # {{ category.last_modified_time|date:"P, M d" }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
-</body>
-</html>
+        </div>
+    </div>
+{% endblock %}

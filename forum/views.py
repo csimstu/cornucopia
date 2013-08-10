@@ -9,6 +9,8 @@ def all_category_index(request):
     for category in Category.objects.all():
         category_list.append({
             'title': category.title,
+            'label': category.label,
+            'intro': category.description,
             'topic_cnt': category.topic_cnt,
             'post_cnt': category.post_cnt,
             'last_editor': User.objects.get(id=category.last_editor_id),
@@ -16,7 +18,7 @@ def all_category_index(request):
         })
 
     return render(request, 'forum/all_category_index.html', {
-        'category': category,
+        'category_list': category_list,
     })
 
 
@@ -37,6 +39,7 @@ def all_topic_index(request):
     reversed_topic_list = Topic.objects.order_by('-date_published')
 
     return render(request, 'forum/topic_index.html', {
+        'category_title': 'All Topics',
         'topic_list': generate_topic_list(reversed_topic_list)
     })
 
@@ -46,6 +49,7 @@ def specific_category_index(request, label):
     reversed_topic_list = Topic.objects.filter(category=category).order_by('-date_published')
 
     return render(request, 'forum/topic_index.html', {
+        'category_title': category.title,
         'topic_list': generate_topic_list(reversed_topic_list),
     })
 

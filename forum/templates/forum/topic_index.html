@@ -1,26 +1,17 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="{% static "forum/index.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "forum/topic_index.css" %}">
 {% endblock %}
 {% block title %}Forum{% endblock %}
 {% block content %}
     <div class="container-fluid">
         <div class="container">
-            <h1>
-                {{ category.title }}
-            </h1>
+            <h2>
+                Forum > {{ category_title }}
+            </h2>
 
-            <div class="span2">
-                <div class="tabbable">
-                    <ul class="nav nav-list bs-docs-sidenav">
-                        <li class="active"><a href="#">All category <i class="icon-chevron-right"></i></a></li>
-                        <li ><a href="#">All category</a></li>
-                        <li ><a href="#">All category</a></li>
-                        <li ><a href="#">All category</a></li>
-                    </ul>
-                </div>
-            </div>
+            <div class="span2"></div>
             <div class="span8">
                 {% if topic_list %}
                     <ul>
@@ -28,7 +19,7 @@
                             <li>
                                 <h3>
                                     <a class="topic-title"
-                                       href="{% url 'forum:detail' topic.id %}">
+                                       href="{% url 'forum:topic_detail' topic_id=topic.id %}">
                                         {{ topic.title }}
                                     </a>
                                 </h3>

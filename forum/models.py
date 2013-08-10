@@ -3,15 +3,16 @@ from django.db import models
 from django.contrib.auth.models import User
 from TeenHope import settings
 from django.db.models.signals import post_save
+import datetime
 
 class Category(models.Model):
     title = models.CharField(max_length=settings.CATEGORY_TITLE_LENGTH_LIMIT)  # title of the category
     label = models.CharField(max_length=settings.CATEGORY_LABEL_LENGTH_LIMIT)
-    description = models.CharField(max_length=settings.CATEGORY_DESCRIPTION_LENGTH_LIMIT)
+    description = models.CharField(default="Description goes here...", max_length=settings.CATEGORY_DESCRIPTION_LENGTH_LIMIT)
     topic_cnt = models.IntegerField(default=0)
     post_cnt = models.IntegerField(default=0)
     last_editor_id = models.IntegerField(default=0)
-    last_modified_time = models.DateTimeField()
+    last_modified_time = models.DateTimeField(default=datetime.datetime.now())
 
     def __unicode__(self):
         return self.title
@@ -28,7 +29,7 @@ class Topic(models.Model):
         return "Topic: " + self.title
 
     def get_absolute_url(self):
-        return reverse('forum:detail', kwargs={'topic_id': self.id})
+        return reverse('forum:topic_detail', kwargs={'topic_id': self.id})
 
     def trace_msg(self):
         return "Create topic#%d <strong>%s</strong>" % (self.id, self.title)
@@ -45,7 +46,7 @@ class Post(models.Model):
         return "Post #%d for Topic %s" % (self.id, self.topic.title)
 
     def get_absolute_url(self):
-        return reverse('forum:detail', kwargs={'topic_id': self.topic.id})
+        return reverse('forum:topic_detail', kwargs={'topic_id': self.topic.id})
 
     def trace_msg(self):
         return "Follow up#%d for topic <strong>%s</strong>" % (self.id, self.topic.title)
@@ -71,6 +72,7 @@ def listen_to_topic(sender, **kwargs):
     if kwargs["created"]:
         cat = topic.category
         cat.topic_cnt += 1
+        cat.save()
 
 post_save.connect(listen_to_topic, sender=Topic)
 
@@ -82,6 +84,7 @@ def listen_to_post(sender, **kwargs):
         cat.post_cnt += 1
         cat.last_editor_id = post.author.id
         cat.last_modified_time = post.date_published
+        cat.save()
 
 post_save.connect(listen_to_post, sender=Post)
 

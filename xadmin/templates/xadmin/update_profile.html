@@ -11,14 +11,15 @@
         </div>
 
         <div class="main-profile">
-            <div class="portrait-wrapper">
-                <img class="portrait" src="{{ request.user.get_profile.get_icon_url }}">
-            </div>
-            <form method="POST" action=""> {% csrf_token %}
+
+            <form method="POST" action="" enctype="multipart/form-data"> {% csrf_token %}
                 <div class="error_msg">
                     {{ form.errors }}
                 </div>
-
+                <div class="portrait-wrapper">
+                    <img class="portrait" src="{{ request.user.get_profile.thumbnail.url }}">
+                    {{ form.thumbnail }}
+                </div>
                 <div class="section" id="name">
                     <h2>Name</h2>
 

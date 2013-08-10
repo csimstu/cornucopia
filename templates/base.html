@@ -87,7 +87,7 @@
                     {% endif %}><a href="{{ home_url }}"><i class="icon-home"></i>
                         Home</a></li>
 
-                    {% url 'forum:index' as forum_url %}
+                    {% url 'forum:all_category_index' as forum_url %}
                     <li{% if request.path == forum_url %}
                         class="active"
                     {% endif %}><a href="{{ forum_url }}"><i class="icon-comments"></i>
@@ -105,7 +105,7 @@
                 <div class="pull-right">
                     {% if user.is_authenticated %}
                         <span>
-                        <img class="navbar-img" src="{% static 'accounts/default_portrait.jpg' %}">
+                        <img class="navbar-img" src="{{ request.user.get_profile.thumbnail.url }}">
                         </span>
                         <a id="profile-link" class="navbar-text"
                            href="{% url 'xadmin:dashboard' %}">

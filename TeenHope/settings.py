@@ -190,6 +190,7 @@ QQ_LENGTH_LIMIT = 20
 PHONE_LENGTH_LIMIT = 20
 BIOGRAPHY_LENGTH_LIMIT = 200
 MOTTO_LENGTH_LIMIT = 50
+DEFAULT_USER_THUMBNAIL = os.path.join(STATIC_URL, 'accounts', 'default_portrait.jpg')
 
 # Pages constants
 TAG_LENGTH_LIMIT = 50
@@ -209,6 +210,8 @@ USERNAME_HINT = "Username must consist of 6 to 20 alpha or digits with leading a
 PASSWORD_PATTERN = r'\w{6,20}' # regex for username, 6<=len<=20
 PASSWORD_HINT = "Password must consist of 6 to 20 alpha or digits."
 EMAIL_PATTERN = r'\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*'
+NICKNAME_PATTERN = r'\w{6,20}'
+WEBSITE_PATTERN = r'.{6,20}'
 
 # Modify django message system
 from django.contrib import messages

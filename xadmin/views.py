@@ -123,7 +123,7 @@ def manage_connections(request):
 
     return render(request, 'xadmin/manage_connections.html', {'friends': friends})
 
-from forum.forms import NewTopicForm
+from xadmin.forms import NewTopicForm
 
 @login_required()
 def new_topic(request):
@@ -203,19 +203,16 @@ def recent_traces(request):
 
     return render(request, 'xadmin/recent_traces.html', {'traces': traces})
 
-from accounts.forms import ProfileForm
+from xadmin.forms import ProfileForm
 
 @login_required
 def update_profile(request):
     user = request.user
     if request.method == 'POST':
-        form = ProfileForm(user=request.user, data=request.POST)
+        form = ProfileForm(request.POST, request.FILES)
         profile = user.get_profile()
 
         if form.is_valid():
-            if form.cleaned_data['new_password'] is not None\
-                and len(form.cleaned_data['new_password']) > 0:
-                user.set_password(form.cleaned_data['new_password'])
             user.email = form.cleaned_data['email']
             user.save()
 
@@ -228,6 +225,20 @@ def update_profile(request):
             profile.phone = form.cleaned_data['phone']
             profile.biography = form.cleaned_data['biography']
             profile.motto = form.cleaned_data['motto']
+
+            thumbnail = request.FILES['thumbnail']
+            if thumbnail is not None:
+                with open('thumbnail.upload', 'wb+') as des:
+                    for chunk in thumbnail.chunks():
+                        des.write(chunk)
+                des.close()
+                from django.core.files import File
+
+                f = File(open('thumbnail.upload', 'r'))
+                print f
+                profile.thumbnail.save('thumbnail/' + user.username,
+                                       f)
+
 
             profile.save()
             return HttpResponseRedirect(reverse('home'))
