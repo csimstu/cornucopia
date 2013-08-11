@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static "forum/forum_base.css" %}">
+    <script>
+        $(function () {
+            $('body').css('background', 'url({% static 'img/backgrounds/subtle_white_feathers.png' %})');
+        })
+    </script>
+    {% block forum_head %}
+    {% endblock %}
+{% endblock %}
+{% block title %}Forum{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="container">
+            {% block forum_content %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

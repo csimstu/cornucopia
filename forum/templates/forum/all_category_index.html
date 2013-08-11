@@ -1,43 +1,41 @@
-{% extends "base.html" %}
+{% extends "forum/forum_base.html" %}
 {% load staticfiles %}
-{% block head %}
+{% block forum_head %}
     <link rel="stylesheet" type="text/css" href="{% static "forum/all_category_index.css" %}">
+    <script>
+    </script>
 {% endblock %}
-{% block title %}Forum{% endblock %}
-{% block content %}
-    <div class="container-fluid">
-        <div class="container">
-            <div class="span2">
-            </div>
-            <div class="span8">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Category</th>
-                            <th>Intro</th>
-                            <th>Topics</th>
-                            <th>Posts</th>
-                            <th>Freshness</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for category in category_list %}
-                            <tr>
-                                <td>
-                                    <a href="{% url 'forum:specific_category_index' label=category.label %}">
-                                    {{ category.title }}</a>
-                                </td>
-                                <td>{{ category.intro }}</td>
-                                <td>{{ category.topic_cnt }}</td>
-                                <td>{{ category.post_cnt }}</td>
-                                <td>{{ category.last_editor.get_profile.nickname}}
-                                    # {{ category.last_modified_time|date:"P, M d" }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
+{% block forum_content %}
+    <h2>Forum</h2>
+    <div class="span2">
     </div>
+    <div class="span8">
+        <table class="category">
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Intro</th>
+                <th>Topics</th>
+                <th>Posts</th>
+                <th>Freshness</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for category in category_list %}
+                <tr>
+                    <td class="title">
+                        <a href="{% url 'forum:specific_category_index' label=category.label %}">
+                            {{ category.title }}</a>
+                    </td>
+                    <td>{{ category.intro }}</td>
+                    <td>{{ category.topic_cnt }}</td>
+                    <td>{{ category.post_cnt }}</td>
+                    <td>{{ category.last_editor.get_profile.nickname }}
+                        # {{ category.last_modified_time|date:"P, M d" }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 {% endblock %}

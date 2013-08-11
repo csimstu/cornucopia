@@ -1,30 +1,27 @@
-{% extends "base.html" %}
+{% extends "forum/forum_base.html" %}
 {% load staticfiles %}
-{% block head %}
+{% block forum_head %}
     <link rel="stylesheet" type="text/css" href="{% static "forum/topic_index.css" %}">
 {% endblock %}
-{% block title %}Forum{% endblock %}
-{% block content %}
-    <div class="container-fluid">
-        <div class="container">
-            <h2>
-                Forum > {{ category_title }}
-            </h2>
+{% block forum_content %}
+    <h2>
+        Forum > {{ category_title }}
+    </h2>
 
-            <div class="span2"></div>
-            <div class="span8">
-                {% if topic_list %}
-                    <ul>
-                        {% for topic in topic_list %}
-                            <li>
-                                <h3>
-                                    <a class="topic-title"
-                                       href="{% url 'forum:topic_detail' topic_id=topic.id %}">
-                                        {{ topic.title }}
-                                    </a>
-                                </h3>
+    <div class="span2"></div>
+    <div class="span8">
+        {% if topic_list %}
+            <ul class="topic-list">
+                {% for topic in topic_list %}
+                    <li>
+                        <h3>
+                            <a class="topic-title"
+                               href="{% url 'forum:topic_detail' topic_id=topic.id %}">
+                                {{ topic.title }}
+                            </a>
+                        </h3>
 
-                                <div class="meta">
+                        <div class="meta">
                                             <span>{{ topic.post_cnt }}
                                                 post{{ topic.post_cnt|pluralize }}
                                             </span>
@@ -40,13 +37,11 @@
                                                 <i class="icon-tag"></i>
                                                 {{ topic.category }}
                                             </span>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </div>
-
-        </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
+
 {% endblock %}
