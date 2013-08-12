@@ -5,7 +5,7 @@
         <div class="row-fluid">
             <div class="span5">
                 <form method="POST" id="register_form"
-                      action="{% url 'accounts:register' %}"> {% csrf_token %}
+                      action="{% url 'accounts:register' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}"> {% csrf_token %}
                     <h4><i class="icon-user"></i>&nbsp;&nbsp; Register Here</h4>
                     {{ register_form.non_field_errors }}
 

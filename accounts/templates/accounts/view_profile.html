@@ -2,6 +2,30 @@
 {% load staticfiles %}
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/view_profile.css' %}" type="text/css" media="screen"/>
+    <script>
+        $(function () {
+            $('#add-friend-btn').click(function () {
+                $('#add-friend-modal').modal('show');
+                $('#add-friend-submit-btn').click(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'network:send_invitation' %}",
+                        data: {
+                            receiver_id: {{ this_user.id }},
+                            content: $('#invitation-content').val()
+                        }
+                    }).done(function (msg) {
+                                $('#add-friend-modal').modal('hide');
+                                $('.messages-list').text("");
+                                $('<div class="alert alert-success">').append(
+                                                $('<button type="button" class="close" data-dismiss="alert">&times;</button>')
+                                        ).append(msg)
+                                        .appendTo($('.messages-list'));
+                            });
+                })
+            });
+        })
+    </script>
 {% endblock %}
 {% block content %}
     <div class="container-fluid">
@@ -18,36 +42,47 @@
                                     <img src="{{ profile.thumbnail.url }}">
 
                                     <div class="row-fluid">
-                                        <ul class="span12 connect-btns">
-                                            <li>
-                                                {% if is_friend %}
-                                                    <a class="btn btn-success disabled input-block-level">friended</a>
-                                                {% else %}
-                                                    <a class="btn input-block-level"><i class="icon-plus-sign-alt"></i>
-                                                        friend</a>
-                                                {% endif %}
+                                        {% if has_login %}
+                                            <ul class="span12 connect-btns">
+                                                <li>
+                                                    {% if is_friend %}
+                                                        <a class="btn btn-success disabled input-block-level">friended</a>
+                                                    {% else %}
+                                                        <a id="add-friend-btn" class="btn input-block-level"><i
+                                                                class="icon-plus-sign-alt"></i>
+                                                            friend</a>
+                                                    {% endif %}
 
-                                            </li>
-                                            <li>
-                                                {% if has_followed %}
-                                                    <a class="btn btn-success disabled input-block-level">followed</a>
-                                                {% else %}
-                                                    <a class="btn input-block-level"><i class="icon-star-empty"></i>
-                                                        follow</a>
-                                                {% endif %}
-                                            </li>
-                                            <li>
-                                                <a class="btn input-block-level"><i class="icon-envelope-alt"></i>
-                                                    message</a>
-                                            </li>
-                                        </ul>
+                                                </li>
+                                                <li>
+                                                    {% if has_followed %}
+                                                        <a class="btn btn-success disabled input-block-level">followed</a>
+                                                    {% else %}
+                                                        <a class="btn input-block-level"><i class="icon-star-empty"></i>
+                                                            follow</a>
+                                                    {% endif %}
+                                                </li>
+                                                <li>
+                                                    <a class="btn input-block-level"><i class="icon-envelope-alt"></i>
+                                                        message</a>
+                                                </li>
+                                            </ul>
+                                        {% else %}
+                                            <div class="meta">
+                                                You must login to make connect with {{ profile.nickname }}.
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="span8 biography">
                                     <table class="table table-condensed">
                                         <tbody>
                                         <tr>
-                                            <td rowspan="3">bio</td>
+                                            <td rowspan="4">bio</td>
+                                            <td>username</td>
+                                            <td>{{ this_user.username }}</td>
+                                        </tr>
+                                        <tr>
                                             <td>first name</td>
                                             <td>{{ profile.first_name }}</td>
                                         </tr>
@@ -56,15 +91,15 @@
                                             <td>{{ profile.last_name }}</td>
                                         </tr>
                                         <tr>
-                                            <td>biography</td>
-                                            <td>{{ profile.biography|safe }}</td>
+                                            <td>motto</td>
+                                            <td>{{ profile.motto|safe }}</td>
                                         </tr>
                                         </tbody>
                                     </table>
                                     <table class="table table-condensed">
                                         <tbody>
                                         <tr>
-                                            <td rowspan="4">contact</td>
+                                            <td rowspan="5">contact</td>
                                             <td>website</td>
                                             <td><a href="{{ profile.website }}">
                                                 {{ profile.website }}
@@ -83,6 +118,10 @@
                                         <tr>
                                             <td>phone</td>
                                             <td>{{ profile.phone }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>email</td>
+                                            <td>{{ this_user.email }}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -109,8 +148,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="span6 motto">
-                            {{ profile.motto|safe }}
+                        <div class="span6 right-description">
+                            {{ profile.biography|safe }}
                         </div>
                     </div>
                 </div>
@@ -118,4 +157,16 @@
         </div>
     </div>
 
+    <div id="add-friend-modal" class="modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h3>Make friend with {{ profile.nickname }}</h3>
+        </div>
+        <div class="modal-body">
+            <textarea id="invitation-content" placeholder="Enter your invitation here"></textarea>
+        </div>
+        <div class="modal-footer">
+            <a id="add-friend-submit-btn" class="btn btn-primary">Send invitation</a>
+        </div>
+    </div>
 {% endblock %}

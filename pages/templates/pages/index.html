@@ -23,7 +23,10 @@
 
                                 <div class="meta">
                                     <span class="written-by">
-                                        Written by {{ article.author.get_profile.nickname }}
+                                        Written by
+                                        <a href="{{ article.author.get_profile.get_absolute_url }}">
+                                            {{ article.author.get_profile.nickname }}
+                                        </a>
                                     </span>
                                     <span class="written-date">
                                         {{ article.date_published|date:"P M d" }}

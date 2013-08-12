@@ -27,7 +27,9 @@
                                             </span>
                                             <span>
                                                 <i class="icon-edit"></i>
+                                                <a href="{% url 'accounts:view_profile' user_id=topic.last_editor_id %}">
                                                 {{ topic.last_editor }}
+                                                </a>
                                             </span>
                                             <span>
                                                 <i class="icon-time"></i>

@@ -8,5 +8,6 @@ urlpatterns = patterns('',
                        url(r'^get_user_thumb_by_id/$', views.get_user_thumb_by_id, name="get_user_thumb_by_id"),
                        url(r'^accept_invitation/(?P<user_id>\d+)/$', views.accept_invitation, name="accept_invitation"),
                        url(r'^remove_friend/$', views.remove_friend, name="remove_friend"),
+                       url(r'^send_invitation/$', views.send_invitation, name="send_invitation"),
 )
 

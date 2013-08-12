@@ -29,6 +29,7 @@ def generate_topic_list(list):
         topic_list.append({'id': x.id, 'title': x.title,
                            'post_cnt': x.post_set.count(),
                            'last_editor': last_post.author.get_profile().nickname,
+                           'last_editor_id': last_post.author.id,
                            'last_edited_time': last_post.date_published,
                            'category': x.category.title}
         )

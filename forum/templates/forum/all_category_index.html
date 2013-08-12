@@ -30,7 +30,9 @@
                     <td>{{ category.intro }}</td>
                     <td>{{ category.topic_cnt }}</td>
                     <td>{{ category.post_cnt }}</td>
-                    <td>{{ category.last_editor.get_profile.nickname }}
+                    <td><a href="{{ category.last_editor.get_profile.get_absolute_url }}">
+                        {{ category.last_editor.get_profile.nickname }}
+                        </a>
                         # {{ category.last_modified_time|date:"P, M d" }}</td>
                 </tr>
             {% endfor %}

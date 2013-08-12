@@ -28,8 +28,11 @@ except IOError:
     prof.qq = "504500868"
     prof.phone = "18908130137"
 
-    prof.biography = "A drifter"
-    prof.motto = "Stay hungry, stay foolish"
+    prof.motto = "The tragedy of life is not that it ends so soon, but that we wait so long to begin it."
+    prof.biography = "Programming in Python, Java, Delphi.\
+During my spare time, I take care of my family and write music. You can find some of my compositions here: http://being-without.tumblr.com\
+My recent projects include a Multiplayer Browser game (http://alqazar.com) " \
+                 "and Social network for people who seek betting advice (https://tipleaders.com). Both of them in django"
 
     prof.save()
 

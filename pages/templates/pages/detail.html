@@ -21,7 +21,9 @@
             </h1>
         </div>
         <div class="author-info meta">
-            Written by {{ article.author.get_profile.nickname }}
+            Written by <a href="{{ article.author.get_profile.get_absolute_url }}">
+            {{ article.author.get_profile.nickname }}
+        </a>
             on {{ article.date_published|date:"M d, Y" }}
         </div>
         <div class="paper-wrap article-wrapper">
@@ -34,7 +36,9 @@
                         <img class="portrait" src="{{ request.user.get_profile.thumbnail.url }}">
 
                         <div class="comment-author">
-                            {{ comment.author.get_profile.nickname }}
+                            <a href="{{ comment.author.get_profile.get_absolute_url }}">
+                                {{ comment.author.get_profile.nickname }}
+                            </a>
                         </div>
 
                         <div class="comment-date meta">

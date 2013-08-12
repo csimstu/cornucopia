@@ -6,8 +6,8 @@
 {% block xadmin_head %}
     <link rel="stylesheet" type="text/css" href="{% static "xadmin/manage_connections.css" %}">
     <script>
-        $(function(){
-            $('.remove-friend').click(function(){
+        $(function () {
+            $('.remove-friend').click(function () {
                 return window.confirm(this.title || 'Delete this friend?');
             })
         })
@@ -56,13 +56,16 @@
                 <tbody>
                 {% for friend in friends %}
                     <tr class="friends-row"">
-                        <td><img style="width:100px;" src="{{ friend.get_profile.get_icon_url }}"/></td>
-                        <td>{{ friend.get_profile.nickname }}</td>
-                        <td>{{ friend.username }}</td>
-                        <td><a class="btn btn-danger remove-friend"
-                                href="{% url 'network:remove_friend' %}?term={{ friend.id }}">
-                            <i class="icon-unlink"></i></a>
-                        </td>
+                    <td><img style="width:100px;" src="{{ friend.get_profile.get_icon_url }}"/></td>
+                    <td>
+                        <a href="{{ friend.get_profile.get_absolute_url }}">
+                        {{ friend.get_profile.nickname }}</td>
+                    </a>
+                    <td>{{ friend.username }}</td>
+                    <td><a class="btn btn-danger remove-friend"
+                           href="{% url 'network:remove_friend' %}?term={{ friend.id }}">
+                        <i class="icon-unlink"></i></a>
+                    </td>
                     </tr>
                 {% endfor %}
                 </tbody>

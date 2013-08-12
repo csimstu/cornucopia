@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import User
 from TeenHope import settings
-
+from django.core.urlresolvers import reverse
 
 class Profile(models.Model):
     user = models.OneToOneField(User)       # handle of default User object
@@ -28,6 +28,10 @@ class Profile(models.Model):
         from network.models import Message
 
         return Message.objects.filter(receiver=self.user, unread=True).count()
+
+
+    def get_absolute_url(self):
+        return reverse('accounts:view_profile', kwargs={'user_id': self.id})
 
 
 from django.db.models.signals import post_save

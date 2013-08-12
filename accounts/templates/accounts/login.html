@@ -6,7 +6,7 @@
 
             <div class="span5">
                 <form id="login_form" method="POST"
-                      action="{% url 'accounts:login' %}"> {% csrf_token %}
+                      action="{% url 'accounts:login' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}"> {% csrf_token %}
                     <h4><i class="icon-user"></i>&nbsp;&nbsp; Login Here</h4>
                     {{ login_form.non_field_errors }}
                     <label>Username</label>

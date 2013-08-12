@@ -9,7 +9,10 @@
 {% block xadmin_content %}
     <div>
         <h3>{{ msg.subject }}</h3>
-        <h5>sent by {{ msg.sender.get_profile.nickname }}</h5>
+        <h5>sent by
+            <a href="{{ msg.author.get_profile.get_absolute_url }}">
+            {{ msg.sender.get_profile.nickname }}</a>
+        </h5>
         <h5>on {{ msg.date_sent|date:"P M d, Y" }}</h5>
         <div class="container">
             {{ msg.content|safe }}

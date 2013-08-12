@@ -66,7 +66,8 @@
         > {{ topic.title }}</h2>
 
     <div class="author-info meta">
-        Started by {{ first_post.author.get_profile.nickname }}
+        Started by <a href="{{ first_post.author.get_profile.get_absolute_url }}">
+        {{ first_post.author.get_profile.nickname }}</a>
         on {{ first_post.date_published|date:"M d, Y" }}
     </div>
     <div class="span8">
@@ -79,7 +80,9 @@
                             <img class="portrait" src="{{ post.author.get_profile.thumbnail.url }}">
 
                             <div class="post-author">
-                                {{ post.author.get_profile.nickname }}
+                                <a href="{{ post.author.get_profile.get_absolute_url }}">
+                                    {{ post.author.get_profile.nickname }}
+                                </a>
                             </div>
 
                             <div class="post-date meta">
@@ -107,7 +110,9 @@
                                     <img class="portrait" src="{{ reply.author.get_profile.thumbnail.url }}">
 
                                     <div class="post-author">
-                                        {{ reply.author.get_profile.nickname }}
+                                        <a href="{{ reply.author.get_profile.get_absolute_url }}">
+                                            {{ reply.author.get_profile.nickname }}
+                                        </a>
                                     </div>
 
                                     <div class="post-date meta">

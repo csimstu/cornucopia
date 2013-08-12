@@ -14,7 +14,10 @@ def login(request):
             password = form.cleaned_data['password']
             user = auth.authenticate(username=username, password=password)
             auth.login(request, user)
-            return HttpResponseRedirect(reverse('home'))
+            if 'next' in request.GET:
+                return HttpResponseRedirect(request.GET['next'])
+            else:
+                return HttpResponseRedirect(reverse('home'))
     else:
         form = LoginForm()
 
@@ -25,6 +28,8 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
+    if 'next' in request.GET:
+        return HttpResponseRedirect(request.GET['next'])
     return HttpResponseRedirect(reverse('home'))
 
 
@@ -42,7 +47,9 @@ def register(request):
             user.save()
             user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
             auth.login(request, user)
-            return HttpResponseRedirect(reverse("home"))
+            if 'next' in request.GET:
+                return HttpResponseRedirect(request.GET['next'])
+            return HttpResponseRedirect(reverse('home'))
     else:
         form = RegistrationForm()
 
@@ -70,6 +77,7 @@ def view_profile(request, user_id):
         'following_cnt': user.relationlist.followings.count(),
         'follower_cnt': RelationList.objects.filter(followings=user).count(),
     }
+    has_login = request.user.is_authenticated()
     is_friend = False
     if request.user.is_authenticated():
         if request.user.relationlist.friends.filter(id=user.id).count() > 0\
@@ -86,6 +94,7 @@ def view_profile(request, user_id):
         'this_user': user,
         'profile': profile,
         'stat': stat,
+        'has_login': has_login,
         'is_friend': is_friend,
         'has_followed': has_followed,
     })

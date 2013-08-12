@@ -1,6 +1,6 @@
-from django.contrib.auth.models import User
-from accounts.models import Profile
 import json
+
+from django.contrib.auth.models import User
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
@@ -20,6 +20,7 @@ def search_user_thumb_list(request):
         data = json.dumps(results)
         return HttpResponse(data, mimetype='application/json')
     return Http404()
+
 
 def search_user_thumb_list_exclude(request):
     user = request.user
@@ -41,6 +42,7 @@ def search_user_thumb_list_exclude(request):
         return HttpResponse(data, mimetype='application/json')
     return Http404()
 
+
 def get_user_thumb_by_id(request):
     if request.is_ajax():
         q = request.GET.get('term', '')
@@ -58,8 +60,10 @@ def get_user_thumb_by_id(request):
         return HttpResponse(json.dumps(results), mimetype='application/json')
     return Http404()
 
+
 from network.models import Message
 from django.contrib import messages
+
 
 def accept_invitation(request, user_id):
     p1 = request.user
@@ -74,7 +78,9 @@ def accept_invitation(request, user_id):
 
     return HttpResponseRedirect(reverse('xadmin:inbox'))
 
+
 from network.utils import send_message
+
 
 def remove_friend(request):
     user = request.user
@@ -87,9 +93,26 @@ def remove_friend(request):
                      'Sadly, %s has broken the relationship'
                      ' with you.' % user.get_profile().nickname)
         messages.success(request, "You have broken up relationship with %s."
-        % tmp.get_profile().nickname)
+                                  % tmp.get_profile().nickname)
         return HttpResponseRedirect(reverse('xadmin:manage_connections'))
     return Http404()
+
+import datetime
+
+
+def send_invitation(request):
+    user = request.user
+    if request.method == 'POST':
+        receiver = User.objects.get(id=request.POST['receiver_id'])
+        Message.objects.create(sender=user,
+                               receiver=receiver,
+                               subject="%s wants to be friend with you" % user.get_profile().nickname,
+                               content=request.POST['content'],
+                               date_sent=datetime.datetime.now(),
+                               type="INV")
+        return HttpResponse("Invitation for %s sent." % receiver.get_profile().nickname)
+    return Http404()
+
 
 
 

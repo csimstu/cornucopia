@@ -61,7 +61,6 @@
 </head>
 <body>
 
-{% if messages %}
     <ul class="messages-list">
         {% for message in messages %}
             <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
@@ -70,8 +69,6 @@
             </div>
         {% endfor %}
     </ul>
-
-{% endif %}
 
 <div class="navbar transparent navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
@@ -108,30 +105,36 @@
                         <img class="navbar-img" src="{{ user.get_profile.thumbnail.url }}">
                         </span>
                         <a id="profile-link" class="navbar-text"
-                           href="{% url 'accounts:view_profile' user_id=user.id %}">
+                           href="{{ user.get_profile.get_absolute_url }}">
                             <strong>{{ user.get_profile.nickname }}</strong>
                         </a>
                         <a class="navbar-user-btn" href="{% url 'xadmin:inbox' %}">
-                            <i class="icon-envelope icon-large"></i>
-                            <span class="subscript inbox-subscript">{{ user.get_profile.get_unread_message_cnt }}</span>
+                            {% if user.get_profile.get_unread_message_cnt %}
+                                <i class="icon-envelope icon-large"></i>
+                                <span class="subscript inbox-subscript">{{ user.get_profile.get_unread_message_cnt }}</span>
+                            {% else %}
+                                <i class="icon-envelope-alt icon-large"></i>
+                            {% endif %}
+
                         </a>
                         <a class="navbar-user-btn" href="{% url 'xadmin:dashboard' %}">
                             <i class="icon-dashboard icon-large"></i>
                         </a>
-                        <a class="navbar-user-btn" href="{% url 'accounts:logout' %}">
+                        <a class="navbar-user-btn" href="{% url 'accounts:logout' %}?next={{ request.get_full_path }}">
                             <i class="icon-signout icon-large"></i>
                         </a>
 
                     {% else %}
                         <div class="btn-group">
-                            <a class="btn btn-primary" href="{% url 'accounts:login' %}">
+                            <a class="btn btn-primary"
+                               href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">
                                 <i class="icon-user icon-large"></i>
                                 Log in</a>
                             <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="{% url 'accounts:register' %}">
+                                <li><a href="{% url 'accounts:register' %}?next={{ request.get_full_path }}">
                                     Not a member?</a></li>
                                 <li><a>Forgot something?</a></li>
                             </ul>
