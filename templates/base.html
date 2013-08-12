@@ -105,10 +105,10 @@
                 <div class="pull-right">
                     {% if user.is_authenticated %}
                         <span>
-                        <img class="navbar-img" src="{{ request.user.get_profile.thumbnail.url }}">
+                        <img class="navbar-img" src="{{ user.get_profile.thumbnail.url }}">
                         </span>
                         <a id="profile-link" class="navbar-text"
-                           href="{% url 'xadmin:dashboard' %}">
+                           href="{% url 'accounts:view_profile' user_id=user.id %}">
                             <strong>{{ user.get_profile.nickname }}</strong>
                         </a>
                         <a class="navbar-user-btn" href="{% url 'xadmin:inbox' %}">

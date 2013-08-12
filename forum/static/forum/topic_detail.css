@@ -1,16 +1,17 @@
-.forum-detail-content {
-    margin: 0 20px;
-}
-
 .author-info {
     margin: 10px 10px;
-    text-transform: uppercase;
     word-spacing: 2px;
+    font-size: 16px;
 }
-
+.post-list {
+    margin-left: 0;
+}
 .post {
-    position: relative;
     width: 100%;
+    background: #ffffff;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    padding: 30px;
+    margin-bottom: 30px;
 }
 
 .post .portrait {
@@ -18,25 +19,9 @@
     border: #808080 solid medium;
 }
 
-.post-left-wrap {
-    float: left;
-    width: 22%;
-    position: relative;
-    padding: 10px 20px;
-    overflow: hidden;
-}
-
-.post-right-wrap {
-    float: right;
-    width: 78%;
-    position: relative;
-    padding: 10px 20px;
-    overflow: hidden;
-}
-
 .post-author {
     color: #859ce6;
-    font-size: 28px;
+    font-size: 20px;
     font-weight: bold;
     text-align: center;
 }
@@ -47,42 +32,30 @@
 }
 
 .post-content {
-    margin: 5px;
-    font-family: source_sans_pro;
-    overflow: hidden;
+    padding: 25px 10px;
+    border-bottom: dashed rgba(0,0,0,0.3) 1px;
 }
 
-.forum-reply-btn {
-    position: relative;
-    float: right;
-    color: #859ce6;
-    font-size: 24px;
+.post-box {
+    width: 100%;
+    padding: 30px;
+    background: #ffffff;
+    box-shadow: 0 0 4px rgba(0,0,0,0.3);
 }
 
-.forum-reply-btn:hover {
-    cursor: pointer;
-    color: #6A7DB8;
+#pop-up-reply-box {
+    margin: 20px 0 0 0;
 }
 
-.new-post-submit {
-    margin: 30px 0 0 40px;
-    width: 20%;
+#post-submit-btn {
+    margin: 20px 0 0 0;
     font-size: 20px;
-    line-height: 1;
 }
 
 .reply-list {
     margin: 10px -40px 10px 20px;
     position: relative;
 }
-
-.left-border {
-    border-left: #0064cd solid 10px;
-    position: absolute;
-    height: 100%;
-    width: 10px;
-}
-
 .reply-box {
     opacity: 0;
     display: none;

@@ -1,0 +1,26 @@
+.subheader {
+    border-bottom: solid rgba(0,0,0,0.3) 1px;
+    margin-bottom: 10px;
+}
+
+.biography table {
+    font-size: 0.9em;
+}
+
+.biography table td {
+}
+
+.motto {
+    background: rgba(0,0,0,0.1);
+    padding: 20px;
+}
+
+.connect-btns {
+    margin-top: 20px;
+}
+
+.connect-btns li {
+    list-style: none;
+    margin-top: 5px;
+}
+

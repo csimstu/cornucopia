@@ -17,6 +17,23 @@ except IOError:
     from django.contrib.auth.models import User
 
     llx = User.objects.create_superuser('csimstu', 'csimstu@gmail.com', '1')
+
+    # creating detailed bio for llx
+    prof = llx.get_profile()
+    prof.first_name = "Lingxiao"
+    prof.last_name = "Li"
+    prof.nickname = "Mike Lee"
+    prof.website = "http://www.csimstu.com"
+    prof.renren = "http://www.renren.cn/1234567"
+    prof.qq = "504500868"
+    prof.phone = "18908130137"
+
+    prof.biography = "A drifter"
+    prof.motto = "Stay hungry, stay foolish"
+
+    prof.save()
+
+
     user = []
     for name in name_list:
         user.append(User.objects.create_user(name, name + '@gmail.com', '1'))
@@ -33,7 +50,7 @@ except IOError:
                                type="MSG")
 
     from forum.models import Category
-    from forum.models import Topic, Post
+    from forum.models import Topic, Post, Reply
 
 
     default_cat = Category.objects.create(title="Uncategorized", label="uncategorized")
@@ -51,6 +68,7 @@ except IOError:
                                   author=llx)
     post1 = Post.objects.create(topic=topic1, author=llx, date_published=datetime.datetime.now(),
                                 content="First post by llx! Hoooray!")
+    reply1 = Reply.objects.create(post=post1,author=user[2],date_published=datetime.datetime.now(),content="This is a comment with <strong>strong text</strong>")
 
     topic2 = Topic.objects.create(title="Teaching Web Design To New Students In Higher Education",
                                   date_published=datetime.datetime.now(),

@@ -62,9 +62,10 @@ class Reply(models.Model):
         return "A reply by " + self.author.name
 
     def trace_msg(self):
-        return "Reply#%d to post#%d of topic <strong>%s</strong>" % (self.id, self.post.id, self.post.author.title)
+        return "Reply#%d to post#%d of topic <strong>%s</strong>" % (self.id, self.post.id, self.post.topic.title)
 
-
+    def get_absolute_url(self):
+        return self.post.get_absolute_url()
 
 
 def listen_to_topic(sender, **kwargs):

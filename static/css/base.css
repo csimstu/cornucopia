@@ -10,7 +10,6 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Alegreya', serif;
 }
 
-
 .subscript {
     font-size: xx-small;
     vertical-align:bottom;
@@ -124,3 +123,6 @@ ul.errorlist li {
     line-height: 1em;
 }
 
+.yellow {
+    background: yellow;
+}
