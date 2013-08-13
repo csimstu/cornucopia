@@ -4,6 +4,9 @@
     <link rel="stylesheet" href="{% static 'css/view_profile.css' %}" type="text/css" media="screen"/>
     <script>
         $(function () {
+            CKEDITOR.inline('invitation-content');
+            CKEDITOR.inline('message-content');
+
             $('#add-friend-btn').click(function () {
                 $('#add-friend-modal').modal('show');
                 $('#add-friend-submit-btn').click(function () {
@@ -12,18 +15,47 @@
                         url: "{% url 'network:send_invitation' %}",
                         data: {
                             receiver_id: {{ this_user.id }},
-                            content: $('#invitation-content').val()
+                            content: CKEDITOR.instances['invitation-content'].getData()
                         }
                     }).done(function (msg) {
                                 $('#add-friend-modal').modal('hide');
-                                $('.messages-list').text("");
-                                $('<div class="alert alert-success">').append(
-                                                $('<button type="button" class="close" data-dismiss="alert">&times;</button>')
-                                        ).append(msg)
-                                        .appendTo($('.messages-list'));
+                                show_message(msg, "success");
+                                $('#add-friend-btn').replaceWith("<a class=\"btn btn-success disabled input-block-level\">" +
+                                        "Invitation sent</a>");
                             });
                 })
             });
+
+            $('#send-message-btn').click(function() {
+                $('#send-message-modal').modal('show');
+                $('#send-message-submit-btn').click(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'network:send_message' %}",
+                        data: {
+                            receiver_id: {{ this_user.id }},
+                            subject: $('#message-subject').val(),
+                            content: CKEDITOR.instances['message-content'].getData()
+                        }
+                    }).done(function (msg) {
+                                $('#send-message-modal').modal('hide');
+                                show_message(msg, "success");
+                            });
+                })
+            })
+
+            $('#follow-btn').click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "{% url 'network:add_follow' %}",
+                    data: {
+                        receiver_id: {{ this_user.id }}
+                    }
+                }).done(function (msg) {
+                            show_message(msg, "success");
+                            $('#follow-btn').replaceWith("<a class=\"btn btn-success disabled input-block-level\">followed</a>");
+                        })
+            })
         })
     </script>
 {% endblock %}
@@ -58,12 +90,13 @@
                                                     {% if has_followed %}
                                                         <a class="btn btn-success disabled input-block-level">followed</a>
                                                     {% else %}
-                                                        <a class="btn input-block-level"><i class="icon-star-empty"></i>
+                                                        <a id="follow-btn"
+                                                           class="btn input-block-level"><i class="icon-star-empty"></i>
                                                             follow</a>
                                                     {% endif %}
                                                 </li>
                                                 <li>
-                                                    <a class="btn input-block-level"><i class="icon-envelope-alt"></i>
+                                                    <a id="send-message-btn" class="btn input-block-level"><i class="icon-envelope-alt"></i>
                                                         message</a>
                                                 </li>
                                             </ul>
@@ -167,6 +200,20 @@
         </div>
         <div class="modal-footer">
             <a id="add-friend-submit-btn" class="btn btn-primary">Send invitation</a>
+        </div>
+    </div>
+
+    <div id="send-message-modal" class="modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h3>Messaging {{ profile.nickname }}</h3>
+        </div>
+        <div class="modal-body">
+            <input type="text" id="message-subject" class="input-block-level">
+            <textarea id="message-content" placeholder="Enter your message here"></textarea>
+        </div>
+        <div class="modal-footer">
+            <a id="send-message-submit-btn" class="btn btn-primary">Send message</a>
         </div>
     </div>
 {% endblock %}

@@ -8,7 +8,7 @@ CKEDITOR.editorConfig = function (config) {
     // config.language = 'fr';
     // config.uiColor = '#AADC6E';
     config.toolbarGroups = [
-        { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+        //{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
         //{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ] },
         { name: 'links' },
         { name: 'insert' },
@@ -21,6 +21,6 @@ CKEDITOR.editorConfig = function (config) {
         { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
         { name: 'styles' },
         { name: 'colors' },
-        { name: 'about' }
+        //{ name: 'about' }
     ];
 };

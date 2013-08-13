@@ -1,101 +1,140 @@
 {% extends "xadmin/xadmin_base.html" %}
 {% load staticfiles %}
+{% load widget_tweaks %}
+
 {% block title %}Update your profile{% endblock %}
 {% block xadmin_head %}
     <link rel="stylesheet" type="text/css" href="{% static "xadmin/update_profile.css" %}">
+    <script>
+        $(function () {
+            $('#upload_btn').click(function () {
+                $('#id_thumbnail').click();
+            })
+            $('#id_thumbnail').change(function () {
+                $('#thumbnail_path').text($(this).val());
+            })
+            CKEDITOR.inline('id_biography');
+            CKEDITOR.inline('id_motto');
+        })
+    </script>
 {% endblock %}
 {% block xadmin_content %}
-    <div class="update-profile-wrapper">
-        <div class="header-container">
-            <h1>Profile Editing</h1>
-        </div>
+    <div>
+        <h2 class="short-headline">
+            <span>Profile Editing</span>
+        </h2>
 
-        <div class="main-profile">
+        <form method="POST" class="form-horizontal" action="" enctype="multipart/form-data"> {% csrf_token %}
+            {{ form.errors }}
+            <div class="row-fluid">
 
-            <form method="POST" action="" enctype="multipart/form-data"> {% csrf_token %}
-                <div class="error_msg">
-                    {{ form.errors }}
+                <div class="span6">
+                    <fieldset>
+                        <legend>Name</legend>
+                        <div class="control-group">
+                            <label class="control-label" for="id_first_name">first name</label>
+
+                            <div class="controls">
+                                {{ form.first_name|add_class:"input-block-level" }}
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="id_last_name">last name</label>
+
+                            <div class="controls">
+                                {{ form.last_name|add_class:"input-block-level" }}
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="id_nickname">nickname</label>
+
+                            <div class="controls">
+                                {{ form.nickname|add_class:"input-block-level" }}
+                            </div>
+                        </div>
+
+                    </fieldset>
+                    <fieldset>
+                        <legend>Contact</legend>
+                        <div class="control-group">
+                            <label class="control-label" for="id_website">website</label>
+
+                            <div class="controls">
+                                {{ form.website|add_class:"input-block-level" }}
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="id_renren">renren</label>
+
+                            <div class="controls">
+                                {{ form.renren|add_class:"input-block-level" }}
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="id_qq">qq</label>
+
+                            <div class="controls">
+                                {{ form.qq|add_class:"input-block-level" }}
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="id_phone">phone</label>
+
+                            <div class="controls">
+                                {{ form.phone|add_class:"input-block-level" }}
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="id_email">email</label>
+
+                            <div class="controls">
+                                {{ form.email|add_class:"input-block-level" }}
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>About</legend>
+                        <div class="meta">
+                            Tip: Click to edit inline.
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="id_biography">biography</label>
+
+                            <div class="controls">
+                                {{ form.biography|add_class:"input-block-level" }}
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="id_motto">motto</label>
+
+                            <div class="controls">
+                                {{ form.motto|add_class:"input-block-level" }}
+                            </div>
+                        </div>
+
+
+                    </fieldset>
                 </div>
-                <div class="portrait-wrapper">
-                    <img class="portrait" src="{{ request.user.get_profile.thumbnail.url }}">
-                    {{ form.thumbnail }}
+                <div class="span6">
+                    <fieldset>
+                        <legend>Thumbnail</legend>
+                        <img id="upload_btn" class="portrait" src="{{ request.user.get_profile.thumbnail.url }}">
+                        <scan>Click the thumbnail to select file for uploading</scan>
+
+                        <div>
+                            File:
+                            <span id="thumbnail_path">Not selected</span>
+
+                            <input class="hide" type="file" id="id_thumbnail" name="thumbnail">
+                        </div>
+                    </fieldset>
                 </div>
-                <div class="section" id="name">
-                    <h2>Name</h2>
+            </div>
 
-                    <div>
-                        <label for="id_first_name">First Name</label>
-                        {{ form.first_name }}
-                    </div>
-                    <div>
-                        <label for="id_last_name">Last Name</label>
-                        {{ form.last_name }}
-                    </div>
-                    <div>
-                        <label for="id_nickname">Nickname</label>
-                        {{ form.nickname }}
-                    </div>
-                </div>
-
-                <div class="section" id="contact_info">
-                    <h2>Contact Info</h2>
-
-                    <div>
-                        <label for="id_website">Personal Website</label>
-                        {{ form.website }}
-                    </div>
-                    <div>
-                        <label for="id_renren">Renren</label>
-                        {{ form.renren }}
-                    </div>
-                    <div>
-                        <label for="id_qq">QQ</label>
-                        {{ form.qq }}
-                    </div>
-
-                    <div>
-                        <label for="id_phone">Phone</label>
-                        {{ form.phone }}
-                    </div>
-                </div>
-
-                <div class="section" id="biography">
-                    <h2>About Yourself</h2>
-
-                    <div>
-                        <label for="id_biography">Biographical Info</label>
-                        {{ form.biography }}
-                    </div>
-                    <div>
-                        <label for="id_motto">Motto</label>
-                        {{ form.motto }}
-                    </div>
-                </div>
-
-                <div class="section" id="account">
-                    <h2>Account</h2>
-
-                    <div>
-                        <label for="id_email">Email</label>
-                        {{ form.email }}
-                    </div>
-                    <div>
-                        <label for="id_password">New Password</label>
-                        {{ form.new_password }}
-                    </div>
-                    <div>
-                        <label for="id_re_password">Re-enter New Password</label>
-                        {{ form.re_password }}
-                    </div>
-                </div>
-
-                <input class="button blue-button"
-                       type="submit" value="Update Profile"/>
-
-            </form>
-
-        </div>
-
-
+            <input class="btn btn-primary btn-large" type="submit" value="update">
+        </form>
     </div>
+
+
 {% endblock %}

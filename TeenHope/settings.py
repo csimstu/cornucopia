@@ -210,7 +210,7 @@ USERNAME_HINT = "Username must consist of 6 to 20 alpha or digits with leading a
 PASSWORD_PATTERN = r'\w{6,20}' # regex for username, 6<=len<=20
 PASSWORD_HINT = "Password must consist of 6 to 20 alpha or digits."
 EMAIL_PATTERN = r'\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*'
-NICKNAME_PATTERN = r'\w{6,20}'
+NICKNAME_PATTERN = r'[\w ]{6,20}'
 WEBSITE_PATTERN = r'.{6,20}'
 
 # Modify django message system

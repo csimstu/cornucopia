@@ -226,7 +226,7 @@ def update_profile(request):
             profile.biography = form.cleaned_data['biography']
             profile.motto = form.cleaned_data['motto']
 
-            thumbnail = request.FILES['thumbnail']
+            thumbnail = request.FILES.get('thumbnail', None)
             if thumbnail is not None:
                 with open('thumbnail.upload', 'wb+') as des:
                     for chunk in thumbnail.chunks():
@@ -239,8 +239,9 @@ def update_profile(request):
                 profile.thumbnail.save('thumbnail/' + user.username,
                                        f)
 
-
             profile.save()
+            from django.contrib import messages
+            messages.success(request, "Your profile has been updated.")
             return HttpResponseRedirect(reverse('home'))
     else:
         profile = user.get_profile()

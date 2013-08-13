@@ -35,7 +35,7 @@ def search_user_thumb_list_exclude(request):
             user_json = {}
             user_json['label'] = user.get_profile().nickname
             user_json['value'] = user.username
-            user_json['icon_url'] = user.get_profile().thumnail.url
+            user_json['icon_url'] = user.get_profile().thumbnail.url
             user_json['id'] = user.id
             results.append(user_json)
         data = json.dumps(results)
@@ -82,6 +82,15 @@ def accept_invitation(request, user_id):
 from network.utils import send_message
 
 
+def send_message_single(request):
+    user = request.user
+    if request.method == 'POST':
+        receiver = User.objects.get(id=request.POST['receiver_id'])
+        send_message(user, receiver, request.POST['subject'], request.POST['content'])
+        return HttpResponse("Message to %s sent." % receiver.get_profile().nickname)
+    return Http404()
+
+
 def remove_friend(request):
     user = request.user
     if request.method == 'GET':
@@ -114,5 +123,11 @@ def send_invitation(request):
     return Http404()
 
 
-
+def add_follow(request):
+    user = request.user
+    if request.method == 'GET':
+        receiver = User.objects.get(id=request.GET['receiver_id'])
+        user.relationlist.followings.add(receiver)
+        return HttpResponse("Successfully add %s to your following list." % receiver.get_profile().nickname)
+    return Http404()
 

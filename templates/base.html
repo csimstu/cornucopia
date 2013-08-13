@@ -50,6 +50,14 @@
             }
         });
 
+        var show_message = function (msg, type) {
+            $('.messages-list').text("");
+            $('<div class=\"alert alert-'+type+'\">').append(
+                            $('<button type="button" class="close" data-dismiss="alert">&times;</button>')
+                    ).append(msg)
+                    .appendTo($('.messages-list'));
+        }
+
         $(function () {
             $('.messages-list').css({'margin-left': -($('.messages-list').width()) / 2});
             $('.messages-list').hide().fadeIn(500);
@@ -61,14 +69,14 @@
 </head>
 <body>
 
-    <ul class="messages-list">
-        {% for message in messages %}
-            <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                {{ message|safe }}
-            </div>
-        {% endfor %}
-    </ul>
+<ul class="messages-list">
+    {% for message in messages %}
+        <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message|safe }}
+        </div>
+    {% endfor %}
+</ul>
 
 <div class="navbar transparent navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">

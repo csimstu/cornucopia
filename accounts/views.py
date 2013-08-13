@@ -86,7 +86,7 @@ def view_profile(request, user_id):
 
     has_followed = False
     if request.user.is_authenticated():
-        if user.relationlist.followings.filter(id=request.user.id).count() > 0\
+        if request.user.relationlist.followings.filter(id=user.id).count() > 0\
         or request.user.id == user.id:
             has_followed = True
 

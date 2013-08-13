@@ -1,5 +1,5 @@
 .subheader {
-    border-bottom: solid rgba(0,0,0,0.3) 1px;
+    border-bottom: solid rgba(0, 0, 0, 0.3) 1px;
     margin-bottom: 10px;
 }
 
@@ -11,7 +11,7 @@
 }
 
 .right-description {
-    background: rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.1);
     padding: 20px;
 }
 
@@ -22,5 +22,13 @@
 .connect-btns li {
     list-style: none;
     margin-top: 5px;
+}
+
+.cke_textarea_inline {
+    padding: 10px;
+    height: 200px;
+    overflow: auto;
+    border: 1px solid gray;
+    -webkit-appearance: textfield;
 }
 
