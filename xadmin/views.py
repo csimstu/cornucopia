@@ -49,7 +49,7 @@ def inbox(request):
     except PageNotAnInteger, EmptyPage:
         msgs = paginator.page(1)
 
-    return render(request, 'xadmin/inbox.html', {'msgs': msgs})
+    return render(request, 'xadmin/inbox2.html', {'msgs': msgs})
 
 
 from django.shortcuts import get_object_or_404

@@ -1,4 +1,4 @@
-1. profile view for each user, including:
++1. profile view for each user, including:
     basic information(name, contact info),
     recent activities(similar to trace in xadmin),
     entries for creating connections(follow/friend), send message
@@ -16,5 +16,17 @@
     2.6 New topic, article, recent traces: No big change needed.
     2.7 Update personal info: Add more entries like hobbies, birth, place of living, and beautify(place widgets in multi-rows perhaps).
 
-3. beautify all forum and pages views
-4. add the function of uploading files, say thumbnail of portrait, *pictures in articles/posts
+3+. beautify all forum and pages views
+4+. add the function of uploading files, say thumbnail of portrait, *pictures in articles/posts
+
+---------------------------------------------------------------------------------
+1. pages
+2. forum reply needs to be beautified
+3. dashboard subscribe
+4. profile trace(recent activity)
+5. friend grouping & managing(session0) & remove friend(bidirectional) + reminder
+6. topic abstract
+7. tag += hot tag
+8. traces += connection
+9. change password
+10. forget password(hash + send mail)
