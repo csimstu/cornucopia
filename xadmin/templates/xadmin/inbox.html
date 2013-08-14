@@ -7,21 +7,21 @@
     <link rel="stylesheet" type="text/css" href="{% static "xadmin/inbox.css" %}">
 
     <script>
-        $(function(){
-            $('td.subject-column').click(function(){
+        $(function () {
+            $('td.subject-column').click(function () {
                 var url_mask = "{% url 'xadmin:show_msg_in_inbox' msg_id=12345 %}"
                         .replace(/12345/, $(this).parent().attr('msg_id'));
                 document.location = url_mask;
             })
 
-            $('td.checkbox-column').click(function() {
+            $('td.checkbox-column').click(function () {
                 msg_id = $(this).parent().attr('msg_id');
                 ck_state = ($(this).attr("checked") == true);
-                $.get("{% url 'xadmin:on_checkbox' %}",{msg_id : msg_id},
-                    function() {
-                        ck_state = !ck_state;
-                    })
-                $(this).attr("checked",ck_state);
+                $.get("{% url 'xadmin:on_checkbox' %}", {msg_id: msg_id},
+                        function () {
+                            ck_state = !ck_state;
+                        })
+                $(this).attr("checked", ck_state);
             })
         })
     </script>
@@ -33,6 +33,18 @@
 
         <div class="container">
             <div class="navbar">
+                <div class="btn-toolbar pull-left">
+                    <div class="btn-group">
+                        <button class="btn">Select All</button>
+                        <button class="btn">Unselect All</button>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn">Remove</button>
+                        <button class="btn">Mark</button>
+                        <button class="btn">Unmark</button>
+                    </div>
+                </div>
+
                 <div class="pagination pull-right">
                     <ul>
                         {% if msgs.has_previous %}
@@ -73,9 +85,9 @@
                         msg_id="{{ msg.id }}">
                         <td class="checkbox-column">
                             <input type="checkbox"
-                                {% if msg.checked %}
-                                checked="true"
-                                {% endif%}/>
+                                    {% if msg.checked %}
+                                   checked="true"
+                                    {% endif %}/>
                         </td>
                         <td>{{ msg.sender.get_profile.nickname }}</td>
                         <td class="subject-column">{{ msg.subject }}</td>

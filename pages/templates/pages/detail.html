@@ -1,4 +1,4 @@
-{% extends "pages_base.html" %}
+{% extends "pages/pages_base.html" %}
 {% load staticfiles %}
 {% load access_to_settings %}
 
@@ -10,14 +10,40 @@
         })
     </script>
 {% endblock %}
-{% block content %}
+{% block pages_content %}
+    <div class="row-fluid">
+        <div class="span7 offset2 main-wrapper">
+            <h2>{{ article.title }}</h2>
+            <ul class="meta">
+                <li>
+                    <i class="icon-edit"></i>
+                    <a href="{{ article.author.get_profile.get_absolute_url }}">
+                        {{ article.author.get_profile.nickname }}</a>
+                </li>
+                <li>
+                    <i class="icon-time"></i>
+                    {{ article.date_published|date:"P, M d" }}
+                </li>
+                <li>
+                    <i class="icon-comment"></i>
+                    {{ article.comment_set.all.count }} comment{{ article.comment_set.all.count|pluralize }}
+                </li>
+                <li>
+                    <i class="icon-tags"></i>
+                    {% if article.tags.all %}
+                        {% for tag in article.tags.all %}
+                            <span class="tag">{{ tag.title }}</span>
+                        {% endfor %}
+                    {% else %}
+                        <span class="tag">No tag</span>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <div class="pages-detail-content">
 
-        <div>
-            <h1 class="pages-main-header">
-                Article: {{ article.title }}
-            </h1>
-        </div>
         <div class="author-info meta">
             Written by <a href="{{ article.author.get_profile.get_absolute_url }}">
             {{ article.author.get_profile.nickname }}
