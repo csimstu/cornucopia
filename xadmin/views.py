@@ -35,7 +35,7 @@ def dashboard(request):
 
 
 from django.core.paginator import Paginator, PageNotAnInteger
-
+from xadmin.utils import get_ck_list,encode_ck_list
 
 @login_required
 def inbox(request):
@@ -49,13 +49,7 @@ def inbox(request):
     except PageNotAnInteger, EmptyPage:
         msgs = paginator.page(1)
 
-    ck_list = request.session.get(settings.CKBOX_SESSION_NAME)
-    print ck_list
-    if ck_list:
-        ck_list = ck_list.split(",")
-        ck_list = [int(x) for x in ck_list]
-    else:
-        ck_list = []
+    ck_list = get_ck_list(request.session.get(settings.CKBOX_SESSION_NAME))
 
     for m in msgs:
         m.checked = m.id in ck_list
@@ -243,7 +237,6 @@ def update_profile(request):
                 from django.core.files import File
 
                 f = File(open('thumbnail.upload', 'r'))
-                print f
                 profile.thumbnail.save('thumbnail/' + user.username,
                                        f)
 
@@ -274,21 +267,68 @@ from TeenHope import settings
 @login_required
 def on_checkbox(request):
     if request.method == 'GET':
-        ck_id = request.GET.get("msg_id")
-        ss = request.session.get(settings.CKBOX_SESSION_NAME)
-        if not ss:
-            ss = ''
-        ss = ss.split(",")
+        ck_id = int(request.GET.get("msg_id"))
+        ck_list = get_ck_list(request.session.get(settings.CKBOX_SESSION_NAME))
 
-        if ck_id in ss:
-            ss.remove(ck_id)
+        if ck_id in ck_list:
+            ck_list.remove(ck_id)
         else:
-            if not ss[0]:
-                ss[0] = ck_id
-            else:
-                ss.append(ck_id)
+            ck_list.append(ck_id)
 
-        ss = ",".join(ss)
-        request.session[settings.CKBOX_SESSION_NAME] = ss
+        request.session[settings.CKBOX_SESSION_NAME] = encode_ck_list(ck_list)
         request.session.set_expiry(settings.CKBOX_SESSION_EXPIRY)
     return HttpResponse("")
+
+
+def _ckbox_select(request,page,flag):
+    user = request.user
+    msg_list = Message.objects.filter(receiver=user).order_by("-date_sent")
+    paginator = Paginator(msg_list, 10)
+
+    try:
+        msgs = paginator.page(page)
+    except:
+        msgs = paginator.page(1)
+
+    ck_list= get_ck_list(request.session.get(settings.CKBOX_SESSION_NAME))
+
+    for m in msgs:
+        if m.id in ck_list:
+            ck_list.remove(m.id)
+        if flag:
+            ck_list.append(m.id)
+    request.session[settings.CKBOX_SESSION_NAME] = encode_ck_list(ck_list)
+    return HttpResponse("")
+
+
+@login_required
+def ckbox_select_all(request,page):
+    return _ckbox_select(request,page,True)
+
+@login_required
+def ckbox_unselect_all(request,page):
+    return _ckbox_select(request,page,False)
+
+@login_required
+def ckbox_remove(request):
+    ck_list = get_ck_list(request.session.get(settings.CKBOX_SESSION_NAME))
+    for ck_id in ck_list:
+        Message.objects.get(id = ck_id).delete()
+    request.session[settings.CKBOX_SESSION_NAME] = encode_ck_list([])
+    return HttpResponseRedirect(reverse("xadmin:inbox"))
+
+def _ckbox_mark_flag(request,flag):
+    ck_list = get_ck_list(request.session.get(settings.CKBOX_SESSION_NAME))
+    for ck_id in ck_list:
+        a = Message.objects.get(id = ck_id)
+        a.important = flag
+        a.save()
+    return HttpResponse("")
+
+@login_required
+def ckbox_mark(request):
+    return _ckbox_mark_flag(request,True)
+
+@login_required
+def ckbox_unmark(request):
+    return _ckbox_mark_flag(request,False)

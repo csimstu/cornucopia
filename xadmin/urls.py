@@ -14,6 +14,11 @@ urlpatterns = patterns('',
                        url(r'recent_traces/$', views.recent_traces, name="recent_traces"),
                        url(r'^update_profile/$', views.update_profile, name='update_profile'),
                        url(r'^on_checkbox$',views.on_checkbox,name="on_checkbox"),
+                       url(r'^ckbox_select_all/(?P<page>\d+)$',views.ckbox_select_all,name="ckbox_select_all"),
+                       url(r'^ckbox_unselect_all/(?P<page>\d+)$',views.ckbox_unselect_all,name="ckbox_unselect_all"),
+                       url(r'^ckbox_remove$',views.ckbox_remove,name="ckbox_remove"),
+                       url(r'^ckbox_mark$',views.ckbox_mark,name="ckbox_mark"),
+                       url(r'^ckbox_unmark$',views.ckbox_unmark,name="ckbox_unmark"),
 )
 
 
