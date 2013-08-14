@@ -13,6 +13,7 @@ urlpatterns = patterns('',
                        url(r'^new_article/$', views.new_article, name="new_article"),
                        url(r'recent_traces/$', views.recent_traces, name="recent_traces"),
                        url(r'^update_profile/$', views.update_profile, name='update_profile'),
+                       url(r'^on_checkbox$',views.on_checkbox,name="on_checkbox"),
 )
 
 

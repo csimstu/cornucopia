@@ -49,6 +49,17 @@ def inbox(request):
     except PageNotAnInteger, EmptyPage:
         msgs = paginator.page(1)
 
+    ck_list = request.session.get(settings.CKBOX_SESSION_NAME)
+    print ck_list
+    if ck_list:
+        ck_list = ck_list.split(",")
+        ck_list = [int(x) for x in ck_list]
+    else:
+        ck_list = []
+
+    for m in msgs:
+        m.checked = m.id in ck_list
+
     return render(request, 'xadmin/inbox.html', {'msgs': msgs})
 
 
@@ -65,7 +76,7 @@ def show_msg_in_inbox(request, msg_id):
 
 from forms import NewMessageForm,AddConnectionsForm
 import datetime
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse
 
 
 @login_required()
@@ -257,3 +268,27 @@ def update_profile(request):
     return render(request, 'xadmin/update_profile.html', {
         'form': form,
     })
+
+from TeenHope import settings
+
+@login_required
+def on_checkbox(request):
+    if request.method == 'GET':
+        ck_id = request.GET.get("msg_id")
+        ss = request.session.get(settings.CKBOX_SESSION_NAME)
+        if not ss:
+            ss = ''
+        ss = ss.split(",")
+
+        if ck_id in ss:
+            ss.remove(ck_id)
+        else:
+            if not ss[0]:
+                ss[0] = ck_id
+            else:
+                ss.append(ck_id)
+
+        ss = ",".join(ss)
+        request.session[settings.CKBOX_SESSION_NAME] = ss
+        request.session.set_expiry(settings.CKBOX_SESSION_EXPIRY)
+    return HttpResponse("")

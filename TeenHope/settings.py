@@ -10,7 +10,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-PROJECT_PATH = '/home/csimstu/PycharmProjects/TeenHope'
+PROJECT_PATH = os.getcwd()
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -205,6 +206,9 @@ MESSAGE_LENGTH_LIMIT = 10000
 MESSAGE_SUBJECT_LENGTH_LIMIT = 100
 TRACE_DESCRIPTION_LENGTH_LIMIT = 100
 URL_LENGTH_LIMIT = 50
+
+CKBOX_SESSION_EXPIRY = 300
+CKBOX_SESSION_NAME = "check box"
 
 # Validation regex
 USERNAME_PATTERN = r'[A-Za-z]\w{5,19}' # regex for username, 6<=len<=20 with leading alpha
