@@ -8,10 +8,20 @@
 
     <script>
         $(function(){
-            $('.inbox-row').click(function(){
+            $('td.subject-column').click(function(){
                 var url_mask = "{% url 'xadmin:show_msg_in_inbox' msg_id=12345 %}"
-                        .replace(/12345/, $(this).attr('msg_id'));
+                        .replace(/12345/, $(this).parent().attr('msg_id'));
                 document.location = url_mask;
+            })
+
+            $('td.checkbox-column').click(function() {
+                msg_id = $(this).parent().attr('msg_id');
+                ck_state = ($(this).attr("checked") == true);
+                $.get("{% url 'xadmin:on_checkbox' %}",{msg_id : msg_id},
+                    function() {
+                        ck_state = !ck_state;
+                    })
+                $(this).attr("checked",ck_state);
             })
         })
     </script>
@@ -50,6 +60,7 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
+                    <th>&nbsp;</th>
                     <th>Sent by</th>
                     <th>Subject</th>
                     <th>Date</th>
@@ -59,9 +70,15 @@
                 {% for msg in msgs %}
                     <tr class="inbox-row
                         {% if msg.unread %}row-bold{% endif %}"
-                            msg_id="{{ msg.id }}">
+                        msg_id="{{ msg.id }}">
+                        <td class="checkbox-column">
+                            <input type="checkbox"
+                                {% if msg.checked %}
+                                checked="true"
+                                {% endif%}/>
+                        </td>
                         <td>{{ msg.sender.get_profile.nickname }}</td>
-                        <td>{{ msg.subject }}</td>
+                        <td class="subject-column">{{ msg.subject }}</td>
                         <td>{{ msg.date_sent|date:"M d, Y" }}</td>
                     </tr>
                 {% endfor %}
