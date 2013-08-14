@@ -5,59 +5,32 @@
 {% block forum_head %}
     <link rel="stylesheet" type="text/css" href="{% static "forum/topic_detail.css" %}">
     <script>
-        var reply_post_id = -1;
-        var submit_reply_form = function () {
-            var content = CKEDITOR.instances["reply-textarea"].getData();
-            var url_mask = "{% url 'forum:post_reply' post_id=12345 %}".replace(/12345/, reply_post_id.toString());
-            $.ajax({
-                type: "POST", url: url_mask,
-                data: {content: content}, complete: function (res, status) {
-                    if (status == "success") {
-                        window.location = window.location.href;
-                    } else {
-                        var error_msg = res.responseText;
-                        var error_item = $('.reply-box .error_msg');
-                        error_item.text(error_msg);
-                        error_item.css({opacity: 0});
 
-                        error_item.animate({
-                            opacity: 1
-                        }, 500)
-                    }
-                }
-            })
-            return false;
-        };
         $(function () {
             CKEDITOR.replace('id_content');
 
-            var reply_textarea = CKEDITOR.replace('reply-textarea', {
-                'height': '100%',
-                'width': '100%'
+            $('.reply-submit-btn').click(function () {
+                var post_id = $(this).attr('post_id');
+                var txt = CKEDITOR.instances['reply_textarea_' + post_id].getData();
+
+                var url_mask = "{% url 'forum:post_reply' post_id=12345 %}"
+                        .replace(/12345/, post_id);
+                $.ajax({
+                    type: "POST",
+                    url: url_mask,
+                    data: {
+                        'content': txt
+                    }
+                }).done(function (msg) {
+                            document.location = "{% url 'forum:topic_detail' topic_id=topic.id %}";
+                            return false;
+                        });
             });
 
-
-            $('.forum-reply-btn').click(function () {
-                reply_post_id = /\d+$/.exec($(this).parent().attr('id'));
-                $('.reply-box').css({display: 'block'});
-                $('.reply-box').animate({
-                    opacity: 1
-                }, 500, function () {
-                });
+            $('.forum-reply-btn').click(function(){
+                cform = $(this).siblings(".reply-box");
+                cform.toggle(1000);
             })
-
-            $('#reply-close-btn').click(function () {
-                $('.reply-box').animate({
-                    opacity: 0
-                }, 500, function () {
-                    $('.reply-box').css({display: 'none'});
-                });
-            })
-
-            $('#reply-submit-btn').click(submit_reply_form);
-
-            $('#post-submit-btn').click(need_to_login_first);
-            $('#pop-up-reply-box').click(need_to_login_first);
         })
     </script>
 {% endblock %}
@@ -73,7 +46,7 @@
     <div class="span8">
         <ul class="post-list">
             {% for post in topic.post_set.all %}
-                <div class="post " id="post_{{ post.id }}">
+                <div class="post " post_id="post_{{ post.id }}">
 
                     <div class="row-fluid">
                         <div class="span2">
@@ -95,8 +68,14 @@
                             <div class="post-content">
                                 {{ post.content|safe }}
                             </div>
-                            <a id="pop-up-reply-box" class="
-                            forum-reply-btn btn btn-primary pull-right">
+                            <div class="reply-box" style="display:none;">
+                                <form method="POST"> {% csrf_token %}
+                                    <textarea class="ckeditor" id="reply_textarea_{{ post.id }}"></textarea>
+                                    <input post_id="{{ post.id }}" class="reply-submit-btn btn btn-success"
+                                           type="submit" value="Submit">
+                                </form>
+                            </div>
+                            <a id="pop-up-reply-box" class="forum-reply-btn btn btn-primary pull-right">
                                 <i class="icon-long-arrow-left"></i> Reply
                             </a>
                         </div>
@@ -156,27 +135,7 @@
 
     </div> <!-- span8 -->
 
-    <div class="reply-box">
-        <div class="reply-btn-wrapper">
-            <div class="button">
-                <ul>
-                    <li>
-                        <a id="reply-submit-btn"><i class="icon-ok"></i> Reply</a>
-                    </li>
-                    <li>
-                        <a id="reply-close-btn"><i class="icon-remove"></i> Close</a>
-                    </li>
-                    <li>
-                       <span class="error_msg">
-                       </span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="ckeditor-wrapper">
-            <textarea id="reply-textarea"></textarea>
-        </div>
-    </div>
-    </div>
+
+
 
 {% endblock %}

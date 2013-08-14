@@ -81,8 +81,7 @@ My recent projects include a Multiplayer Browser game (http://alqazar.com) " \
     tag2 = Tag.objects.create(author=llx, title="Web Design")
     tag3 = Tag.objects.create(author=llx, title="Fonts")
 
-    article1 = Article.objects.create(title="Creative And Innovative Navigation Designs "
-                                            "Creative And Innovative Navigation Designs",
+    article1 = Article.objects.create(title="Creative And Innovative Navigation Designs ",
                                       author=llx,
                                       content="A website has a personality - it is a "
                                               "reflection of the person or organization behin"

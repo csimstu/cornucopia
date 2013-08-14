@@ -56,55 +56,13 @@
     margin: 10px -40px 10px 20px;
     position: relative;
 }
+
 .reply-box {
-    opacity: 0;
-    display: none;
-    border: 0;
-    color: rgb(51, 51, 51);
-    position: fixed;
-    height: 50%;
-    width: 50%;
-    box-shadow: 0 0 10px black;
-
-    top: auto;
-    left: auto;
-    bottom: 0;
-    right: 0;
-
-    box-sizing: border-box;
-    z-index: 10;
+    margin-top: 20px;
 }
 
-.ckeditor-wrapper {
-    position: relative;
-    top: auto;
-    width: 100%;
-    height: 90%;
+.reply-box .reply-submit-btn {
+    margin-top: 10px;
 }
 
-.reply-btn-wrapper {
-    position: relative;
-    height: 10%;
-}
 
-.reply-btn-wrapper ul {
-    list-style: none;
-}
-
-.reply-btn-wrapper li {
-    cursor: pointer;
-    color: grey;
-    display: inline;
-    margin-right: 10px;
-}
-
-.reply-btn-wrapper li a:hover {
-    text-shadow: 0 0 1px grey;
-}
-
-.reply-box .error_msg {
-    cursor: auto;
-    color: red;
-    opacity: 0;
-    font-size: 16px;
-}

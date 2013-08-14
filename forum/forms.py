@@ -14,17 +14,3 @@ class NewPostForm(forms.Form):
             raise forms.ValidationError("Post content must be no longer"
                                         "than %d characters." % settings.POST_LENGTH_LIMIT)
         return content
-
-
-class NewReplyForm(forms.Form):
-    content = forms.CharField()
-
-    def clean_content(self):
-        content = self.cleaned_data['content']
-
-        if content is None:
-            raise forms.ValidationError("Content cannot be empty.")
-        elif len(content) > settings.REPLY_LENGTH_LIMIT:
-            raise forms.ValidationError("Reply content must be no longer"
-                                        "than %d characters." % settings.POST_LENGTH_LIMIT)
-        return content

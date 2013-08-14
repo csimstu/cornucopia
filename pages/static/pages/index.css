@@ -6,7 +6,7 @@
 .main-wrapper {
     background: white;
     border-radius: 10px;
-    box-shadow: 0 0 4px rgba(0,0,0,0.3);
+    box-shadow: 0 0 .625em .07em rgba(0,0,0,0.05);
 }
 .main-wrapper .content {
     margin-top: 30px;

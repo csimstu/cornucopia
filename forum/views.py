@@ -91,25 +91,15 @@ def new_post(request, topic_id):
 
 @login_required
 def post_reply(request, post_id):
-    # TODO
     user = request.user
     if request.method == 'POST':
-        form = NewReplyForm(request.POST)
+        post = Post.objects.get(id=post_id)
+        reply = Reply(post=post, author=user,
+                      content=request.POST.get('content'))
+        reply.save()
+        return HttpResponseRedirect(reverse('forum:topic_detail', kwargs={'topic_id': post.topic.id}))
 
-        if form.is_valid():
-            post = Post.objects.get(id=post_id)
-            reply = Reply(post=post, author=user,
-                          content=form.cleaned_data['content'])
-            reply.save()
-            return HttpResponse() # already done in JS
-        else:
-            x = "Unknown error."
-            for field, errors in form.errors.items():
-                for error in errors:
-                    x = error
-            return HttpResponseBadRequest(x)
     return Http404()
-
 
 from pages.models import Article
 

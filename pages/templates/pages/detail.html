@@ -14,12 +14,16 @@
     <div class="row-fluid">
         <div class="span7 offset2 main-wrapper">
             <h2>{{ article.title }}</h2>
-            <ul class="meta">
-                <li>
-                    <i class="icon-edit"></i>
+
+            <div class="author">
+                <span class="">
+                    By &nbsp; &nbsp;
                     <a href="{{ article.author.get_profile.get_absolute_url }}">
+                        <img src="{{ article.author.get_profile.thumbnail.url }}">
                         {{ article.author.get_profile.nickname }}</a>
-                </li>
+                </span>
+            </div>
+            <ul class="meta">
                 <li>
                     <i class="icon-time"></i>
                     {{ article.date_published|date:"P, M d" }}
@@ -39,66 +43,52 @@
                     {% endif %}
                 </li>
             </ul>
-        </div>
-    </div>
+            <div class="content-wrapper">
+                {{ article.content|safe }}
+            </div>
+            <ul class="comment-list">
+                {% for comment in article.comment_set.all %}
+                    <div class="comment" id="comment_{{ comment.id }}">
+                        <div class="comment-meta">
+                            <span class="comment-index"># {{ forloop.counter }}</span>
 
-    <div class="pages-detail-content">
+                            <span class="comment-author">
+                                <img src="{{ request.user.get_profile.thumbnail.url }}">
+                                <a href="{{ comment.author.get_profile.get_absolute_url }}">
+                                    {{ comment.author.get_profile.nickname }}
+                                </a>
+                            </span>
 
-        <div class="author-info meta">
-            Written by <a href="{{ article.author.get_profile.get_absolute_url }}">
-            {{ article.author.get_profile.nickname }}
-        </a>
-            on {{ article.date_published|date:"M d, Y" }}
-        </div>
-        <div class="paper-wrap article-wrapper">
-            {{ article.content|safe }}
-        </div>
-        <ul class="comment-list">
-            {% for comment in article.comment_set.all %}
-                <div class="paper-wrap comment" id="comment_{{ comment.id }}">
-                    <div class="comment-left-wrap">
-                        <img class="portrait" src="{{ request.user.get_profile.thumbnail.url }}">
-
-                        <div class="comment-author">
-                            <a href="{{ comment.author.get_profile.get_absolute_url }}">
-                                {{ comment.author.get_profile.nickname }}
-                            </a>
+                            <span class="comment-date">
+                                {{ comment.date_published|date:"P" }}
+                                {{ comment.date_published|date:"M d, Y" }}
+                            </span>
                         </div>
-
-                        <div class="comment-date meta">
-                            {{ comment.date_published|date:"P" }} <br>
-                            {{ comment.date_published|date:"M d, Y" }}
-                        </div>
-                    </div>
-                    <div class="comment-right-wrap">
                         <div class="comment-content">
                             {{ comment.content|safe }}
                         </div>
+
+
+                    </div>
+                {% endfor %}
+            </ul>
+
+            <div class="comment-box">
+                <h3>Leave a Comment</h3>
+
+                <form method="post" action="{% url 'pages:new_comment' article_id=article.id %}"> {% csrf_token %}
+                    <div class="error_msg">
+                        {{ comment_form.non_field_errors }}
+                    </div>
+                    <div class="textarea-div">
+                        {{ comment_form.content }}
                     </div>
 
-                    <div style="clear:both"></div>
-
-                </div>
-            {% endfor %}
-        </ul>
-
-        <div class="comment-box">
-            <h2>Comment</h2>
-
-            <div class="content-tip meta">
-                Tip: try paste formatted content directly!
+                    <input id="comment-submit-btn" class="btn btn-info btn-large" type="submit"
+                           value="Submit Comment">
+                </form>
             </div>
-            <form method="post" action="{% url 'pages:new_comment' article_id=article.id %}"> {% csrf_token %}
-                <div class="error_msg">
-                    {{ comment_form.non_field_errors }}
-                </div>
-                <div class="textarea-div">
-                    {{ comment_form.content }}
-                </div>
-
-                <input id="comment-submit-btn" class="button blue-button new-comment-submit" type="submit"
-                       value="submit">
-            </form>
         </div>
     </div>
+
 {% endblock %}
