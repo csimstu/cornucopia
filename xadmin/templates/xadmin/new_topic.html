@@ -4,7 +4,9 @@
     <link rel="stylesheet" type="text/css" href="{% static "forum/new_topic.css" %}">
     <script>
         $(function () {
-            CKEDITOR.replace('id_content');
+            CKEDITOR.replace('id_content', {
+                customConfig: '{% static 'ckeditor4.2/config_intermediate.js' %}'
+            });
         })
     </script>
 {% endblock %}

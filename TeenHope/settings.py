@@ -11,7 +11,6 @@ ADMINS = (
 MANAGERS = ADMINS
 
 PROJECT_PATH = os.path.join(os.path.dirname(__file__), os.pardir)
-print PROJECT_PATH
 
 DATABASES = {
     'default': {

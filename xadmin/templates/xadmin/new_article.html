@@ -5,7 +5,9 @@
 
     <script>
         $(function () {
-            CKEDITOR.replace('id_content');
+            CKEDITOR.replace('id_content', {
+                customConfig: '{% static 'ckeditor4.2/config_full.js' %}'
+            });
             $("#id_tags").tagit({
                 singleField: true,
                 singleFieldNode: $("#id_tags")

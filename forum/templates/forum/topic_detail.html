@@ -7,7 +7,15 @@
     <script>
 
         $(function () {
-            CKEDITOR.replace('id_content');
+            {% for post in topic.post_set.all %}
+                CKEDITOR.replace('reply_textarea_{{ post.id }}', {
+                    customConfig: '{% static 'ckeditor4.2/config.js' %}'
+                });
+            {% endfor %}
+
+            CKEDITOR.replace('id_content', {
+                 customConfig: '{% static 'ckeditor4.2/config_intermediate.js' %}'
+            });
 
             $('.reply-submit-btn').click(function () {
                 var post_id = $(this).attr('post_id');
@@ -29,6 +37,10 @@
 
             $('.forum-reply-btn').click(function(){
                 cform = $(this).siblings(".reply-box");
+                var tmp = $('.reply-box:visible');
+                if (tmp[0] != cform[0]) {
+                    tmp.hide(1000);
+                }
                 cform.toggle(1000);
             })
         })
@@ -70,7 +82,7 @@
                             </div>
                             <div class="reply-box" style="display:none;">
                                 <form method="POST"> {% csrf_token %}
-                                    <textarea class="ckeditor" id="reply_textarea_{{ post.id }}"></textarea>
+                                    <textarea id="reply_textarea_{{ post.id }}"></textarea>
                                     <input post_id="{{ post.id }}" class="reply-submit-btn btn btn-success"
                                            type="submit" value="Submit">
                                 </form>

@@ -4,8 +4,8 @@
     <link rel="stylesheet" href="{% static 'css/view_profile.css' %}" type="text/css" media="screen"/>
     <script>
         $(function () {
-            CKEDITOR.inline('invitation-content');
-            CKEDITOR.inline('message-content');
+            CKEDITOR.replace('invitation-content');
+            CKEDITOR.replace('message-content');
 
             $('#add-friend-btn').click(function () {
                 $('#add-friend-modal').modal('show');
