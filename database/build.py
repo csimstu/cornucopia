@@ -49,7 +49,6 @@ My recent projects include a Multiplayer Browser game (http://alqazar.com) " \
     for x in range(0, 50):
         Message.objects.create(sender=user[2], receiver=llx, unread=True,
                                subject="Drone message #%d" % x,
-                               date_sent=datetime.datetime.now(),
                                type="MSG")
 
     from forum.models import Category
@@ -61,22 +60,19 @@ My recent projects include a Multiplayer Browser game (http://alqazar.com) " \
 
     for cat in Category.objects.all():
         topic_tmp = Topic.objects.create(category=cat, title="Watch for category %s" % cat.title,
-                                         date_published=datetime.datetime.now(),
                                          author=llx)
-        post_tmp = Post.objects.create(topic=topic_tmp, author=llx, date_published=datetime.datetime.now(),
+        post_tmp = Post.objects.create(topic=topic_tmp, author=llx,
                                        content="First post by llx! Hoooray!")
 
     topic1 = Topic.objects.create(title="A Journey Through Beautiful Typography In Web Design",
-                                  date_published=datetime.datetime.now(),
                                   author=llx)
-    post1 = Post.objects.create(topic=topic1, author=llx, date_published=datetime.datetime.now(),
+    post1 = Post.objects.create(topic=topic1, author=llx,
                                 content="First post by llx! Hoooray!")
-    reply1 = Reply.objects.create(post=post1,author=user[2],date_published=datetime.datetime.now(),content="This is a comment with <strong>strong text</strong>")
+    reply1 = Reply.objects.create(post=post1,author=user[2],content="This is a comment with <strong>strong text</strong>")
 
     topic2 = Topic.objects.create(title="Teaching Web Design To New Students In Higher Education",
-                                  date_published=datetime.datetime.now(),
                                   author=llx)
-    post2 = Post.objects.create(topic=topic2, author=llx, date_published=datetime.datetime.now(),
+    post2 = Post.objects.create(topic=topic2, author=llx,
                                 content="Second post by llx! Hoooray!")
 
     from pages.models import Article, Comment, Tag
@@ -87,7 +83,7 @@ My recent projects include a Multiplayer Browser game (http://alqazar.com) " \
 
     article1 = Article.objects.create(title="Creative And Innovative Navigation Designs "
                                             "Creative And Innovative Navigation Designs",
-                                      author=llx, date_published=datetime.datetime.now(),
+                                      author=llx,
                                       content="A website has a personality - it is a "
                                               "reflection of the person or organization behin"
                                               "d it. When people visit your website, you want it to st"
@@ -97,11 +93,10 @@ My recent projects include a Multiplayer Browser game (http://alqazar.com) " \
     article1.tags.add(tag1, tag2, tag3)
 
     comment1 = Comment.objects.create(author=user[0], article=article1,
-                                      date_published=datetime.datetime.now(),
                                       content="Super awesome collection. I love typography. :)"
     )
 
     article2 = article1
     article2.pk = None
-    article2.date_published = datetime.datetime.now();
+    article2.date_published = datetime.datetime.now()
     article2.save()

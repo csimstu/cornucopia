@@ -49,7 +49,7 @@ def inbox(request):
     except PageNotAnInteger, EmptyPage:
         msgs = paginator.page(1)
 
-    return render(request, 'xadmin/inbox2.html', {'msgs': msgs})
+    return render(request, 'xadmin/inbox.html', {'msgs': msgs})
 
 
 from django.shortcuts import get_object_or_404
@@ -81,7 +81,6 @@ def send_msg(request):
                 receiver = User.objects.get(id=int(x))
                 Message.objects.create(sender=user, receiver=receiver,
                                        subject=subject, content=content,
-                                       date_sent=datetime.datetime.now(),
                                        type="MSG", unread=True)
             return HttpResponseRedirect(reverse('xadmin:inbox'))
     else:
@@ -135,7 +134,6 @@ def new_topic(request):
             category = form.cleaned_data['category']
             topic = Topic(title=form.cleaned_data['title'],
                           author=user,
-                          date_published=datetime.datetime.now(),
                           category=category
             )
             topic.save()
@@ -165,7 +163,6 @@ def new_article(request):
             article = Article(title=form.cleaned_data['title'],
                               author=user,
                               content=form.cleaned_data['content'],
-                              date_published=datetime.datetime.now()
             )
             article.save()
 

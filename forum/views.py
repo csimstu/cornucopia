@@ -76,7 +76,6 @@ def new_post(request, topic_id):
         if form.is_valid():
             post = Post(topic=Topic.objects.get(id=topic_id),
                         author=user,
-                        date_published=datetime.datetime.now(),
                         content=form.cleaned_data['content'])
             post.save()
             return HttpResponseRedirect(post.get_absolute_url())
@@ -100,7 +99,6 @@ def post_reply(request, post_id):
         if form.is_valid():
             post = Post.objects.get(id=post_id)
             reply = Reply(post=post, author=user,
-                          date_published=datetime.datetime.now(),
                           content=form.cleaned_data['content'])
             reply.save()
             return HttpResponse() # already done in JS

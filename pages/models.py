@@ -27,7 +27,7 @@ post_save.connect(auto_create_default_tag, sender=User)
 
 class Article(models.Model):
     author = models.ForeignKey(User)
-    date_published = models.DateTimeField()
+    date_published = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=settings.ARTICLE_TITLE_LENGTH_LIMIT)
     content = models.CharField(max_length=settings.ARTICLE_LENGTH_LIMIT)
     tags = models.ManyToManyField(Tag)
@@ -45,7 +45,7 @@ class Article(models.Model):
 class Comment(models.Model):
     author = models.ForeignKey(User)
     article = models.ForeignKey(Article)
-    date_published = models.DateTimeField()
+    date_published = models.DateTimeField(auto_now_add=True)
     content = models.CharField(max_length=settings.COMMENT_LENGTH_LIMIT)
 
     def __unicode__(self):

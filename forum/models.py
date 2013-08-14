@@ -12,7 +12,7 @@ class Category(models.Model):
     topic_cnt = models.IntegerField(default=0)
     post_cnt = models.IntegerField(default=0)
     last_editor_id = models.IntegerField(default=0)
-    last_modified_time = models.DateTimeField(default=datetime.datetime.now())
+    last_modified_time = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return self.title
@@ -22,7 +22,7 @@ class Category(models.Model):
 class Topic(models.Model):
     category = models.ForeignKey(Category, default=1)     # one topic belongs to only one kind
     title = models.CharField(max_length=settings.TOPIC_TITLE_LENGTH_LIMIT)         # title of the topic
-    date_published = models.DateTimeField()
+    date_published = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User)
 
     def __unicode__(self):
@@ -38,7 +38,7 @@ class Topic(models.Model):
 class Post(models.Model):
     topic = models.ForeignKey(Topic)    # a post belongs to only one topic
     author = models.ForeignKey(User)    # the writer of the post
-    date_published = models.DateTimeField()         # time published
+    date_published = models.DateTimeField(auto_now_add=True)         # time published
     content = models.CharField(
         max_length=settings.POST_LENGTH_LIMIT)        # content of the post, no limited char number
 
@@ -55,7 +55,7 @@ class Post(models.Model):
 class Reply(models.Model):
     post = models.ForeignKey(Post)      # reply to a single post
     author = models.ForeignKey(User)    # who replies
-    date_published = models.DateTimeField() # time published
+    date_published = models.DateTimeField(auto_now_add=True) # time published
     content = models.CharField(max_length=settings.REPLY_LENGTH_LIMIT)  # content of the reply
 
     def __unicode(self):

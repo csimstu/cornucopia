@@ -35,7 +35,6 @@ def new_comment(request, article_id):
         if form.is_valid():
             comment = Comment(author=user,
                               article=Article.objects.get(id=article_id),
-                              date_published=datetime.datetime.now(),
                               content=form.cleaned_data['content'])
             comment.save()
             return HttpResponseRedirect(comment.article.get_absolute_url())

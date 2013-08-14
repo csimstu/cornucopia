@@ -4,7 +4,6 @@ from django.core.urlresolvers import reverse
 
 def send_friend_invitation(sender, receiver):
     invitation = Message.objects.create(sender=sender, receiver=receiver,
-                           date_sent=datetime.datetime.now(),
                            type="INV", unread=True)
 
     invitation.subject = "%s wants to make friend with you" % sender.get_profile().nickname
@@ -15,6 +14,5 @@ def send_friend_invitation(sender, receiver):
 
 def send_message(sender, receiver, subject, content):
     Message.objects.create(sender=sender, receiver=receiver,
-                           date_sent=datetime.datetime.now(),
                            type="MSG", unread=True, subject=subject,
                            content=content)

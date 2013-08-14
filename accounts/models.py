@@ -34,6 +34,8 @@ class Profile(models.Model):
         return reverse('accounts:view_profile', kwargs={'user_id': self.id})
 
 
+
+
 from django.db.models.signals import post_save
 
 
