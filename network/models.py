@@ -40,6 +40,7 @@ class Message(models.Model):
     )
     type = models.CharField(max_length=3, choices=MESSAGE_CHOICES, default='MSG')
     unread = models.BooleanField(default=True)
+    important = models.BooleanField(default=False)
 
 
 class FriendGroup(models.Model):
