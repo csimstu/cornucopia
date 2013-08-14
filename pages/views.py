@@ -6,8 +6,18 @@ from pages.forms import *
 
 def index(request):
     reversed_article_list = Article.objects.order_by('-date_published')
+    article_list = []
+    for x in reversed_article_list:
+        article_list.append({
+            'id': x.id, 'title': x.title,
+            'comment_cnt': x.comment_set.count(),
+            'date_published': x.date_published,
+            'author': x.author,
+            'abstract': x.content,
+            'tags': x.tags.all(),
+        })
     return render(request, 'pages/index.html',
-                  {'article_list': reversed_article_list,
+                  {'article_list': article_list,
                    'main_title': 'Latest Articles'})
 
 

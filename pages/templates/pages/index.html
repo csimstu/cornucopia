@@ -1,48 +1,58 @@
-{% extends "base.html" %}
+{% extends "pages/pages_base.html" %}
 {% load staticfiles %}
-{% block head %}
+{% block pages_head %}
     <link rel="stylesheet" type="text/css" href="{% static "pages/index.css" %}">
 {% endblock %}
-{% block title %}Pages{% endblock %}
-{% block content %}
-    <div class="pages-list-main-content">
-        <div class="pages-tab">
-            <h1 class="pages-main-header">
-                All Pages
-            </h1>
-        </div>
-        {% if article_list %}
-            <div class="datalist-pages">
-                <ul>
+{% block pages_content %}
+    <div class="row-fluid">
+        <div class="span7 offset2 main-wrapper">
+            <div class="content">
+                <ul class="article-list">
                     {% for article in article_list %}
                         <li>
-                            <div class="item-content">
-                                <h2>
-                                    <a href="{% url 'pages:detail' article.id %}">{{ article.title }}</a>
-                                </h2>
+                            <h2>
+                                <a class="article-title"
+                                   href="{% url 'pages:detail' article.id %}">
+                                    {{ article.title }}
+                                </a>
+                            </h2>
 
-                                <div class="meta">
-                                    <span class="written-by">
-                                        Written by
-                                        <a href="{{ article.author.get_profile.get_absolute_url }}">
-                                            {{ article.author.get_profile.nickname }}
-                                        </a>
-                                    </span>
-                                    <span class="written-date">
-                                        {{ article.date_published|date:"P M d" }}
-                                    </span>
-                                    <span class="article-tags">
-                                        {% for tag in article.tags.all %}
-                                            {{ tag.title }}
+                            <ul class="meta">
+                                <li>
+                                    <i class="icon-edit"></i>
+                                    <a href="{{ article.author.get_profile.get_absolute_url }}">
+                                        {{ article.author.get_profile.nickname }}</a>
+                                </li>
+                                <li>
+                                    <i class="icon-time"></i>
+                                    {{ article.date_published|date:"P, M d" }}
+                                </li>
+                                <li>
+                                    <i class="icon-comment"></i>
+                                    {{ article.comment_cnt }} comment{{ article.comment_cnt|pluralize }}
+                                </li>
+                                <li>
+                                    <i class="icon-tags"></i>
+                                    {% if article.tags %}
+                                        {% for tag in article.tags %}
+                                            <span class="tag">{{ tag.title }}</span>
                                         {% endfor %}
-                                    </span>
-                                </div>
+                                    {% else %}
+                                        <span class="tag">No tag</span>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                            <div class="abstract">
+                                {{ article.abstract|safe }}
                             </div>
+
+                            <a class="btn btn-primary read-more" href="{% url 'pages:detail' article.id %}">Read
+                                more</a>
                         </li>
+
                     {% endfor %}
                 </ul>
             </div>
-        {% endif %}
-
+        </div>
     </div>
 {% endblock %}

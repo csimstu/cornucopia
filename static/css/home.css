@@ -300,7 +300,15 @@
     font-size: 20px;
 }
 
+
+
+
+
 /* Highlighted pages */
+.article-title {
+    color: #333;
+    font-size: 22px;
+}
 
 .highlight-pages {
     margin-top: 40px;
@@ -352,10 +360,6 @@
     font-size: 1.15em;
 }
 
-.article-title {
-    color: #333;
-    font-size: 22px;
-}
 
 body {
     margin-top: 0px;
