@@ -62,6 +62,8 @@ def auto_add_default_group(sender, **kwargs):
     user = kwargs["instance"]
     if kwargs["created"]:
         FriendGroup.objects.create(holder=user, name="default group")
+
+
 post_save.connect(auto_add_default_group, sender=User)
 
 
@@ -70,6 +72,7 @@ def auto_create_subscribe_list(sender, **kwargs):
     if kwargs["created"]:
         SubscribeList.objects.create(holder=user)
 
+
 post_save.connect(auto_create_subscribe_list, sender=User)
 
 
@@ -77,6 +80,7 @@ def auto_create_relation_list(sender, **kwargs):
     user = kwargs["instance"]
     if kwargs["created"]:
         RelationList.objects.create(holder=user)
+
 
 post_save.connect(auto_create_relation_list, sender=User)
 
@@ -87,7 +91,6 @@ class Trace(models.Model):
     description = models.CharField(max_length=settings.TRACE_DESCRIPTION_LENGTH_LIMIT)
     date = models.DateTimeField(auto_now_add=True)
 
-import datetime
 
 # Add listeners in order to create trace messages
 def create_topic_trace(sender, **kwargs):
@@ -96,6 +99,8 @@ def create_topic_trace(sender, **kwargs):
         Trace.objects.create(user=topic.author,
                              url=topic.get_absolute_url(),
                              description=topic.trace_msg())
+
+
 post_save.connect(create_topic_trace, sender=Topic)
 
 
@@ -105,18 +110,25 @@ def create_post_trace(sender, **kwargs):
         Trace.objects.create(user=post.author,
                              url=post.get_absolute_url(),
                              description=post.trace_msg())
+
+
 post_save.connect(create_post_trace, sender=Post)
 
 from forum.models import Reply
+
+
 def create_reply_trace(sender, **kwargs):
     reply = kwargs["instance"]
     if kwargs["created"]:
         Trace.objects.create(user=reply.author,
                              url=reply.get_absolute_url(),
                              description=reply.trace_msg())
+
+
 post_save.connect(create_reply_trace, sender=Reply)
 
-from pages.models import Article, Comment
+from pages.models import Comment
+
 
 def create_article_trace(sender, **kwargs):
     article = kwargs["instance"]
@@ -124,7 +136,10 @@ def create_article_trace(sender, **kwargs):
         Trace.objects.create(user=article.author,
                              url=article.get_absolute_url(),
                              description=article.trace_msg())
+
+
 post_save.connect(create_article_trace, sender=Article)
+
 
 def create_comment_trace(sender, **kwargs):
     comment = kwargs["instance"]
@@ -132,4 +147,56 @@ def create_comment_trace(sender, **kwargs):
         Trace.objects.create(user=comment.author,
                              url=comment.get_absolute_url(),
                              description=comment.trace_msg())
+
+
 post_save.connect(create_comment_trace, sender=Comment)
+
+from network.utils import send_notification
+
+
+def topic_subscribe_listener(sender, **kwargs):
+    # triggered only when created a new topic
+    topic = kwargs["instance"]
+    if kwargs["created"]:
+        list = topic.subscribelist_set()
+        for x in list:
+            send_notification(x.holder, topic.get_subscribe_subject(), topic.get_subscribe_content())
+
+        
+
+
+post_save.connect(topic_subscribe_listener, sender=Topic)
+
+
+def post_subscribe_listener(sender, **kwargs):
+    post = kwargs["instance"]
+    if kwargs["created"]:
+        list = post.topic.subscribelist_set()
+        for x in list:
+            send_notification(x.holder, post.get_subscribe_subject(), post.get_subscribe_content())
+
+
+post_save.connect(post_subscribe_listener, sender=Post)
+
+
+def article_subscribe_listener(sender, **kwargs):
+    # triggered when new article published
+    article = kwargs["instance"]
+    if kwargs["created"]:
+        list = article.subscribelist_set()
+        for x in list:
+            send_notification(x.holder, article.get_subscrbe_subject(), article.get_subscribe_content())
+
+
+post_save.connect(article_subscribe_listener, sender=Article)
+
+
+def comment_subscribe_listener(sender, **kwargs):
+    comment = kwargs["instance"]
+    if kwargs["created"]:
+        list = comment.article.subscribelist_set()
+        for x in list:
+            send_notification(x.holder, comment.get_subscrbe_subject(), comment.get_subscribe_content())
+
+
+post_save.connect(comment_subscribe_listener, sender=Comment)
