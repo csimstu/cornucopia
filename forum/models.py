@@ -34,6 +34,15 @@ class Topic(models.Model):
     def trace_msg(self):
         return "Create topic#%d <strong>%s</strong>" % (self.id, self.title)
 
+    def get_participants(self):
+        return [y.author for y in self.post_set.all()]
+
+    def get_subscribe_subject(self):
+        return "%s has created a new topic" % self.author.get_profile().nickname
+
+    def get_subscribe_content(self):
+        return "<a href=%s>Click here to view</a>" % self.get_absolute_url()
+
 
 class Post(models.Model):
     topic = models.ForeignKey(Topic)    # a post belongs to only one topic
@@ -51,6 +60,12 @@ class Post(models.Model):
     def trace_msg(self):
         return "Follow up#%d for topic <strong>%s</strong>" % (self.id, self.topic.title)
 
+    def get_subscribe_subject(self):
+        return "%s has created a new post" % self.author.get_profile().nickname
+
+    def get_subscribe_content(self):
+        return "<a href=%s>Click here to view</a>" % self.get_absolute_url()
+
 
 class Reply(models.Model):
     post = models.ForeignKey(Post)      # reply to a single post
@@ -66,6 +81,12 @@ class Reply(models.Model):
 
     def get_absolute_url(self):
         return self.post.get_absolute_url()
+
+    def get_subscribe_subject(self):
+        return "%s has replied your post" % self.author.get_profile().nickname
+
+    def get_subscribe_content(self):
+        return "<a href=%s>Click here to view</a>" % self.get_absolute_url()
 
 
 def listen_to_topic(sender, **kwargs):
