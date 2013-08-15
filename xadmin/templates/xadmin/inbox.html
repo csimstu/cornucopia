@@ -19,35 +19,35 @@
                 $.get("{% url 'xadmin:on_checkbox' %}", {msg_id: msg_id});
 
                 ck = $(this).find(":checkbox");
-                ck.attr("checked",!ck.attr("checked"));
+                ck.attr("checked", !ck.attr("checked"));
             })
-            
+
             function select_all_flag(flag) {
                 ck_list = $("#message-table").find(":checkbox");
-                for(var i=0;i < ck_list.length;i ++) {
+                for (var i = 0; i < ck_list.length; i++) {
                     ck_list[i].checked = flag;
                 }
                 ck_list.trigger('change');
             }
 
-            $('#select-all-btn').click(function() {
+            $('#select-all-btn').click(function () {
                 select_all_flag(true);
                 url = $(this).attr("href");
                 $.get(url);
             });
 
-            $('#unselect-all-btn').click(function() {
+            $('#unselect-all-btn').click(function () {
                 select_all_flag(false);
                 url = $(this).attr("href");
                 $.get(url);
             });
-            
+
             function mark_flag(flag) {
-                $('#message-table').find(":checkbox").each(function() {
+                $('#message-table').find(":checkbox").each(function () {
                     cur = $(this);
-                    if(cur.attr("checked")) {
+                    if (cur.attr("checked")) {
                         td = cur.parent().parent().find("td.important-column");
-                        if(flag) {
+                        if (flag) {
                             td.html("<i class='icon-star'></i>");
                         } else {
                             td.html("<i class='icon-star-empty'></i>");
@@ -56,14 +56,14 @@
                 });
             }
 
-            $('#mark-btn').click(function() {
+            $('#mark-btn').click(function () {
                 mark_flag(true);
                 url = $(this).attr('href');
                 $.get(url);
             });
 
 
-            $('#unmark-btn').click(function() {
+            $('#unmark-btn').click(function () {
                 mark_flag(false);
                 url = $(this).attr('href');
                 $.get(url);
@@ -80,13 +80,25 @@
             <div class="navbar">
                 <div class="btn-toolbar pull-left">
                     <div class="btn-group">
-                        <button class="btn" href="{% url 'xadmin:ckbox_select_all' msgs.number %}" id="select-all-btn">Select All</button>
-                        <button class="btn" href="{% url 'xadmin:ckbox_unselect_all' msgs.number %}" id="unselect-all-btn">Unselect All</button>
+                        <button class="btn" href="{% url 'xadmin:ckbox_select_all' msgs.number %}" id="select-all-btn">
+                            Select All
+                        </button>
+                        <button class="btn" href="{% url 'xadmin:ckbox_unselect_all' msgs.number %}"
+                                id="unselect-all-btn">Unselect All
+                        </button>
                     </div>
                     <div class="btn-group">
                         <a class="btn" href="{% url 'xadmin:ckbox_remove' %}">Remove</a>
-                        <button class="btn" href="{% url 'xadmin:ckbox_mark' %}" id="mark-btn">Mark</a>
-                        <button class="btn" href="{% url 'xadmin:ckbox_unmark' %}" id="unmark-btn">Unmark</a>
+                        <button class="btn" href="{% url 'xadmin:ckbox_mark' %}" id="mark-btn">Mark</button>
+                        <button class="btn" href="{% url 'xadmin:ckbox_unmark' %}" id="unmark-btn">Unmark</button>
+                    </div>
+                    <div class="btn-group form-wrapper">
+                        <form class="form-search">
+                            <input type="checkbox" name="is_marked"><label class="checkbox">marked?</label>
+                            <input type="checkbox" name="is_unread"><label class="checkbox">unread?</label>
+                            <input type="text" class="input-medium search-query input-block-level">
+                            <button type="submit" class="btn">Search</button>
+                        </form>
                     </div>
                 </div>
 
@@ -137,9 +149,9 @@
                         </td>
                         <td class="important-column">
                             {% if msg.important %}
-                            <i class="icon-star"></i>
+                                <i class="icon-star"></i>
                             {% else %}
-                            <i class="icon-star-empty"></i>
+                                <i class="icon-star-empty"></i>
                             {% endif %}
                         </td>
                         <td>{{ msg.sender.get_profile.nickname }}</td>
