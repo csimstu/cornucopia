@@ -50,7 +50,9 @@
         }
 
         $(function () {
-            CKEDITOR.replace("id_content")
+            CKEDITOR.replace("id_content", {
+                customConfig: '{% static 'ckeditor4.2/config.js' %}'
+            })
 
             init_receiver_list();
 

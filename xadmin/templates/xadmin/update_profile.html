@@ -13,8 +13,12 @@
             $('#id_thumbnail').change(function () {
                 $('#thumbnail_path').text($(this).val());
             })
-            CKEDITOR.inline('id_biography');
-            CKEDITOR.inline('id_motto');
+            CKEDITOR.inline('id_biography', {
+                customConfig: '{% static 'ckeditor4.2/config_intermediate.js' %}'
+            });
+            CKEDITOR.inline('id_motto', {
+                customConfig: '{% static 'ckeditor4.2/config.js' %}'
+            });
         })
     </script>
 {% endblock %}
