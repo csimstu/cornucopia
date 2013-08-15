@@ -118,10 +118,7 @@ def forget_password(request):
         fpf = ForgetPasswordForm(request.POST)
         if fpf.is_valid():
             user = User.objects.get(username = fpf.cleaned_data['username'])
-            if user:
+            if user and user.email == fpf.cleaned_data['email']:
                 from xadmin.views import _chpsw_sendmail
                 return _chpsw_sendmail(request,user,reverse("accounts:forget_password"))
-        else:
-            pass
-
     return render(request, 'accounts/forgot_password.html')
