@@ -12,6 +12,9 @@ class Tag(models.Model):
     def __unicode__(self):
         return self.title
 
+    def count(self):
+        return self.article_set.count()
+
 
 from django.db.models.signals import post_save
 

@@ -68,7 +68,7 @@ My recent projects include a Multiplayer Browser game (http://alqazar.com) " \
                                   author=llx)
     post1 = Post.objects.create(topic=topic1, author=llx,
                                 content="First post by llx! Hoooray!")
-    reply1 = Reply.objects.create(post=post1,author=user[2],content="This is a comment with <strong>strong text</strong>")
+    reply1 = Reply.objects.create(post=post1,author=user[2],content="This is a post with <strong>strong text</strong>")
 
     topic2 = Topic.objects.create(title="Teaching Web Design To New Students In Higher Education",
                                   author=llx)
@@ -93,6 +93,9 @@ My recent projects include a Multiplayer Browser game (http://alqazar.com) " \
 
     comment1 = Comment.objects.create(author=user[0], article=article1,
                                       content="Super awesome collection. I love typography. :)"
+    )
+    comment2 = Comment.objects.create(author=llx, article=article1,
+                                      content="This is a <strong>comment</strong>"
     )
 
     article2 = article1

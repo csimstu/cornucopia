@@ -1,5 +1,13 @@
 /* import fonts from google */
 @import url(http://fonts.googleapis.com/css?family=Alegreya:400italic,400,700|Pathway+Gothic+One|Oxygen:400,300,700);
+@font-face {
+	font-family: 'FontAwesome';
+	src: url('../font/font-awesome/font/fontawesome-webfont.eot'); /* IE9 Compat Modes */
+	src: url('../font/font-awesome/font/fontawesome-webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+             url('../font/font-awesome/font/fontawesome-webfont.woff') format('woff'), /* Modern Browsers */
+             url('../font/font-awesome/font/fontawesome-webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
+             url('../font/font-awesome/font/fontawesome-webfont.svg#YourWebFontName') format('svg'); /* Legacy iOS */
+   }
 
 * {
     -webkit-box-sizing: border-box;

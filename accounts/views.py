@@ -90,6 +90,13 @@ def view_profile(request, user_id):
         or request.user.id == user.id:
             has_followed = True
 
+    topic_list = Topic.objects.filter(author=user).order_by('-date_published')[:5]
+    post_list = Post.objects.filter(author=user).order_by('-date_published')[:5]
+    article_list = Article.objects.filter(author=user).order_by('-date_published')[:5]
+    comment_list = Comment.objects.filter(author=user).order_by('-date_published')[:5]
+    tag_list = Tag.objects.filter(author=user)[:10]
+
+
     return render(request, 'accounts/view_profile.html', {
         'this_user': user,
         'profile': profile,
@@ -97,6 +104,11 @@ def view_profile(request, user_id):
         'has_login': has_login,
         'is_friend': is_friend,
         'has_followed': has_followed,
+        'topic_list': topic_list,
+        'post_list': post_list,
+        'article_list': article_list,
+        'comment_list': comment_list,
+        'tag_list': tag_list,
     })
 
 
