@@ -82,10 +82,12 @@
         Started by <a href="{{ first_post.author.get_profile.get_absolute_url }}">
         {{ first_post.author.get_profile.nickname }}</a>
         on {{ first_post.date_published|date:"P M d, Y" }}
+    {% if user.is_authenticated %}
         <span>
                 <button id="subscribe_btn" class="btn btn-info {% if has_subscribed %}hide{% endif %}">Subscribe</button>
                 <button id="unsubscribe_btn" class="btn btn-warning {% if has_subscribed %}{% else %}hide{% endif %}">Unsubscribe</button>
         </span>
+    {% endif %}
     </div>
     <div class="span8">
         <ul class="post-list">

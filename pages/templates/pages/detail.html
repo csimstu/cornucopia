@@ -15,12 +15,13 @@
                     url: '{% url 'network:subscribe_article' %}',
                     data: {
                         'article_id': {{ article.id }}
-                    }
-                }).done(function () {
+                    },
+                    success: function () {
                             $("#subscribe_btn").hide(1000);
                             $('#unsubscribe_btn').show(1000);
                             return false;
-                        })
+                        }
+                })
             })
             $('#unsubscribe_btn').click(function () {
                 $.ajax({
@@ -28,12 +29,13 @@
                     url: '{% url 'network:unsubscribe_article' %}',
                     data: {
                         'article_id': {{ article.id }}
-                    }
-                }).done(function () {
+                    },
+                    success: function () {
                             $('#unsubscribe_btn').hide(1000);
                             $('#subscribe_btn').show(1000);
                             return false;
-                        })
+                        }
+                })
             })
         })
     </script>
@@ -49,13 +51,15 @@
                     <a href="{{ article.author.get_profile.get_absolute_url }}">
                         <img src="{{ article.author.get_profile.thumbnail.url }}">
                         {{ article.author.get_profile.nickname }}</a>
+                {% if user.is_authenticated %}
                     <span>
                 <button id="subscribe_btn" class="btn btn-info {% if has_subscribed %}hide{% endif %}">Subscribe
                 </button>
                 <button id="unsubscribe_btn" class="btn btn-warning {% if has_subscribed %}{% else %}hide{% endif %}">
                     Unsubscribe
                 </button>
-        </span>
+                </span>
+                {% endif %}
                 </span>
             </div>
             <ul class="meta">

@@ -159,3 +159,9 @@ post_save.connect(post_subscribe_listener, sender=Post)
 post_save.connect(reply_subscribe_listener, sender=Reply)
 post_save.connect(article_subscribe_listener, sender=Article)
 post_save.connect(comment_subscribe_listener, sender=Comment)
+
+
+class EmailHash(models.Model):
+    holder = models.OneToOneField(User)
+    hash_str = models.CharField(max_length=128)
+    gen_date = models.DateTimeField(auto_now = True)

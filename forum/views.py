@@ -58,8 +58,11 @@ def specific_category_index(request, label):
 def topic_detail(request, topic_id):
     user = request.user
     topic = get_object_or_404(Topic, id=topic_id)
+    has_subscribe = False
+    if user.is_authenticated():
+        has_subscribe = user.subscribelist.topics.filter(id=topic.id).count() > 0
     return render(request, 'forum/topic_detail.html', {
-        'has_subscribed': user.subscribelist.topics.filter(id=topic.id).count() > 0,
+        'has_subscribed': has_subscribe,
         'topic': topic, 'first_post': topic.post_set.order_by('date_published')[0],
         'post_form': NewPostForm()
     })
@@ -83,8 +86,11 @@ def new_post(request, topic_id):
             return HttpResponseRedirect(post.get_absolute_url())
 
         topic = get_object_or_404(Topic, id=topic_id)
+        has_subscribe = False
+        if user.is_authenticated():
+            has_subscribe = user.subscribelist.topics.filter(id=topic.id).count() > 0
         return render(request, 'forum/topic_detail.html', {
-            'has_subscribed': user.subscribelist.topics.filter(id=topic.id).count() > 0,
+            'has_subscribed': has_subscribe,
             'topic': topic, 'first_post': topic.post_set.order_by('date_published')[0],
             'post_form': form
         })
