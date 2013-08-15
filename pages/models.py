@@ -41,6 +41,12 @@ class Article(models.Model):
     def trace_msg(self):
         return "Create article#%d <strong>%s</strong>" % (self.id, self.title)
 
+    def get_subscribe_subject(self):
+        return "%s has created a new article" % self.author.get_profile().nickname
+
+    def get_subscribe_content(self):
+        return "<a href=%s>Click here to view</a>" % self.get_absolute_url()
+
 
 class Comment(models.Model):
     author = models.ForeignKey(User)
@@ -56,3 +62,9 @@ class Comment(models.Model):
 
     def trace_msg(self):
         return "Post a comment(#%d) on article <strong>%s</strong>" % (self.id, self.article.title)
+
+    def get_subscribe_subject(self):
+        return "%s has created a new comment" % self.author.get_profile().nickname
+
+    def get_subscribe_content(self):
+        return "<a href=%s>Click here to view</a>" % self.get_absolute_url()

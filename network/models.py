@@ -13,7 +13,6 @@ class SubscribeList(models.Model):
 
     holder = models.OneToOneField(User)
     topics = models.ManyToManyField(Topic)
-    posts = models.ManyToManyField(Post)
     articles = models.ManyToManyField(Article)
 
 
@@ -24,7 +23,7 @@ class RelationList(models.Model):
 
     holder = models.OneToOneField(User)
     friends = models.ManyToManyField(User, related_name='friends+', through="FriendShip")
-    followings = models.ManyToManyField(User, related_name='followings+')
+    followings = models.ManyToManyField(User, related_name='followed_by')
 
 
 class Message(models.Model):
@@ -55,7 +54,7 @@ class FriendShip(models.Model):
     group = models.ForeignKey(FriendGroup)
 
 
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 
 
 def auto_add_default_group(sender, **kwargs):
@@ -151,52 +150,12 @@ def create_comment_trace(sender, **kwargs):
 
 post_save.connect(create_comment_trace, sender=Comment)
 
-from network.utils import send_notification
 
-
-def topic_subscribe_listener(sender, **kwargs):
-    # triggered only when created a new topic
-    topic = kwargs["instance"]
-    if kwargs["created"]:
-        list = topic.subscribelist_set()
-        for x in list:
-            send_notification(x.holder, topic.get_subscribe_subject(), topic.get_subscribe_content())
-
-        
-
+from network.listeners import topic_subscribe_listener, \
+    post_subscribe_listener, article_subscribe_listener, comment_subscribe_listener, reply_subscribe_listener
 
 post_save.connect(topic_subscribe_listener, sender=Topic)
-
-
-def post_subscribe_listener(sender, **kwargs):
-    post = kwargs["instance"]
-    if kwargs["created"]:
-        list = post.topic.subscribelist_set()
-        for x in list:
-            send_notification(x.holder, post.get_subscribe_subject(), post.get_subscribe_content())
-
-
 post_save.connect(post_subscribe_listener, sender=Post)
-
-
-def article_subscribe_listener(sender, **kwargs):
-    # triggered when new article published
-    article = kwargs["instance"]
-    if kwargs["created"]:
-        list = article.subscribelist_set()
-        for x in list:
-            send_notification(x.holder, article.get_subscrbe_subject(), article.get_subscribe_content())
-
-
+post_save.connect(reply_subscribe_listener, sender=Reply)
 post_save.connect(article_subscribe_listener, sender=Article)
-
-
-def comment_subscribe_listener(sender, **kwargs):
-    comment = kwargs["instance"]
-    if kwargs["created"]:
-        list = comment.article.subscribelist_set()
-        for x in list:
-            send_notification(x.holder, comment.get_subscrbe_subject(), comment.get_subscribe_content())
-
-
 post_save.connect(comment_subscribe_listener, sender=Comment)
