@@ -437,7 +437,7 @@ def _chpsw_sendmail(request,user,rurl):
 
 @login_required
 def chpsw_sendmail(request):
-    return _chpsw_sendmail(request,user,reveser("xadmin:inbox"))
+    return _chpsw_sendmail(request,request.user,reverse("xadmin:inbox"))
 
 
 from django.contrib.auth.models import User
