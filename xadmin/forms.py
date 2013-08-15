@@ -133,3 +133,32 @@ class ChangePasswordForm(forms.Form):
             raise forms.ValidationError('Inconsistent passwords.')
 
         return cleaned_data
+
+class InboxSearchForm(forms.Form):
+    is_marked = forms.BooleanField(required = False)
+    is_unread = forms.BooleanField(required = False)
+    content = forms.CharField(max_length = settings.MESSAGE_SUBJECT_LENGTH_LIMIT,required=False)
+
+    def clean(self):
+        cleaned_data = super(InboxSearchForm,self).clean()
+
+        is_marked = cleaned_data.get('is_marked')
+        if not is_marked:
+            cleaned_data['is_marked'] = False
+
+        is_unread = cleaned_data.get('is_unread')
+        if not is_unread:
+            cleaned_data['is_unread']  = False
+
+        content = cleaned_data.get('content')
+        if not content:
+            cleaned_data['content'] = ''
+
+        return cleaned_data
+
+
+from accounts.models import validate_password
+class ChangePasswordForm(forms.Form):
+    username = forms.CharField()
+    hash_key = forms.CharField()
+    password = forms.CharField(validators = [validate_password])

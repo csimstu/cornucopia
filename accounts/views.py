@@ -99,3 +99,15 @@ def view_profile(request, user_id):
         'has_followed': has_followed,
     })
 
+
+from accounts.forms import ForgetPasswordForm
+def forget_password(request):
+    if request.method == "POST":
+        fpf = ForgetPasswordForm(request.POST)
+        if fpf.is_valid():
+            user = User.objects.get(username = fpf.cleaned_data['username'])
+            if user:
+                from xadmin.views import _chpsw_sendmail
+                return _chpsw_senmail(request,user,reverse("accounts:forget_password"))
+
+    return HttpReponse("")

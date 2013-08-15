@@ -8,6 +8,12 @@ ADMINS = (
 # ('Your Name', 'your_email@example.com'),
 )
 
+# Email Server Settings Here
+EMAIL_HOST = "smtp.126.com"
+EMAIL_HOST_USER = "majiallx@126.com"
+EMAIL_HOST_PASSWORD = "2192716"
+EMAIL_USE_TLS = True
+
 MANAGERS = ADMINS
 
 PROJECT_PATH = os.path.join(os.path.dirname(__file__), os.pardir)
@@ -207,7 +213,6 @@ MESSAGE_SUBJECT_LENGTH_LIMIT = 100
 TRACE_DESCRIPTION_LENGTH_LIMIT = 100
 URL_LENGTH_LIMIT = 50
 
-CKBOX_SESSION_EXPIRY = 1200
 CKBOX_SESSION_NAME = "check box"
 
 # Validation regex

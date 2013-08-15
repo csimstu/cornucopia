@@ -59,4 +59,5 @@ class RegistrationForm(forms.Form):
 
 
 
-
+class ForgetPasswordForm(forms.Form):
+    username = forms.CharField(validators=[validate_username])
