@@ -144,7 +144,7 @@
                             <ul class="dropdown-menu pull-right">
                                 <li><a href="{% url 'accounts:register' %}?next={{ request.get_full_path }}">
                                     Not a member?</a></li>
-                                <li><a>Forgot something?</a></li>
+                                <li><a href="{% url 'accounts:forget_password' %}">Forget password?</a></li>
                             </ul>
                         </div>
                     {% endif %}

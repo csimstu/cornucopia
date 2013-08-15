@@ -13,8 +13,8 @@
             if (path.indexOf('register') >= 0) {
                 $('#register_tab').addClass("active");
             }
-            if (path.indexOf('forgot_password') >= 0) {
-                $('#forgot_password_tab').addClass("active");
+            if (path.indexOf('forget_password') >= 0) {
+                $('#forget_password_tab').addClass("active");
             }
 
         })
@@ -31,8 +31,8 @@
                     <li id="register_tab" class=""><a href="{% url 'accounts:register' %}">
                         <i class="icon-user"></i>&nbsp;<span>Register Panel</span></a>
                     </li>
-                    <li id="forgot_password_tab" class=""><a href="#">
-                        <i class="icon-key"></i>&nbsp;<span>Forgot Password</span></a>
+                    <li id="forget_password_tab" class=""><a href="{% url 'accounts:forget_password' %}">
+                        <i class="icon-key"></i>&nbsp;<span>Forget Password</span></a>
                     </li>
                 </ul>
 

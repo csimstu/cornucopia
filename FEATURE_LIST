@@ -28,5 +28,5 @@
 6. topic abstract
 7. tag += hot tag
 8. traces += connection
-9. change password
+9+. change password
 10. forget password(hash + send mail)
