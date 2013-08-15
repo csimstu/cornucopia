@@ -26,7 +26,7 @@
                 })
             });
 
-            $('#send-message-btn').click(function() {
+            $('#send-message-btn').click(function () {
                 $('#send-message-modal').modal('show');
                 $('#send-message-submit-btn').click(function () {
                     $.ajax({
@@ -63,127 +63,195 @@
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span8 offset2">
-                <div class="info">
-                    <div class="subheader">
-                        <h3>Profile of {{ this_user.username }}</h3>
-                    </div>
-                    <div class="row-fluid">
-                        <div class="span6">
-                            <div class="row-fluid">
-                                <div class="span4 gravatar">
-                                    <img src="{{ profile.thumbnail.url }}">
+                <div class="subheader">
+                    <h3>Profile of {{ this_user.username }}</h3>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="row-fluid">
+                            <div class="span4 gravatar">
+                                <img src="{{ profile.thumbnail.url }}">
 
-                                    <div class="row-fluid">
-                                        {% if has_login %}
-                                            <ul class="span12 connect-btns">
-                                                <li>
-                                                    {% if is_friend %}
-                                                        <a class="btn btn-success disabled input-block-level">friended</a>
-                                                    {% else %}
-                                                        <a id="add-friend-btn" class="btn input-block-level"><i
-                                                                class="icon-plus-sign-alt"></i>
-                                                            friend</a>
-                                                    {% endif %}
+                                <div class="row-fluid">
+                                    {% if has_login %}
+                                        <ul class="span12 connect-btns">
+                                            <li>
+                                                {% if is_friend %}
+                                                    <a class="btn btn-success disabled input-block-level">friended</a>
+                                                {% else %}
+                                                    <a id="add-friend-btn" class="btn input-block-level"><i
+                                                            class="icon-plus-sign-alt"></i>
+                                                        friend</a>
+                                                {% endif %}
 
-                                                </li>
-                                                <li>
-                                                    {% if has_followed %}
-                                                        <a class="btn btn-success disabled input-block-level">followed</a>
-                                                    {% else %}
-                                                        <a id="follow-btn"
-                                                           class="btn input-block-level"><i class="icon-star-empty"></i>
-                                                            follow</a>
-                                                    {% endif %}
-                                                </li>
-                                                <li>
-                                                    <a id="send-message-btn" class="btn input-block-level"><i class="icon-envelope-alt"></i>
-                                                        message</a>
-                                                </li>
-                                            </ul>
-                                        {% else %}
-                                            <div class="meta">
-                                                You must login to make connect with {{ profile.nickname }}.
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                                <div class="span8 biography">
-                                    <table class="table table-condensed">
-                                        <tbody>
-                                        <tr>
-                                            <td rowspan="4">bio</td>
-                                            <td>username</td>
-                                            <td>{{ this_user.username }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>first name</td>
-                                            <td>{{ profile.first_name }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>last name</td>
-                                            <td>{{ profile.last_name }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>motto</td>
-                                            <td>{{ profile.motto|safe }}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <table class="table table-condensed">
-                                        <tbody>
-                                        <tr>
-                                            <td rowspan="5">contact</td>
-                                            <td>website</td>
-                                            <td><a href="{{ profile.website }}">
-                                                {{ profile.website }}
-                                            </a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>renren</td>
-                                            <td><a href="{{ profile.renren }}">
-                                                {{ profile.renren }}
-                                            </a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>qq</td>
-                                            <td>{{ profile.qq }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>phone</td>
-                                            <td>{{ profile.phone }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>email</td>
-                                            <td>{{ this_user.email }}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <table class="table table-condensed">
-                                        <tbody>
-                                        <tr>
-                                            <td rowspan="5">stats</td>
-                                            <td>{{ stat.topic_cnt }} topics</td>
-                                            <td>{{ stat.post_cnt }} posts</td>
-                                            <td>{{ stat.reply_cnt }} replies</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ stat.article_cnt }} articles</td>
-                                            <td>{{ stat.comment_cnt }} comments</td>
-                                            <td>{{ stat.tag_cnt }} tags</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ stat.follower_cnt }} followers</td>
-                                            <td>{{ stat.following_cnt }} followings</td>
-                                            <td>{{ stat.friend_cnt }} friends</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                            </li>
+                                            <li>
+                                                {% if has_followed %}
+                                                    <a class="btn btn-success disabled input-block-level">followed</a>
+                                                {% else %}
+                                                    <a id="follow-btn"
+                                                       class="btn input-block-level"><i class="icon-star-empty"></i>
+                                                        follow</a>
+                                                {% endif %}
+                                            </li>
+                                            <li>
+                                                <a id="send-message-btn" class="btn input-block-level"><i
+                                                        class="icon-envelope-alt"></i>
+                                                    message</a>
+                                            </li>
+                                        </ul>
+                                    {% else %}
+                                        <div class="meta">
+                                            You must login to make connect with {{ profile.nickname }}.
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
+                            <div class="span8 biography">
+                                <table class="table table-condensed">
+                                    <tbody>
+                                    <tr>
+                                        <td rowspan="4">bio</td>
+                                        <td>username</td>
+                                        <td>{{ this_user.username }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>first name</td>
+                                        <td>{{ profile.first_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>last name</td>
+                                        <td>{{ profile.last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>motto</td>
+                                        <td>{{ profile.motto|safe }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table table-condensed">
+                                    <tbody>
+                                    <tr>
+                                        <td rowspan="5">contact</td>
+                                        <td>website</td>
+                                        <td><a href="{{ profile.website }}">
+                                            {{ profile.website }}
+                                        </a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>renren</td>
+                                        <td><a href="{{ profile.renren }}">
+                                            {{ profile.renren }}
+                                        </a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>qq</td>
+                                        <td>{{ profile.qq }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>phone</td>
+                                        <td>{{ profile.phone }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>email</td>
+                                        <td>{{ this_user.email }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
                         </div>
-                        <div class="span6 right-description">
-                            {{ profile.biography|safe }}
-                        </div>
+                    </div>
+                    <div class="span6 right-description">
+                        {{ profile.biography|safe }}
+                    </div>
+                </div>
+                <div class="row-fluid history">
+                    <div class="span6 preview topic">
+                        <h4 class="profile-headline">
+                            <span class="numbers">{{ stat.topic_cnt }}</span>
+                                Topics
+                        </h4>
+                        <ul>
+                            {% for topic in topic_list %}
+                                <li>
+                                <span class="numbers">{{ topic.post_set.count }}</span>
+                                    <a href="{{ topic.get_absolute_url }}">
+                                        {{ topic.title }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="span6 preview">
+                         <h4 class="profile-headline">
+                            <span class="numbers">{{ stat.post_cnt }}</span>
+                                Posts
+                        </h4>
+                        <ul>
+                            {% for post in post_list %}
+                                <li>
+                                    <a href="{{ post.get_absolute_url }}">
+                                        <i class="icon-reply"></i>
+                                        {{ post.topic.title }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6 preview article">
+                        <h4 class="profile-headline">
+                            <span class="numbers">{{ stat.article_cnt }}</span>
+                            Articles
+                        </h4>
+                        <ul>
+                            {% for article in article_list %}
+                                <li>
+                                    <span class="numbers">{{ article.comment_set.count }}</span>
+                                    <a href="{{ article.get_absolute_url }}">
+                                        {{ article.title }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="span6 preview comment">
+                        <h4 class="profile-headline">
+                            <span class="numbers">{{ stat.comment_cnt }}</span>
+                            Comments
+                        </h4>
+                        <ul>
+                            {% for comment in comment_list %}
+                                <li>
+                                    <span class="numbers">0</span>
+                                    <a href="{{ comment.get_absolute_url }}">
+                                        {{ comment.article.title }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6 tag-preview">
+                        <h4 class="profile-headline">
+                            <span class="numbers">{{ stat.tag_cnt }}</span>
+                            Tags
+                        </h4>
+                        <ul>
+                            {% for tag in tag_list %}
+                                <li>
+                                    <a href="{{ tag.get_absolute_url }}">
+                                        {{ tag.title }}
+                                    </a>
+                                    <span class="meta">
+                                         &nbsp; × {{ tag.count }}
+                                    </span>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     </div>
                 </div>
             </div>
