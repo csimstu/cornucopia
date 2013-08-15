@@ -11,5 +11,9 @@ urlpatterns = patterns('',
                        url(r'^send_invitation/$', views.send_invitation, name="send_invitation"),
                        url(r'^add_follow/$', views.add_follow, name="add_follow"),
                        url(r'^send_message/$', views.send_message_single, name="send_message"),
+                       url(r'^subscribe_topic/$', views.subscribe_topic, name="subscribe_topic"),
+                       url(r'^unsubscribe_topic/$', views.unsubscribe_topic, name="unsubscribe_topic"),
+                       url(r'^subscribe_article/$', views.subscribe_article, name="subscribe_article"),
+                       url(r'^unsubscribe_article/$', views.unsubscribe_article, name="unsubscribe_article"),
 )
 

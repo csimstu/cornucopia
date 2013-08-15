@@ -22,8 +22,10 @@ def index(request):
 
 
 def detail(request, article_id):
+    user = request.user
     article = get_object_or_404(Article, id=article_id)
     return render(request, 'pages/detail.html', {
+        'has_subscribed': user.subscribelist.articles.filter(id=article.id).count() > 0,
         'article': article, 'comment_form': NewCommentForm()
     })
 
@@ -49,6 +51,7 @@ def new_comment(request, article_id):
 
         article = get_object_or_404(Article, id=article_id)
         return render(request, 'pages/detail.html', {
+            'has_subscribed': user.subscribelist.articles.filter(id=article.id).count() > 0,
             'article': article, 'comment_form': form
         })
     return Http404()

@@ -26,4 +26,4 @@ urlpatterns = patterns('',
                        url(r'^xadmin/', include('xadmin.urls', namespace="xadmin")),
                        url(r'^network/', include('network.urls', namespace="network")),
 
-                    ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

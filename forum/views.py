@@ -56,8 +56,10 @@ def specific_category_index(request, label):
 
 
 def topic_detail(request, topic_id):
+    user = request.user
     topic = get_object_or_404(Topic, id=topic_id)
     return render(request, 'forum/topic_detail.html', {
+        'has_subscribed': user.subscribelist.topics.filter(id=topic.id).count() > 0,
         'topic': topic, 'first_post': topic.post_set.order_by('date_published')[0],
         'post_form': NewPostForm()
     })
@@ -82,6 +84,7 @@ def new_post(request, topic_id):
 
         topic = get_object_or_404(Topic, id=topic_id)
         return render(request, 'forum/topic_detail.html', {
+            'has_subscribed': user.subscribelist.topics.filter(id=topic.id).count() > 0,
             'topic': topic, 'first_post': topic.post_set.order_by('date_published')[0],
             'post_form': form
         })
