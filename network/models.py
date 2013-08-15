@@ -133,3 +133,8 @@ def create_comment_trace(sender, **kwargs):
                              url=comment.get_absolute_url(),
                              description=comment.trace_msg())
 post_save.connect(create_comment_trace, sender=Comment)
+
+class EmailHash(models.Model):
+    holder = models.OneToOneField(User)
+    hash_str = models.CharField(max_length=128)
+    gen_date = models.DateTimeField(auto_now = True)

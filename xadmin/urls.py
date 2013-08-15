@@ -19,6 +19,12 @@ urlpatterns = patterns('',
                        url(r'^ckbox_remove$',views.ckbox_remove,name="ckbox_remove"),
                        url(r'^ckbox_mark$',views.ckbox_mark,name="ckbox_mark"),
                        url(r'^ckbox_unmark$',views.ckbox_unmark,name="ckbox_unmark"),
+                       url(r'^inbox_search$',views.inbox_search,name="inbox_search"),
+                       url(r'^inbox_mark_one$',views.inbox_mark_one,name="inbox_mark_one"),
+                       url(r'^inbox_unmark_one$',views.inbox_unmark_one,name="inbox_unmark_one"),
+                       url(r'^chpsw_sendmail$',views.chpsw_sendmail,name="chpsw_sendmail"),
+                       url(r'^chpsw_ckhash$',views.chpsw_ckhash,name="chpsw_ckhash"),
+                       url(r'^chpsw_doupdate$',views.chpsw_doupdate,name="chpsw_doupdate"),
 )
 
 

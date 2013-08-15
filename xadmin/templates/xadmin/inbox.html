@@ -68,6 +68,29 @@
                 url = $(this).attr('href');
                 $.get(url);
             });
+
+            $('td.important-column').click(function() {
+                cur = $(this);
+                state = cur.find("i").attr("class");
+                msg_id = cur.parent().attr("msg_id");
+                url = "";
+
+                if(state == "icon-star") {
+                    state = "icon-star-empty";
+                    url = "{% url 'xadmin:inbox_unmark_one' %}";
+                } else {
+                    state = "icon-star";
+                    url = "{% url 'xadmin:inbox_mark_one' %}";
+                }
+
+                $.get(url,{
+                    msg_id : msg_id,
+                },function() {
+                    cur.find("i").attr("class",state);
+                });
+
+                return false;
+            });
         })
     </script>
 {% endblock %}
@@ -93,10 +116,10 @@
                         <button class="btn" href="{% url 'xadmin:ckbox_unmark' %}" id="unmark-btn">Unmark</button>
                     </div>
                     <div class="btn-group form-wrapper">
-                        <form class="form-search">
+                        <form class="form-search" method="GET" action="{% url 'xadmin:inbox_search' %}">
                             <input type="checkbox" name="is_marked"><label class="checkbox">marked?</label>
                             <input type="checkbox" name="is_unread"><label class="checkbox">unread?</label>
-                            <input type="text" class="input-medium search-query input-block-level">
+                            <input type="text" class="input-medium search-query input-block-level" name="content">
                             <button type="submit" class="btn">Search</button>
                         </form>
                     </div>
@@ -105,7 +128,7 @@
                 <div class="pagination pull-right">
                     <ul>
                         {% if msgs.has_previous %}
-                            <li><a href="?page={{ msgs.previous_page_number }}">«</a></li>
+                        <li><a href="?page={{ msgs.previous_page_number }}&{{ GET_data.urlencode }}">«</a></li>
                         {% else %}
                             <li class="disabled"><a>«</a></li>
                         {% endif %}
@@ -119,7 +142,7 @@
                         </li>
 
                         {% if msgs.has_next %}
-                            <li><a href="?page={{ msgs.next_page_number }}">»</a></li>
+                        <li><a href="?page={{ msgs.next_page_number }}&{{ GET_data.urlencode }}">»</a></li>
                         {% else %}
                             <li class="disabled"><a>»</a></li>
                         {% endif %}

@@ -276,7 +276,6 @@ def on_checkbox(request):
             ck_list.append(ck_id)
 
         request.session[settings.CKBOX_SESSION_NAME] = encode_ck_list(ck_list)
-        request.session.set_expiry(settings.CKBOX_SESSION_EXPIRY)
     return HttpResponse("")
 
 
@@ -332,3 +331,155 @@ def ckbox_mark(request):
 @login_required
 def ckbox_unmark(request):
     return _ckbox_mark_flag(request,False)
+
+
+from xadmin.forms import InboxSearchForm
+from django.contrib import messages
+
+@login_required
+def inbox_search(request):
+    if request.method == "GET":
+        isf = InboxSearchForm(request.GET)
+
+        if isf.is_valid():
+            is_marked = isf.cleaned_data['is_marked']
+            is_unread = isf.cleaned_data['is_unread']
+            content = isf.cleaned_data['content']
+
+            msg_list = Message.objects.filter(subject__icontains=content,unread=is_unread,important=is_marked).order_by("-date_sent")
+            paginator = Paginator(msg_list,10)
+
+            page = request.GET.get("page")
+            try:
+                msgs = paginator.page(page)
+            except PageNotAnInteger,EmptyPage:
+                msgs = paginator.page(1)
+            
+            GET_data = request.GET.copy()
+
+            if GET_data.has_key('page'):
+                del GET_data['page']
+
+            return render(request,'xadmin/inbox.html',{
+                'msgs':msgs,
+                'GET_data':GET_data
+            })
+        else:
+            messages.error(request,"Error : Invalid search!")
+        return HttpResponseRedirect(reverse("xadmin:inbox"))
+
+    return HttpRepsonse("")
+
+
+def _inbox_mark_one_flag(request,flag):
+    if request.method == 'GET':
+        msg_id = int(request.GET.get("msg_id"))
+        m = Message.objects.get(id = msg_id)
+        m.important = flag
+        m.save()
+    return HttpResponse("")
+
+@login_required
+def inbox_mark_one(request):
+    return _inbox_mark_one_flag(request,True)
+
+@login_required
+def inbox_unmark_one(request):
+    return _inbox_mark_one_flag(request,False)
+
+
+from django.core.mail import send_mail,EmailMultiAlternatives
+from hashlib import sha1
+from network.models import EmailHash
+import random
+import time
+import urllib
+
+def _chpsw_sendmail(request,user,rurl):
+    user_email = user.email
+    chpsw_url = "http://"
+    chpsw_url += request.META['HTTP_HOST']
+    chpsw_url += reverse("xadmin:chpsw_ckhash")
+    
+    old_hash_list = EmailHash.objects.filter(holder = user)
+    if old_hash_list:
+        old_hash_list.delete()
+
+    random.seed(time.time())
+    hash_str = ""
+    for i in range(0,100):
+        c = random.randint(0,25)
+        c = chr(ord('a') + c)
+        hash_str += c
+    hash_str = sha1(hash_str).hexdigest()
+    
+    es = EmailHash(holder = user,hash_str = hash_str)
+    es.save()
+
+    chpsw_url += "?"
+    chpsw_url += urllib.urlencode({
+        "key" : hash_str,
+        "usr" : user.username,
+    })
+
+    subject = "Change Password"
+    html_content = """
+        <p>Click the URL to change the password:</p>
+        <a href="%s">%s</a>
+    """ % (chpsw_url,chpsw_url)
+    
+    msg = EmailMultiAlternatives(subject,html_content,settings.EMAIL_HOST_USER,[user_email])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+    
+    messages.success(request,"A Email has been sent to %s" % user.email)
+    return HttpResponseRedirect(rurl)
+
+@login_required
+def chpsw_sendmail(request):
+    return _chpsw_sendmail(request,user,reveser("xadmin:inbox"))
+
+
+from django.contrib.auth.models import User
+from datetime import datetime
+
+def chpsw_ckhash(request):
+    if request.method == "GET":
+        usr = request.GET.get("usr")
+        key = request.GET.get("key")
+        es = EmailHash.objects.get(holder = User.objects.get(username = usr))
+        
+        time_dt = datetime.now() - es.gen_date
+        if es and es.hash_str == key and time_dt.total_seconds() <= 60.0:
+            return render(request,"xadmin/change_password.html",{
+                "usr" : usr,
+                "key" : key,
+            })
+    return HttpResponse("")
+
+
+
+from forms import ChangePasswordForm
+from django.contrib.auth import login,authenticate
+
+def chpsw_doupdate(request):
+    if request.method == "POST":
+        cpf = ChangePasswordForm(request.POST)
+        if cpf.is_valid():
+            username = cpf.cleaned_data['username']
+            hash_key = cpf.cleaned_data['hash_key']
+            newpswrd = cpf.cleaned_data['password']
+
+            user = User.objects.get(username = username)
+            es = EmailHash.objects.get(holder = user)
+
+            if es and es.hash_str == hash_key:
+                user.set_password(newpswrd)
+                user.save()
+
+                user = authenticate(username = username,password = newpswrd)
+                login(request,user)
+
+                messages.success(request,"Change password succesfully!")
+                return HttpResponseRedirect(reverse("xadmin:inbox"))
+    return HttpResponse("Failed!")
