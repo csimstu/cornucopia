@@ -1,6 +1,6 @@
 # Django settings for TeenHope project.
 import os
-
+from django.core.urlresolvers import reverse
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -218,6 +218,10 @@ PASSWORD_HINT = "Password must consist of 6 to 20 alpha or digits."
 EMAIL_PATTERN = r'\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*'
 NICKNAME_PATTERN = r'[\w ]{6,20}'
 WEBSITE_PATTERN = r'.{6,20}'
+
+# Login url
+LOGIN_URL = '/accounts/login/'
+
 
 # Modify django message system
 from django.contrib import messages

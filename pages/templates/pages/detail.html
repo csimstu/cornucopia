@@ -9,6 +9,32 @@
             CKEDITOR.replace('id_content', {
                 customConfig: '{% static 'ckeditor4.2/config_intermediate.js' %}'
             });
+            $('#subscribe_btn').click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: '{% url 'network:subscribe_article' %}',
+                    data: {
+                        'article_id': {{ article.id }}
+                    }
+                }).done(function () {
+                            $("#subscribe_btn").hide(1000);
+                            $('#unsubscribe_btn').show(1000);
+                            return false;
+                        })
+            })
+            $('#unsubscribe_btn').click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: '{% url 'network:unsubscribe_article' %}',
+                    data: {
+                        'article_id': {{ article.id }}
+                    }
+                }).done(function () {
+                            $('#unsubscribe_btn').hide(1000);
+                            $('#subscribe_btn').show(1000);
+                            return false;
+                        })
+            })
         })
     </script>
 {% endblock %}
@@ -23,6 +49,13 @@
                     <a href="{{ article.author.get_profile.get_absolute_url }}">
                         <img src="{{ article.author.get_profile.thumbnail.url }}">
                         {{ article.author.get_profile.nickname }}</a>
+                    <span>
+                <button id="subscribe_btn" class="btn btn-info {% if has_subscribed %}hide{% endif %}">Subscribe
+                </button>
+                <button id="unsubscribe_btn" class="btn btn-warning {% if has_subscribed %}{% else %}hide{% endif %}">
+                    Unsubscribe
+                </button>
+        </span>
                 </span>
             </div>
             <ul class="meta">

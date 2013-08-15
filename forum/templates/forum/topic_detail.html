@@ -14,7 +14,7 @@
             {% endfor %}
 
             CKEDITOR.replace('id_content', {
-                 customConfig: '{% static 'ckeditor4.2/config_intermediate.js' %}'
+                customConfig: '{% static 'ckeditor4.2/config_intermediate.js' %}'
             });
 
             $('.reply-submit-btn').click(function () {
@@ -35,7 +35,35 @@
                         });
             });
 
-            $('.forum-reply-btn').click(function(){
+
+            $('#subscribe_btn').click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: '{% url 'network:subscribe_topic' %}',
+                    data: {
+                        'topic_id': {{ topic.id }}
+                    }
+                }).done(function () {
+                            $("#subscribe_btn").hide(1000);
+                            $('#unsubscribe_btn').show(1000);
+                            return false;
+                        })
+            })
+            $('#unsubscribe_btn').click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: '{% url 'network:unsubscribe_topic' %}',
+                    data: {
+                        'topic_id': {{ topic.id }}
+                    }
+                }).done(function () {
+                            $('#unsubscribe_btn').hide(1000);
+                            $('#subscribe_btn').show(1000);
+                            return false;
+                        })
+            })
+
+            $('.forum-reply-btn').click(function () {
                 cform = $(this).siblings(".reply-box");
                 var tmp = $('.reply-box:visible');
                 if (tmp[0] != cform[0]) {
@@ -54,6 +82,10 @@
         Started by <a href="{{ first_post.author.get_profile.get_absolute_url }}">
         {{ first_post.author.get_profile.nickname }}</a>
         on {{ first_post.date_published|date:"P M d, Y" }}
+        <span>
+                <button id="subscribe_btn" class="btn btn-info {% if has_subscribed %}hide{% endif %}">Subscribe</button>
+                <button id="unsubscribe_btn" class="btn btn-warning {% if has_subscribed %}{% else %}hide{% endif %}">Unsubscribe</button>
+        </span>
     </div>
     <div class="span8">
         <ul class="post-list">
