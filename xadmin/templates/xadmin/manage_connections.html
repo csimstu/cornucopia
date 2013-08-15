@@ -6,11 +6,89 @@
 {% block xadmin_head %}
     <link rel="stylesheet" type="text/css" href="{% static "xadmin/manage_connections.css" %}">
     <script>
+        function get_checked_list() {
+            ori_list = $(".checkbox-column");
+            ret = new Array();
+            for(var i = 0;i < ori_list.length;i ++) {
+                cur = $(ori_list[i]);
+                if(! cur.find(":checkbox").attr("checked")) {
+                    continue;
+                }
+                par = cur.parent();
+
+                if(par.attr("class") == "table-head") {
+                    continue;
+                } else if(par.attr("class") == "group-row") {
+                    ret.push({
+                        type : "group",
+                        id : par.attr("id").substr(6),
+                    });
+                } else {
+                    ret.push({
+                        type : "friend",
+                        id : par.attr("id").substr(7),
+                    })
+                }
+            }
+            return $.toJSON(ret);
+        }
+
         $(function () {
             $('.remove-friend').click(function () {
                 return window.confirm(this.title || 'Delete this friend?');
-            })
+            });
+
+            $('.remove-group').click(function() {
+                return window.confirm(this.title || 'Delete this group?');
+            });
+
+            function get_friend_by_group(group_id) {
+                list = $("tr.group-row-" + group_id);
+                return list;
+            }
+
+            $('td.group-name-column').click(function() {
+                group_id = $(this).parent().attr("id").substr(6);
+                get_friend_by_group(group_id).toggle(800);
+            });
+
+            $('.checkbox-column').click(function() {
+                cur = $(this);
+                par = cur.parent();
+                state = !cur.find(":checkbox").attr("checked");
+                cur.find(":checkbox").attr("checked",state);
+                if(par.attr("class") == "group-row") {
+                    group_id = par.attr("id").substr(6);
+                    ck_list = get_friend_by_group(group_id).find(".checkbox-column :checkbox");
+                    for(var i = 0;i < ck_list.length;i ++) {
+                        ck_list[i].checked = state;
+                    }
+                    ck_list.trigger("change");
+                    ck_list.attr("checked",state);
+                } else if(par.attr("class") == "table-head") {
+                    ck_list = $(".checkbox-column :checkbox");
+                    for(var i = 1;i < ck_list.length;i ++) {
+                        ck_list[i].checked = state;
+                    }
+                    ck_list.trigger("change");
+                    ck_list.attr("checked",state);
+                } else {
+                }
+            });
+            
+            function post_request(url) {
+                form = $("#hidden-form form");
+                form.attr("action",url);
+                form.find("input[name='ck_list']").attr("value",get_checked_list());
+                form.submit();
+            }
+
+            $("#remove-button").click(function() {
+                post_request();
+            });
         })
+
+        
     </script>
 {% endblock %}
 {% block xadmin_content %}
@@ -20,33 +98,24 @@
 
         <div class="container">
             <div class="navbar">
-                <div class="pagination pull-right">
-                    <ul>
-                        {% if friends.has_previous %}
-                            <li><a href="?page={{ friends.previous_page_number }}">«</a></li>
-                        {% else %}
-                            <li class="disabled"><a>«</a></li>
-                        {% endif %}
-
-                        </li>
-
-                        <li>
-                            <a href="#">
-                                Page {{ friends.number }} of {{ friends.paginator.num_pages }}
-                            </a>
-                        </li>
-
-                        {% if friends.has_next %}
-                            <li><a href="?page={{ friends.next_page_number }}">»</a></li>
-                        {% else %}
-                            <li class="disabled"><a>»</a></li>
-                        {% endif %}
-                    </ul>
+                <div class="btn-toobar pull-left">
+                    <div class="btn-group">
+                        <button class="btn" id="remove-button">Remove Selected</button>
+                        <button class="btn">Send Message</button>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn">Move Selected</button>
+                        <button class="btn">New Group</button>
+                        <button class="btn">Clear Empty</button>
+                    </div>
                 </div>
             </div>
             <table class="table table-hover">
                 <thead>
-                <tr>
+                <tr class="table-head">
+                    <th class="checkbox-column">
+                        <input type="checkbox"/>
+                    </th>
                     <th>Thumbnail</th>
                     <th>Nickname</th>
                     <th>Username</th>
@@ -54,22 +123,56 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for friend in friends %}
-                    <tr class="friends-row"">
-                    <td><img style="width:100px;" src="{{ friend.get_profile.get_icon_url }}"/></td>
-                    <td>
-                        <a href="{{ friend.get_profile.get_absolute_url }}">
-                        {{ friend.get_profile.nickname }}</td>
-                    </a>
-                    <td>{{ friend.username }}</td>
-                    <td><a class="btn btn-danger remove-friend"
-                           href="{% url 'network:remove_friend' %}?term={{ friend.id }}">
-                        <i class="icon-unlink"></i></a>
-                    </td>
+                {% for group in groups %}
+                <tr class="group-row" id="group-{{group.id}}">
+                        <td class="checkbox-column">
+                            <input type="checkbox" /></td>
+                        </td>
+                        <td colspan="3" class="group-name-column group-unfolded">
+                            {{ group.name }}
+                        </td>
+                        <td><a class="btn btn-danger remove-group"
+                                href="#">
+                            <i class="icon-remove"></i>
+                            </a>
+                            <a class="btn btn-danger clean-group"
+                                href="#">
+                                <i class="icon-eraser"></i>
+                            </a>
+                            <a class="btn btn-danger rename-group"
+                                href="#">
+                                <i class="icon-edit"></i>
+                            </a>
+                        </td>
                     </tr>
-                {% endfor %}
+                    {% for friend in group.friends %}
+                    <tr class="friends-row group-row-{{group.id}}" id="friend-{{friend.id}}">
+                        <td class="checkbox-column"><input type="checkbox" /></td>
+                        <td><img src="{{ friend.get_profile.get_icon_url }}"/></td>
+                        <td>
+                            <a href="{{ friend.get_profile.get_absolute_url }}">
+                            {{ friend.get_profile.nickname }}</td>
+                        </a>
+                        <td>{{ friend.username }}</td>
+                        <td><a class="btn btn-danger remove-friend"
+                            href="{% url 'network:remove_friend' %}?term={{ friend.id }}">
+                            <i class="icon-unlink"></i></a>
+                            <a class="btn btn-danger move-firend"
+                                href="#">
+                                <i class="icon-move"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {%endfor%}
                 </tbody>
             </table>
 
         </div>
-    </div>{% endblock %}
+        </div>
+        <div id="hidden-form">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="text" name="ck_list" />
+            </form>
+        </div>
+{% endblock %}

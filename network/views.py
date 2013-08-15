@@ -76,7 +76,8 @@ def accept_invitation(request, user_id):
         return Http404()
     # p1.relationlist.friends.add(p2)
     # p2.relationlist.friends.add(p1)
-    FriendShip.objects.create(relationlist=p1.relationlist, target=p2, group=p1.group_set.all()[0])
+    FriendShip.objects.create(relationlist=p1.relationlist, target=p2, group=p1.friendgroup_set.all()[0])
+    FriendShip.objects.create(relationlist=p2.relationlist, target=p1, group=p2.friendgroup_set.all()[0])
 
     messages.success(request, '<i class="icon-ok"></i> You and %s become friends.' % p2.get_profile().nickname)
 
