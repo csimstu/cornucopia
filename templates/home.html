@@ -113,20 +113,22 @@
                                     </h3>
 
                                     <div class="meta">
-                                            <span>{{ topic.post_cnt }}
-                                                post{{ topic.post_cnt|pluralize }}
+                                            <span>{{ topic.post_set.count }}
+                                                post{{ topic.post_set.count|pluralize }}
                                             </span>
                                             <span>
                                                 <i class="icon-edit"></i>
-                                                {{ topic.last_editor }}
+                                                {{ topic.get_last_post.author.get_profile.nickname }}
                                             </span>
                                             <span>
                                                 <i class="icon-time"></i>
-                                                {{ topic.last_edited_time|date:"P, M d" }}
+                                                {{ topic.get_last_post.date_published|date:"P M d" }}
                                             </span>
                                             <span>
                                                 <i class="icon-tag"></i>
-                                                {{ topic.category }}
+                                                <a href="{{ topic.category.get_absolute_url }}">
+                                                    {{ topic.category.title }}
+                                                </a>
                                             </span>
                                     </div>
                                 </li>
@@ -196,7 +198,7 @@
                                     <ul class="meta">
                                         <li>
                                             <i class="icon-edit"></i>
-                                            {{ article.author_name }}
+                                            {{ article.author.get_profile.nickname }}
                                         </li>
                                         <li>
                                             <i class="icon-time"></i>
@@ -204,13 +206,18 @@
                                         </li>
                                         <li>
                                             <i class="icon-comment"></i>
-                                            {{ article.comment_cnt }} comment{{ article.comment_cnt|pluralize }}
+                                            {{ article.comment_set.count }}
+                                            comment{{ article.comment_set.count|pluralize }}
                                         </li>
                                         <li>
                                             <i class="icon-tags"></i>
-                                            {% if article.tags %}
-                                                {% for tag in article.tags %}
-                                                    <span class="tag">{{ tag.title }}</span>
+                                            {% if article.tags.all %}
+                                                {% for tag in article.tags.all %}
+                                                    <span class="tag">
+                                                        <a href="{{ tag.get_absolute_url }}">
+                                                            {{ tag.title }}
+                                                        </a>
+                                                    </span>
                                                 {% endfor %}
                                             {% else %}
                                                 <span class="tag">No tag</span>

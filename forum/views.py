@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, Http404, HttpResponse, HttpResponseBadRequest
 from forum.models import *
 from forum.forms import *
-
+from utils import paginate_topic_list, paginate_post_list
 
 def all_category_index(request):
     category_list = []
@@ -22,26 +22,14 @@ def all_category_index(request):
     })
 
 
-def generate_topic_list(list):
-    topic_list = []
-    for x in list:
-        last_post = x.post_set.order_by('-date_published')[0];
-        topic_list.append({'id': x.id, 'title': x.title,
-                           'post_cnt': x.post_set.count(),
-                           'last_editor': last_post.author.get_profile().nickname,
-                           'last_editor_id': last_post.author.id,
-                           'last_edited_time': last_post.date_published,
-                           'category': x.category.title}
-        )
-    return topic_list
-
 
 def all_topic_index(request):
     reversed_topic_list = Topic.objects.order_by('-date_published')
 
     return render(request, 'forum/topic_index.html', {
         'category_title': 'All Topics',
-        'topic_list': generate_topic_list(reversed_topic_list)
+        # 'topic_list': reversed_topic_list,
+        'topics': paginate_topic_list(reversed_topic_list, request.GET),
     })
 
 
@@ -51,7 +39,8 @@ def specific_category_index(request, label):
 
     return render(request, 'forum/topic_index.html', {
         'category_title': category.title,
-        'topic_list': generate_topic_list(reversed_topic_list),
+        # 'topic_list': reversed_topic_list,
+        'topics': paginate_topic_list(reversed_topic_list, request.GET),
     })
 
 
@@ -64,12 +53,12 @@ def topic_detail(request, topic_id):
     return render(request, 'forum/topic_detail.html', {
         'has_subscribed': has_subscribe,
         'topic': topic, 'first_post': topic.post_set.order_by('date_published')[0],
+        'posts': paginate_post_list(topic.post_set.order_by('date_published'), request.GET),
         'post_form': NewPostForm()
     })
 
 
 from django.contrib.auth.decorators import login_required
-import datetime
 
 
 @login_required
@@ -85,17 +74,9 @@ def new_post(request, topic_id):
             post.save()
             return HttpResponseRedirect(post.get_absolute_url())
 
-        topic = get_object_or_404(Topic, id=topic_id)
-        has_subscribe = False
-        if user.is_authenticated():
-            has_subscribe = user.subscribelist.topics.filter(id=topic.id).count() > 0
-        return render(request, 'forum/topic_detail.html', {
-            'has_subscribed': has_subscribe,
-            'topic': topic, 'first_post': topic.post_set.order_by('date_published')[0],
-            'post_form': form
-        })
+        return HttpResponseBadRequest(form.errors)
 
-    return Http404()
+    raise Http404()
 
 
 @login_required
@@ -108,25 +89,18 @@ def post_reply(request, post_id):
         reply.save()
         return HttpResponseRedirect(reverse('forum:topic_detail', kwargs={'topic_id': post.topic.id}))
 
-    return Http404()
+    raise Http404()
 
 from pages.models import Article
 
 
 def home(request):
     reversed_topic_list = Topic.objects.order_by('-date_published')
-    topic_list = generate_topic_list(reversed_topic_list)
+    topic_list = reversed_topic_list
     article_list = []
     reversed_article_list = Article.objects.order_by('-date_published')
     for x in reversed_article_list:
-        article_list.append({
-            'id': x.id, 'title': x.title,
-            'comment_cnt': x.comment_set.count(),
-            'date_published': x.date_published,
-            'author_name': x.author.get_profile().nickname,
-            'abstract': x.content,
-            'tags': x.tags.all(),
-        })
+        article_list.append(x)
 
     return render(request, 'home.html', {
         'hot_topics': topic_list,

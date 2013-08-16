@@ -75,6 +75,17 @@ My recent projects include a Multiplayer Browser game (http://alqazar.com) " \
     post2 = Post.objects.create(topic=topic2, author=llx,
                                 content="Second post by llx! Hoooray!")
 
+    # generator a bunch of topics
+    for x in range(0, 10):
+        tmp = Topic.objects.create(title="Drone Topic #%d" % x, author=llx)
+        for y in range(0, 10):
+            tmp2 = Post.objects.create(topic=tmp, author=llx, content="hehe")
+            if x != 9:
+                break
+            if y == 0:
+                for z in range(0, 10):
+                    Reply.objects.create(post=tmp2, author=llx, content="haha")
+
     from pages.models import Article, Comment, Tag
 
     tag1 = Tag.objects.create(author=llx, title="Innovation")
