@@ -3,6 +3,13 @@
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{% static "xadmin/xadmin_base.css" %}">
+    <script>
+        $(function() {
+            $("#change-password-link").click(function() {
+                return window.confirm("Do you want to change your password?(This will send a email to your email-inbox)");
+            })
+        });
+    </script>
     {% block xadmin_head %}
     {% endblock %}
 {% endblock %}
@@ -28,7 +35,7 @@
 
                     <li class="nav-header">Account</li>
                     <li><a href="{% url 'xadmin:update_profile' %}">Update personal info</a></li>
-                    <li><a href="{% url 'xadmin:chpsw_sendmail' %}">Change Password</a></li>
+                    <li><a href="{% url 'xadmin:chpsw_sendmail' %}" id="change-password-link">Change Password</a></li>
                 </ul>
             </div>
             <!--/.well -->

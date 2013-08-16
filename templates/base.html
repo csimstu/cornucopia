@@ -104,9 +104,10 @@
                         class="active"
                     {% endif %}><a href="{{ pages_url }}"><i class="icon-file"></i>
                         Pages</a></li>
-
+                    {% comment %}
                     <li><a href="#about"><i class="icon-money"></i>
                         Donate</a></li>
+                    {% endcomment %}
                 </ul>
                 <div class="pull-right">
                     {% if user.is_authenticated %}
