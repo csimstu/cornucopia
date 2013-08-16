@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, Http404
 from pages.models import *
 from pages.forms import *
 from datetime import date
+from django.db.models import Q
 
 from utils import paginate_article_list
 def index(request):
@@ -16,8 +17,17 @@ def index(request):
     title = request.GET.get("title","")
     
     if tags:
-        tag = Tag.objects.filter(title__icontains = tags)
-        pass
+        tags = [t.lower() for t in tags.split(",")]
+        tag = []
+        for t in Tag.objects.all():
+            if t.title.lower() in tags:
+                tag.append(t)
+
+        query = [Q(tags = t) for t in tag]
+        q = query[0]
+        for qq in query[1:]:
+            q |= qq
+        reversed_article_list = reversed_article_list.filter(q)
 
     if abstract:
         reversed_article_list = reversed_article_list.filter(abstract__icontains = abstract)
@@ -44,17 +54,19 @@ def index(request):
         ))
     else:
         if pub_time_start:
-            reversed_article_list = reversed_article_list.fitler(date_published__gt = pub_time_start)
-        else if pub_time_end:
+            reversed_article_list = reversed_article_list.filter(date_published__gt = pub_time_start)
+        elif pub_time_end:
             reversed_article_list = reversed_article_list.filter(date_published__lt = pub_time_end)
 
     
     GET_data = request.GET.copy()
-    del GET_data["page"]
+    if GET_data.has_key("page"):
+        del GET_data["page"]
 
     article_list = []
     for x in reversed_article_list:
         article_list.append(x)
+
     return render(request, 'pages/index.html',
                   {'articles': paginate_article_list(article_list, request.GET),
                    'main_title': 'Latest Articles'})
