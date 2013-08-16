@@ -70,18 +70,14 @@ from network.models import FriendShip
 def accept_invitation(request, user_id):
     p1 = request.user
     p2 = User.objects.get(id=user_id)
-    try:
-        Message.objects.get(type="INV", sender=p2, receiver=p1)
-    except Message.DoesNotExist:
-        raise Http404()
-    # p1.relationlist.friends.add(p2)
-    # p2.relationlist.friends.add(p1)
-    if p1.relationlist.friends.filter(id=p2.id).count() == 0:
-        FriendShip.objects.create(relationlist=p1.relationlist, target=p2, group=p1.friendgroup_set.all()[0])
-    if p2.relationlist.friends.filter(id=p1.id).count() == 0:
-        FriendShip.objects.create(relationlist=p2.relationlist, target=p1, group=p2.friendgroup_set.all()[0])
 
-    messages.success(request, '<i class="icon-ok"></i> You and %s become friends.' % p2.get_profile().nickname)
+    if Message.objects.filter(type="INV", sender=p2, receiver=p1).count():
+        if p1.relationlist.friends.filter(id=p2.id).count() == 0:
+            FriendShip.objects.create(relationlist=p1.relationlist, target=p2, group=p1.friendgroup_set.all()[0])
+        if p2.relationlist.friends.filter(id=p1.id).count() == 0:
+            FriendShip.objects.create(relationlist=p2.relationlist, target=p1, group=p2.friendgroup_set.all()[0])
+
+        messages.success(request, '<i class="icon-ok"></i> You and %s become friends.' % p2.get_profile().nickname)
 
     return HttpResponseRedirect(reverse('xadmin:inbox'))
 
@@ -98,18 +94,23 @@ def send_message_single(request):
     raise Http404()
 
 
+def _remove_friend(request,user1,user2):
+    send_message(user1, user2, 'Canceling connection',
+                'Sadly, %s has broken the relationship'
+                ' with you.' % user1.get_profile().nickname)
+    messages.success(request, "You have broken up relationship with %s."
+                        % user2.get_profile().nickname)
+    
+    FriendShip.objects.filter(relationlist=user1.relationlist, target=user2).delete()
+    FriendShip.objects.filter(relationlist=user2.relationlist, target=user1).delete()
+
+
 def remove_friend(request):
     user = request.user
     if request.method == 'GET':
         q = request.GET.get('term', '')
         tmp = User.objects.get(id=int(q))
-        FriendShip.objects.filter(relationlist=user.relationlist, target=tmp).delete()
-        FriendShip.objects.filter(relationlist=tmp.relationlist, target=user).delete()
-        send_message(user, tmp, 'Canceling connection',
-                     'Sadly, %s has broken the relationship'
-                     ' with you.' % user.get_profile().nickname)
-        messages.success(request, "You have broken up relationship with %s."
-                                  % tmp.get_profile().nickname)
+        _remove_friend(request,user,tmp)
         return HttpResponseRedirect(reverse('xadmin:manage_connections'))
     raise Http404()
 
