@@ -110,7 +110,7 @@ def remove_friend(request):
     if request.method == 'GET':
         q = request.GET.get('term', '')
         tmp = User.objects.get(id=int(q))
-        _remove_firend(request,user,tmp)
+        _remove_friend(request,user,tmp)
         return HttpResponseRedirect(reverse('xadmin:manage_connections'))
     raise Http404()
 

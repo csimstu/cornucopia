@@ -31,4 +31,5 @@ urlpatterns = patterns('',
                        url(r'^mancon_move_selected/(?P<group_id>\d+)$',views.mancon_move_selected,name="mancon_move_selected"),
                        url(r'^mancon_move_single/(?P<group_id>\d+)$',views.mancon_move_single,name="mancon_move_single"),
                        url(r'^mancon_clear_group/(?P<group_id>\d+)$',views.mancon_clear_group,name="mancon_clear_group"),
+                       url(r'^mancon_remove_group/(?P<group_id>\d+)$',views.mancon_remove_group,name="mancon_remove_group"),
 )

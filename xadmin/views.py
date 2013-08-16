@@ -63,6 +63,8 @@ from django.shortcuts import get_object_or_404
 @login_required()
 def show_msg_in_inbox(request, msg_id):
     msg = get_object_or_404(Message, id=msg_id)
+    if msg.receiver.id != request.user.id:
+        raise Http404
     msg.unread = False
     msg.save()
     return render(request, 'xadmin/show_msg_in_inbox.html', {'msg': msg})
@@ -495,20 +497,6 @@ def chpsw_doupdate(request):
 import json
 
 @login_required
-def mancon_remove(request):
-    if request.method == "POST":
-        ck_list = request.POST.get("ck_list")
-        ck_list = json.loads(ck_list)
-
-        for rm in ck_list:
-            if rm["type"] == "group":
-                pass
-            elif rm["type"] == "friend":
-                pass
-
-    raise Http404()
-
-@login_required
 def mancon_newgroup(request):
     if request.method == "POST":
         groupname = request.POST.get("ck_list")
@@ -599,5 +587,45 @@ def mancon_clear_group(request,group_id):
         _remove_friend(request,request.user,fsh.target)
 
     return HttpResponseRedirect(reverse("xadmin:manage_connections"))
+
+    raise Http404()
+
+@login_required
+def _mancon_remove_group(request,group):
+    def_grp = _get_default_group(request.user)
+    if group.id == def_grp.id:
+        messages.error(request,"Can not delete default group!")
+        return
+
+    for fsh in request.user.relationlist.friendship_set.filter(group = group):
+        _move_friend_to_group(request.user,fsh.target,def_grp)
+
+    group.delete()
+    messages.success(request,"Delete group %s successfully!" % group.name)
+
+@login_required
+def mancon_remove_group(request,group_id):
+    grp = FriendGroup.objects.filter(holder = request.user,id = int(group_id))
+    if not grp:
+        raise Http404
+
+    _mancon_remove_group(request,grp[0])
+    return HttpResponseRedirect(reverse("xadmin:manage_connections"))
+
+@login_required
+def mancon_remove(request):
+    if request.method == "POST":
+        ck_list = request.POST.get("ck_list")
+        ck_list = json.loads(ck_list)
+
+        for rm in ck_list:
+            if rm["type"] == "group":
+                grp = FriendGroup.objects.filter(holder = request.user,id = int(rm["id"]))
+                if grp:
+                    _mancon_remove_group(request,grp[0])
+            elif rm["type"] == "friend":
+                tmp = request.user.relationlist.friends.get(id = int(rm["id"]))
+                _remove_friend(request,request.user,tmp)
+        return HttpResponseRedirect(reverse("xadmin:manage_connections"))
 
     raise Http404()

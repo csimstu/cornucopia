@@ -76,7 +76,9 @@
             }
 
             $("#remove-button").click(function() {
-                post_request("{% url 'xadmin:mancon_remove' %}",get_checked_list());
+                if(window.confirm("Are you sure?")) {
+                    post_request("{% url 'xadmin:mancon_remove' %}",get_checked_list());
+                }
             });
 
             $("#new-button").click(function() {
@@ -137,7 +139,15 @@
 
 
             $("a.clear-group").click(function() {
-                return window.confirm("Are you sure to clear this group?(This will remove all the firends under this group)");
+                return window.confirm("Are you sure to clear this group?(This will remove all the friends under this group)");
+            });
+
+            $("a.remove-friend").click(function() {
+                return window.confirm("Are you sure to break up?");
+            });
+
+            $("a.remove-group").click(function() {
+                return window.confirm("Are you sure to remove the group?(This will move all the friends under this group into default group)");
             });
         })
 
@@ -189,7 +199,7 @@
                             </a>
                             {% if group.name != "default group" %}
                             <a class="btn btn-danger remove-group"
-                                href="">
+                                href="{% url 'xadmin:mancon_remove_group' group.id %}">
                             <i class="icon-remove"></i>
                             </a>
                             {% endif %}
