@@ -69,13 +69,13 @@
                 $.get(url);
             });
 
-            $('td.important-column').click(function() {
+            $('td.important-column').click(function () {
                 cur = $(this);
                 state = cur.find("i").attr("class");
                 msg_id = cur.parent().attr("msg_id");
                 url = "";
 
-                if(state == "icon-star") {
+                if (state == "icon-star") {
                     state = "icon-star-empty";
                     url = "{% url 'xadmin:inbox_unmark_one' %}";
                 } else {
@@ -83,10 +83,10 @@
                     url = "{% url 'xadmin:inbox_mark_one' %}";
                 }
 
-                $.get(url,{
-                    msg_id : msg_id,
-                },function() {
-                    cur.find("i").attr("class",state);
+                $.get(url, {
+                    msg_id: msg_id,
+                }, function () {
+                    cur.find("i").attr("class", state);
                 });
 
                 return false;
@@ -96,8 +96,10 @@
 {% endblock %}
 {% block xadmin_content %}
     <div>
-        <h2><i class="icon-inbox"></i>
-            Inbox</h2>
+        <h2 class="xadmin-headline">
+            <i class="icon-inbox"></i>
+            <span>Inbox</span>
+        </h2>
 
         <div class="container">
             <div class="navbar">
@@ -128,7 +130,7 @@
                 <div class="pagination pull-right">
                     <ul>
                         {% if msgs.has_previous %}
-                        <li><a href="?page={{ msgs.previous_page_number }}&{{ GET_data.urlencode }}">«</a></li>
+                            <li><a href="?page={{ msgs.previous_page_number }}&{{ GET_data.urlencode }}">«</a></li>
                         {% else %}
                             <li class="disabled"><a>«</a></li>
                         {% endif %}
@@ -142,7 +144,7 @@
                         </li>
 
                         {% if msgs.has_next %}
-                        <li><a href="?page={{ msgs.next_page_number }}&{{ GET_data.urlencode }}">»</a></li>
+                            <li><a href="?page={{ msgs.next_page_number }}&{{ GET_data.urlencode }}">»</a></li>
                         {% else %}
                             <li class="disabled"><a>»</a></li>
                         {% endif %}

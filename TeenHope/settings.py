@@ -218,6 +218,7 @@ URL_LENGTH_LIMIT = 50
 
 MAX_GROUPNAME_LENGTH = 100
 CKBOX_SESSION_NAME = "check box"
+CHECK_MAIL_LIVE_SPAN = 300.0
 
 # Validation regex
 USERNAME_PATTERN = r'[A-Za-z]\w{5,19}' # regex for username, 6<=len<=20 with leading alpha

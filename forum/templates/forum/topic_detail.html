@@ -17,25 +17,6 @@
                 customConfig: '{% static 'ckeditor4.2/config_intermediate.js' %}'
             });
 
-            $('.reply-submit-btn').click(function () {
-                var post_id = $(this).attr('post_id');
-                var txt = CKEDITOR.instances['reply_textarea_' + post_id].getData();
-
-                var url_mask = "{% url 'forum:post_reply' post_id=12345 %}"
-                        .replace(/12345/, post_id);
-                $.ajax({
-                    type: "POST",
-                    url: url_mask,
-                    data: {
-                        'content': txt
-                    }
-                }).done(function (msg) {
-                            document.location = "{% url 'forum:topic_detail' topic_id=topic.id %}";
-                            return false;
-                        });
-            });
-
-
             $('#subscribe_btn').click(function () {
                 $.ajax({
                     type: "GET",
@@ -62,12 +43,6 @@
                             return false;
                         })
             })
-
-            $('.forum-reply-btn').click(function () {
-                var cform = $(this).parent().siblings(".reply-box");
-                cform.slideToggle(700);
-            })
-            $('.reply-list').hide();
             $('.reply-toggle-btn').click(function () {
                 var reply_list = $(this).parent().siblings('.reply-list');
                 reply_list.slideToggle(700);
@@ -78,6 +53,19 @@
                     icon = icon.replace(/down/, 'up');
                 $(this).find('i').attr('class', icon);
             });
+
+            $('.reply-list').hide();
+            {% if user.is_authenticated %}
+                $('.forum-reply-btn').click(function () {
+                    var cform = $(this).parent().siblings(".reply-box");
+                    cform.slideToggle(700);
+                });
+            {% else %}
+                $('.forum-reply-btn').addClass('disabled');
+                $('.forum-reply-btn').click(function () {
+                    alert("You must login to reply!")
+                });
+            {% endif %}
         })
     </script>
 {% endblock %}
@@ -133,7 +121,7 @@
                                     </a>
                                 {% else %}
                                     <a class="btn btn-warning disabled">
-                                    no reply yet
+                                        no reply yet
                                     </a>
                                 {% endif %}
                                 <a id="pop-up-reply-box" class="forum-reply-btn btn btn-primary">
@@ -171,8 +159,9 @@
                             </div>
 
                             <div class="reply-box span12" style="display:none;">
-                                <form method="POST"> {% csrf_token %}
-                                    <textarea id="reply_textarea_{{ post.id }}"></textarea>
+                                <form method="POST"
+                                      action="{% url 'forum:post_reply' post_id=post.id %}"> {% csrf_token %}
+                                    <textarea id="reply_textarea_{{ post.id }}" name="content"></textarea>
                                     <input post_id="{{ post.id }}" class="reply-submit-btn btn btn-success"
                                            type="submit" value="Submit">
                                 </form>
@@ -186,7 +175,7 @@
             {% endfor %}
         </ul>
 
-          <div class="pagination pull-right">
+        <div class="pagination pull-right">
             <ul>
                 {% if posts.has_previous %}
                     <li><a href="?page={{ posts.previous_page_number }}">«</a></li>

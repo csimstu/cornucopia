@@ -451,6 +451,7 @@ def chpsw_sendmail(request):
 
 from django.contrib.auth.models import User
 from datetime import datetime
+from forms import ChangePasswordForm
 
 def chpsw_ckhash(request):
     if request.method == "GET":
@@ -459,16 +460,16 @@ def chpsw_ckhash(request):
         es = EmailHash.objects.get(holder = User.objects.get(username = usr))
         
         time_dt = datetime.now() - es.gen_date
-        if es and es.hash_str == key and time_dt.total_seconds() <= 60.0:
+        if es and es.hash_str == key and time_dt.total_seconds() <= settings.CHECK_MAIL_LIVE_SPAN:
             return render(request,"xadmin/change_password.html",{
                 "usr" : usr,
                 "key" : key,
+                'form': ChangePasswordForm,
             })
     return HttpResponse("")
 
 
 
-from forms import ChangePasswordForm
 from django.contrib.auth import login,authenticate
 
 def chpsw_doupdate(request):
@@ -491,6 +492,12 @@ def chpsw_doupdate(request):
 
                 messages.success(request,"Change password succesfully!")
                 return HttpResponseRedirect(reverse("xadmin:inbox"))
+        else:
+            return render(request,"xadmin/change_password.html", {
+                "usr": request.POST['username'],
+                "key": request.POST['hash_key'],
+                'form': cpf,
+            })
     return HttpResponse("Failed!")
 
 

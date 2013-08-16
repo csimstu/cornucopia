@@ -161,4 +161,15 @@ from accounts.models import validate_password
 class ChangePasswordForm(forms.Form):
     username = forms.CharField()
     hash_key = forms.CharField()
-    password = forms.CharField(validators = [validate_password])
+    password = forms.CharField(validators=[validate_password], widget=forms.PasswordInput)
+    re_password = forms.CharField(validators=[validate_password], widget=forms.PasswordInput)
+
+    def clean(self):
+        cleaned_data = super(ChangePasswordForm, self).clean()
+
+        pswd1 = cleaned_data.get('password')
+        pswd2 = cleaned_data.get('re_password')
+        if pswd1 != pswd2:
+            raise ValidationError("Please enter the same passwords twice.")
+
+        return cleaned_data

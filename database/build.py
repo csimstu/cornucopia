@@ -1,20 +1,25 @@
 import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "TeenHope.settings")
+from django.db import connection
 from TeenHope import settings
+from django.core.management import call_command
 
-name_list = ['andrew', 'mike', 'ferona', 'john',
+
+def recreate_db():
+    print "Wiping database..."
+    dbinfo = settings.DATABASES['default']
+
+    print "Dropping and creating database" + dbinfo['NAME']
+    cursor = connection.cursor()
+    cursor.execute("DROP DATABASE " + dbinfo["NAME"] + "; CREATE DATABASE "
+                   + dbinfo["NAME"] + "; USE " + dbinfo["NAME"] + ";")
+    print "Done."
+
+
+def add_test_data():
+
+    name_list = ['andrew', 'mike', 'ferona', 'john',
              'smith', 'nyx', 'rubic', 'bat', 'spectre']
-
-try:
-    #from django.contrib.auth.models import User
-    #User.objects.get(id=1)
-    #print 'Database already exists.'
-    raise Exception
-except Exception:
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "TeenHope.settings")
-    from django.core.management import call_command
-
-    call_command('syncdb', interactive=False)
-
     from django.contrib.auth.models import User
 
     llx = User.objects.create_superuser('csimstu', 'csimstu@gmail.com', '1')
@@ -114,3 +119,11 @@ My recent projects include a Multiplayer Browser game (http://alqazar.com) " \
     article2.pk = None
     article2.date_published = datetime.datetime.now()
     article2.save()
+
+if __name__ == "__main__":
+    recreate_db()
+    print "Syncing DB..."
+    call_command('syncdb', interactive=False)
+    print "Adding test data..."
+    add_test_data()
+    print "Building database successfully."
