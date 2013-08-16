@@ -25,8 +25,16 @@
 3-. dashboard subscribe
 4+. profile trace(recent activity)
 5+. friend grouping & managing(session) & remove friend(bidirectional) + reminder
-6. topic abstract
+6+. topic abstract
 7-. tag += hot tag
-8. traces += connection
+8+. traces += connection
 9+. change password
 10+. forget password(hash + send mail)
+
+---------------------------------------------------------------------------------
+1. forum & pages index pagination
+2. add archive(division by date) + *search
+3. articles classification(by tag)
+4. view topics/posts/comments/articles of a specific person
+5. optimize redirect (#)
+6. delete new message & add connection

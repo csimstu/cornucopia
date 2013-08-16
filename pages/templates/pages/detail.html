@@ -17,10 +17,10 @@
                         'article_id': {{ article.id }}
                     },
                     success: function () {
-                            $("#subscribe_btn").hide(1000);
-                            $('#unsubscribe_btn').show(1000);
-                            return false;
-                        }
+                        $("#subscribe_btn").hide(1000);
+                        $('#unsubscribe_btn').show(1000);
+                        return false;
+                    }
                 })
             })
             $('#unsubscribe_btn').click(function () {
@@ -31,10 +31,10 @@
                         'article_id': {{ article.id }}
                     },
                     success: function () {
-                            $('#unsubscribe_btn').hide(1000);
-                            $('#subscribe_btn').show(1000);
-                            return false;
-                        }
+                        $('#unsubscribe_btn').hide(1000);
+                        $('#subscribe_btn').show(1000);
+                        return false;
+                    }
                 })
             })
         })
@@ -43,6 +43,15 @@
 {% block pages_content %}
     <div class="row-fluid">
         <div class="span7 offset2 main-wrapper">
+            {% if user.is_authenticated %}
+                <div class="pull-right">
+                <button id="subscribe_btn" class="btn btn-info {% if has_subscribed %}hide{% endif %}">Subscribe
+                </button>
+                <button id="unsubscribe_btn" class="btn btn-warning {% if has_subscribed %}{% else %}hide{% endif %}">
+                    Unsubscribe
+                </button>
+                </div>
+            {% endif %}
             <h2>{{ article.title }}</h2>
 
             <div class="author">
@@ -51,15 +60,7 @@
                     <a href="{{ article.author.get_profile.get_absolute_url }}">
                         <img src="{{ article.author.get_profile.thumbnail.url }}">
                         {{ article.author.get_profile.nickname }}</a>
-                {% if user.is_authenticated %}
-                    <span>
-                <button id="subscribe_btn" class="btn btn-info {% if has_subscribed %}hide{% endif %}">Subscribe
-                </button>
-                <button id="unsubscribe_btn" class="btn btn-warning {% if has_subscribed %}{% else %}hide{% endif %}">
-                    Unsubscribe
-                </button>
-                </span>
-                {% endif %}
+
                 </span>
             </div>
             <ul class="meta">
@@ -74,9 +75,14 @@
                 <li>
                     <i class="icon-tags"></i>
                     {% if article.tags.all %}
-                        {% for tag in article.tags.all %}
-                            <span class="tag">{{ tag.title }}</span>
-                        {% endfor %}
+                        <ul class="tag-preview">
+                            {% for tag in article.tags.all %}
+                                <li>
+                                    <a href="{{ tag.get_absolute_url }}">{{ tag.title }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     {% else %}
                         <span class="tag">No tag</span>
                     {% endif %}

@@ -53,6 +53,9 @@ class FriendShip(models.Model):
     target = models.ForeignKey(User)
     group = models.ForeignKey(FriendGroup)
 
+    def trace_msg(self):
+        return "You and %s become friends." % self.target.get_profile().nickname
+
 
 from django.db.models.signals import post_save, pre_save
 
@@ -150,6 +153,15 @@ def create_comment_trace(sender, **kwargs):
 
 post_save.connect(create_comment_trace, sender=Comment)
 
+def create_friendship_trace(sender, **kwargs):
+    fs = kwargs["instance"]
+    if kwargs["created"]:
+        p1 = fs.target
+        p2 = fs.relationlist.holder
+        Trace.objects.create(user=p2, url=p1.get_profile().get_absolute_url(),
+                             description=fs.trace_msg())
+
+post_save.connect(create_friendship_trace, sender=FriendShip)
 
 from network.listeners import topic_subscribe_listener, \
     post_subscribe_listener, article_subscribe_listener, comment_subscribe_listener, reply_subscribe_listener

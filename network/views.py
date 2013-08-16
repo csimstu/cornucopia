@@ -76,8 +76,10 @@ def accept_invitation(request, user_id):
         return Http404()
     # p1.relationlist.friends.add(p2)
     # p2.relationlist.friends.add(p1)
-    FriendShip.objects.create(relationlist=p1.relationlist, target=p2, group=p1.friendgroup_set.all()[0])
-    FriendShip.objects.create(relationlist=p2.relationlist, target=p1, group=p2.friendgroup_set.all()[0])
+    if p1.relationlist.friends.filter(id=p2.id).count() == 0:
+        FriendShip.objects.create(relationlist=p1.relationlist, target=p2, group=p1.friendgroup_set.all()[0])
+    if p2.relationlist.friends.filter(id=p1.id).count() == 0:
+        FriendShip.objects.create(relationlist=p2.relationlist, target=p1, group=p2.friendgroup_set.all()[0])
 
     messages.success(request, '<i class="icon-ok"></i> You and %s become friends.' % p2.get_profile().nickname)
 
@@ -101,8 +103,8 @@ def remove_friend(request):
     if request.method == 'GET':
         q = request.GET.get('term', '')
         tmp = User.objects.get(id=int(q))
-        user.relationlist.friends.remove(tmp)
-        tmp.relationlist.friends.remove(user)
+        FriendShip.objects.filter(relationlist=user.relationlist, target=tmp).delete()
+        FriendShip.objects.filter(relationlist=tmp.relationlist, target=user).delete()
         send_message(user, tmp, 'Canceling connection',
                      'Sadly, %s has broken the relationship'
                      ' with you.' % user.get_profile().nickname)
@@ -112,18 +114,13 @@ def remove_friend(request):
     return Http404()
 
 import datetime
-
+from network import utils
 
 def send_invitation(request):
     user = request.user
     if request.method == 'POST':
         receiver = User.objects.get(id=request.POST['receiver_id'])
-        Message.objects.create(sender=user,
-                               receiver=receiver,
-                               subject="%s wants to be friend with you" % user.get_profile().nickname,
-                               content=request.POST['content'],
-                               date_sent=datetime.datetime.now(),
-                               type="INV")
+        utils.send_friend_invitation(user, receiver, request.POST['content'])
         return HttpResponse("Invitation for %s sent." % receiver.get_profile().nickname)
     return Http404()
 
