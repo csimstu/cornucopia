@@ -2,6 +2,14 @@
 {% load staticfiles %}
 {% block pages_head %}
     <link rel="stylesheet" type="text/css" href="{% static "pages/index.css" %}">
+    <script>
+        $(function() {
+            $('.additional-limit').hide();
+            $('#search-toggle-btn').click(function() {
+                $('.additional-limit').fadeToggle(700);
+            })
+        })
+    </script>
 {% endblock %}
 {% block pages_content %}
     <div class="row-fluid">
@@ -85,41 +93,51 @@
             <form method="GET" class="input-block-level" action="{% url 'pages:index' %}">
                 <div class="input-append" style="width:100%">
                     <input type="text" class="span8" style="height:30px;" name="title"
-                           placeholder="Enter the title you want to search">
+                           placeholder="Title here"
+                            value="{{ GET_data.title }}">
 
                     <div class="btn-group">
-                        <button class="btn"><i class="icon-angle-down"></i></button>
-                        <button type="submit" class="btn">Search</button>
+                        <a id="search-toggle-btn" class="btn"><i class="icon-angle-down"></i></a>
+                        <a type="submit" class="btn">Search</a>
                     </div>
                 </div>
+                <div class="additional-limit">
+                    <div class="control-group">
+                        <label class="control-label" for="id_abstract">In abstract</label>
 
-                <div class="control-group">
-                    <label class="control-label" for="id_abstract">in abstract</label>
-
-                    <div class="controls">
-                        <input id="abstract" type="text" name="abstract">
+                        <div class="controls">
+                            <input id="abstract" type="text" name="abstract" class="input-block-level"
+                                   placeholder="Abstract here"
+                                    value="{{ GET_data.abstract }}">
+                        </div>
                     </div>
-                </div>
 
-                <div class="control-group">
-                    <label class="control-label" for="id_tags">tags</label>
+                    <div class="control-group">
+                        <label class="control-label" for="id_tags">Tags</label>
 
-                    <div class="controls">
-                        <input id="tags" type="text" name="tags">
+                        <div class="controls">
+                            <input id="tags" type="text" name="tags" class="input-block-level"
+                                   placeholder="Tags here (spaced by ',')"
+                                    value="{{ GET_data.tags }}">
+                        </div>
                     </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="id_pub_time_start">Date from</label>
+                    <div class="control-group">
+                        <label class="control-label" for="id_pub_time_start">Date from</label>
 
-                    <div class="controls">
-                        <input id="pub_time_start" type="text" name="pub_time_start">
+                        <div class="controls">
+                            <input id="pub_time_start" type="text" name="pub_time_start" class="input-block-level"
+                                   placeholder="e.g. '2012/12/21', inclusively"
+                                    value="{{ GET_data.pub_time_start }}">
+                        </div>
                     </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="id_pub_time_end">Date to</label>
+                    <div class="control-group">
+                        <label class="control-label" for="id_pub_time_end">Date to</label>
 
-                    <div class="controls">
-                        <input id="pub_time_end" type="text" name="pub_time_end">
+                        <div class="controls">
+                            <input id="pub_time_end" type="text" name="pub_time_end" class="input-block-level"
+                                   placeholder="e.g. '2012/12/21', inclusively"
+                                    value="{{ GET_data.pub_time_end }}">
+                        </div>
                     </div>
                 </div>
             </form>
