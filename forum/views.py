@@ -95,10 +95,10 @@ from pages.models import Article
 
 
 def home(request):
-    reversed_topic_list = Topic.objects.order_by('-date_published')
+    reversed_topic_list = Topic.objects.order_by('-date_published')[:settings.HOT_TOPICS_COUNT_LIMIT]
     topic_list = reversed_topic_list
     article_list = []
-    reversed_article_list = Article.objects.order_by('-date_published')
+    reversed_article_list = Article.objects.order_by('-date_published')[:settings.HIGHLIGHT_ARTICLE_COUNT_LIMIT]
     for x in reversed_article_list:
         article_list.append(x)
 
