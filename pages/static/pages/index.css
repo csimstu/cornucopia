@@ -60,4 +60,11 @@
 .main-wrapper .read-more {
     margin: 20px 0 0 10px;
 }
+.input-append {
+}
+.additional-limit{
+    border-radius: 5px;
+    background: #ffffff;
+    padding: 20px;
+}
 
