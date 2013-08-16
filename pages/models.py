@@ -34,6 +34,7 @@ class Article(models.Model):
     title = models.CharField(max_length=settings.ARTICLE_TITLE_LENGTH_LIMIT)
     content = models.CharField(max_length=settings.ARTICLE_LENGTH_LIMIT)
     tags = models.ManyToManyField(Tag)
+    abstract = models.CharField(max_length=settings.ABSTRACT_LENGTH_LIMIT)
 
     def __unicode__(self):
         return "Article: " + self.title

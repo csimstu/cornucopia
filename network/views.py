@@ -21,7 +21,7 @@ def search_user_thumb_list(request):
             results.append(user_json)
         data = json.dumps(results)
         return HttpResponse(data, mimetype='application/json')
-    return Http404()
+    raise Http404()
 
 
 def search_user_thumb_list_exclude(request):
@@ -42,7 +42,7 @@ def search_user_thumb_list_exclude(request):
             results.append(user_json)
         data = json.dumps(results)
         return HttpResponse(data, mimetype='application/json')
-    return Http404()
+    raise Http404()
 
 
 def get_user_thumb_by_id(request):
@@ -60,7 +60,7 @@ def get_user_thumb_by_id(request):
                 results.append(user_json)
 
         return HttpResponse(json.dumps(results), mimetype='application/json')
-    return Http404()
+    raise Http404()
 
 
 from network.models import Message
@@ -72,8 +72,10 @@ def accept_invitation(request, user_id):
     p2 = User.objects.get(id=user_id)
 
     if Message.objects.filter(type="INV", sender=p2, receiver=p1).count():
-        FriendShip.objects.create(relationlist=p1.relationlist, target=p2, group=p1.friendgroup_set.all()[0])
-        FriendShip.objects.create(relationlist=p2.relationlist, target=p1, group=p2.friendgroup_set.all()[0])
+        if p1.relationlist.friends.filter(id=p2.id).count() == 0:
+            FriendShip.objects.create(relationlist=p1.relationlist, target=p2, group=p1.friendgroup_set.all()[0])
+        if p2.relationlist.friends.filter(id=p1.id).count() == 0:
+            FriendShip.objects.create(relationlist=p2.relationlist, target=p1, group=p2.friendgroup_set.all()[0])
 
         messages.success(request, '<i class="icon-ok"></i> You and %s become friends.' % p2.get_profile().nickname)
 
@@ -89,17 +91,19 @@ def send_message_single(request):
         receiver = User.objects.get(id=request.POST['receiver_id'])
         send_message(user, receiver, request.POST['subject'], request.POST['content'])
         return HttpResponse("Message to %s sent." % receiver.get_profile().nickname)
-    return Http404()
+    raise Http404()
 
 
 def _remove_friend(request,user1,user2):
-    user1.relationlist.friends.remove(user2)
-    user2.relationlist.friends.remove(user1)
     send_message(user1, user2, 'Canceling connection',
                 'Sadly, %s has broken the relationship'
                 ' with you.' % user1.get_profile().nickname)
     messages.success(request, "You have broken up relationship with %s."
                         % user2.get_profile().nickname)
+    
+    FriendShip.objects.filter(relationlist=user1.relationlist, target=user2).delete()
+    FriendShip.objects.filter(relationlist=user2.relationlist, target=user1).delete()
+
 
 def remove_friend(request):
     user = request.user
@@ -108,23 +112,18 @@ def remove_friend(request):
         tmp = User.objects.get(id=int(q))
         _remove_firend(request,user,tmp)
         return HttpResponseRedirect(reverse('xadmin:manage_connections'))
-    return Http404()
+    raise Http404()
 
 import datetime
-
+from network import utils
 
 def send_invitation(request):
     user = request.user
     if request.method == 'POST':
         receiver = User.objects.get(id=request.POST['receiver_id'])
-        Message.objects.create(sender=user,
-                               receiver=receiver,
-                               subject="%s wants to be friend with you" % user.get_profile().nickname,
-                               content=request.POST['content'],
-                               date_sent=datetime.datetime.now(),
-                               type="INV")
+        utils.send_friend_invitation(user, receiver, request.POST['content'])
         return HttpResponse("Invitation for %s sent." % receiver.get_profile().nickname)
-    return Http404()
+    raise Http404()
 
 
 def add_follow(request):
@@ -133,7 +132,7 @@ def add_follow(request):
         receiver = User.objects.get(id=request.GET['receiver_id'])
         user.relationlist.followings.add(receiver)
         return HttpResponse("Successfully add %s to your following list." % receiver.get_profile().nickname)
-    return Http404()
+    raise Http404()
 
 from forum.models import Topic
 from pages.models import Article
@@ -145,7 +144,7 @@ def subscribe_topic(request):
         topic = get_object_or_404(Topic, id=request.GET['topic_id'])
         user.subscribelist.topics.add(topic)
         return HttpResponse()
-    return Http404()
+    raise Http404()
 
 @login_required()
 def unsubscribe_topic(request):
@@ -154,7 +153,7 @@ def unsubscribe_topic(request):
         topic = get_object_or_404(Topic, id=request.GET['topic_id'])
         user.subscribelist.topics.remove(topic)
         return HttpResponse()
-    return Http404()
+    raise Http404()
 
 @login_required()
 def subscribe_article(request):
@@ -163,7 +162,7 @@ def subscribe_article(request):
         article = get_object_or_404(Article, id=request.GET['article_id'])
         user.subscribelist.articles.add(article)
         return HttpResponse()
-    return Http404()
+    raise Http404()
 
 @login_required()
 def unsubscribe_article(request):
@@ -172,4 +171,4 @@ def unsubscribe_article(request):
         article = get_object_or_404(Article, id=request.GET['article_id'])
         user.subscribelist.articles.remove(article)
         return HttpResponse()
-    return Http404()
+    raise Http404()

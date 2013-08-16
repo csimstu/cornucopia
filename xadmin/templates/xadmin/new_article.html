@@ -1,10 +1,14 @@
 {% extends "xadmin/xadmin_base.html" %}
 {% load staticfiles %}
+{% load widget_tweaks %}
 {% block xadmin_head %}
     <link rel="stylesheet" type="text/css" href="{% static "pages/new_article.css" %}">
 
     <script>
         $(function () {
+            CKEDITOR.replace('id_abstract', {
+                customConfig: '{% static 'ckeditor4.2/config.js' %}'
+            });
             CKEDITOR.replace('id_content', {
                 customConfig: '{% static 'ckeditor4.2/config_full.js' %}'
             });
@@ -18,45 +22,31 @@
 {% endblock %}
 {% block title %}Create A New Article{% endblock %}
 {% block xadmin_content %}
-    <div class="new-article-content">
-        <div class="header-container">
-            <h1 class="new-article-main-header">
-                Create A New Article
-            </h1>
-        </div>
-        <div class="new-article-form-wrap">
-            <form method="POST" action=""> {% csrf_token %}
-                <div class="error_msg">
-                    {{ form.non_field_errors }}
-                </div>
-                <div class="fieldWrapper">
-                    <label class="new-article-label" for="id_category">Tag(s)</label>
+    <h2 class="xadmin-headline">
+        <i class="icon-plus-sign"></i>
+        <span>Create A New Article</span>
+    </h2>
+    <div class="span8">
+        <form method="POST" action=""> {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="row-fluid">
+                <label class="label-headline" for="id_category">Add Tags</label>
 
-                    {{ form.tags }}
-                </div>
-                <div class="fieldWrapper">
-                    <label class="new-article-label" for="id_title">Title</label>
+                {{ form.tags }}
+                <label class="label-headline" for="id_title">Title</label>
+                {{ form.title.errors }}
+                {{ form.title|add_class:"input-block-level" }}
 
-                    <div class="new-article-title">
-                        {{ form.title }}
-                    </div>
+                <label class="label-headline" for="id_abstract">Abstract</label>
+                {{ form.abstract.errors }}
+                {{ form.abstract }}
 
-                </div>
-                <div class="fieldWrapper">
-                    <label class="new-article-label" for="id_content">Content</label>
-
-                    <div class="content-tip meta">
-                        Tip: try paste formatted content directly!
-                    </div>
-                    <div class="textarea-div">
-                        {{ form.content }}
-                    </div>
-                </div>
-                <p>
-                    <input class="button blue-button new-article-submit"
-                           id="new_article_sumbit_btn" type="submit" value="submit">
-                </p>
-            </form>
-        </div>
+                <label class="label-headline" for="id_content">Content</label>
+                {{ form.content.errors }}
+                {{ form.content }}
+                <input id="publish_btn" class="btn btn-warning btn-large"
+                       type="submit" value="Publish">
+            </div>
+        </form>
     </div>
 {% endblock %}

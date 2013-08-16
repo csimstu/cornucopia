@@ -10,3 +10,20 @@ label {
     font-family: Alegreya, serif;
     text-transform: uppercase;
 }
+
+.thumbnail-box {
+    margin-top: 200px;
+    padding: 30px;
+    border: grey solid 2px;
+}
+
+.thumbnail-hint {
+    color: #BEBEBE;
+    font-size: 1.5em;
+    line-height: 1.5em;
+}
+
+.cke_textarea_inline {
+    padding: 5px;
+    border: rgba(0,0,0,0.1) solid 1px;
+}

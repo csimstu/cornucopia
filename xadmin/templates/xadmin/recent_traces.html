@@ -16,8 +16,10 @@
 {% endblock %}
 {% block xadmin_content %}
     <div>
-        <h2><i class="icon-anchor"></i>
-            Traces</h2>
+        <h2 class="xadmin-headline">
+            <i class="icon-leaf"></i>
+            <span>Traces</span>
+        </h2>
 
         <div class="container">
             <div class="navbar">
@@ -55,7 +57,7 @@
                 <tbody>
                 {% for trace in traces %}
                     <tr class="trace-row" href={{ trace.url }}>
-                        <td>{{ trace.date|date:"M d, Y" }}</td>
+                        <td>{{ trace.date|date:"P M d, Y" }}</td>
                         <td>{{ trace.description|safe }}</td>
                     </tr>
                 {% endfor %}

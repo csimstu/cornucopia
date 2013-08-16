@@ -89,3 +89,25 @@
 #comment-submit-btn {
     margin-top: 20px;
 }
+
+.tag-preview {
+    display: inline-block;
+    margin-left: 0;
+}
+
+.tag-preview li {
+    list-style: none;
+    display: inline-block;
+}
+
+.tag-preview a {
+    background: #c4dae9;
+    padding: 3px;
+    box-shadow: 0 0 1px blue;
+    font-size: 0.9em;
+    color: #4a6b82;
+}
+
+.tag-preview a:hover {
+    color: blue;
+}

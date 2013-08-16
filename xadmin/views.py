@@ -173,6 +173,7 @@ def new_article(request):
         if form.is_valid():
             article = Article(title=form.cleaned_data['title'],
                               author=user,
+                              abstract=form.cleaned_data['abstract'],
                               content=form.cleaned_data['content'],
             )
             article.save()

@@ -7,7 +7,7 @@
     <script>
 
         $(function () {
-            {% for post in topic.post_set.all %}
+            {% for post in posts %}
                 CKEDITOR.replace('reply_textarea_{{ post.id }}', {
                     customConfig: '{% static 'ckeditor4.2/config.js' %}'
                 });
@@ -82,16 +82,19 @@
         Started by <a href="{{ first_post.author.get_profile.get_absolute_url }}">
         {{ first_post.author.get_profile.nickname }}</a>
         on {{ first_post.date_published|date:"P M d, Y" }}
-    {% if user.is_authenticated %}
-        <span>
-                <button id="subscribe_btn" class="btn btn-info {% if has_subscribed %}hide{% endif %}">Subscribe</button>
-                <button id="unsubscribe_btn" class="btn btn-warning {% if has_subscribed %}{% else %}hide{% endif %}">Unsubscribe</button>
+        {% if user.is_authenticated %}
+            <span>
+                <button id="subscribe_btn" class="btn btn-info {% if has_subscribed %}hide{% endif %}">Subscribe
+                </button>
+                <button id="unsubscribe_btn" class="btn btn-warning {% if has_subscribed %}{% else %}hide{% endif %}">
+                    Unsubscribe
+                </button>
         </span>
-    {% endif %}
+        {% endif %}
     </div>
     <div class="span8">
         <ul class="post-list">
-            {% for post in topic.post_set.all %}
+            {% for post in posts %}
                 <div class="post " post_id="post_{{ post.id }}">
 
                     <div class="row-fluid">
@@ -114,49 +117,72 @@
                             <div class="post-content">
                                 {{ post.content|safe }}
                             </div>
-                            <div class="reply-box" style="display:none;">
-                                <form method="POST"> {% csrf_token %}
-                                    <textarea id="reply_textarea_{{ post.id }}"></textarea>
-                                    <input post_id="{{ post.id }}" class="reply-submit-btn btn btn-success"
-                                           type="submit" value="Submit">
-                                </form>
-                            </div>
-                            <a id="pop-up-reply-box" class="forum-reply-btn btn btn-primary pull-right">
-                                <i class="icon-long-arrow-left"></i> Reply
+
+                            <a post_id="{{ post.id }}" class="reply-toggle-btn btn btn-warning pull-right">
+                                reply <i class="icon-level-down"></i>
                             </a>
+
+                            <div class="reply-list span12">
+                                {% for reply in post.reply_set.all %}
+                                    <div class="row-fluid reply-wrapper">
+                                        <div class="span1">
+                                            <img class="portrait" src="{{ reply.author.get_profile.thumbnail.url }}">
+                                        </div>
+                                        <div class="span11">
+                                            <div class="">
+                                                <div class="reply-author-info">
+                                                    <a href="{{ reply.author.get_profile.get_absolute_url }}">
+                                                        {{ reply.author.get_profile.nickname }}
+                                                    </a>
+                                                    <span class="date">
+                                                        &nbsp; on {{ reply.date_published|date:"P M d, Y" }}
+                                                    </span>
+                                                </div>
+
+                                                <div class="reply-content">
+                                                    {{ reply.content|safe }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                {% endfor %}
+                                <div class="reply-box" style="display:none;">
+                                    <form method="POST"> {% csrf_token %}
+                                        <textarea id="reply_textarea_{{ post.id }}"></textarea>
+                                        <input post_id="{{ post.id }}" class="reply-submit-btn btn btn-success"
+                                               type="submit" value="Submit">
+                                    </form>
+                                </div>
+                                <a id="pop-up-reply-box" class="forum-reply-btn btn btn-primary pull-right">
+                                    <i class="icon-long-arrow-left"></i> Reply
+                                </a>
+                            </div>
+
+
                         </div>
                     </div>
 
 
-                    <div class="reply-list">
-                        {% for reply in post.reply_set.all %}
-                            <div class="post row-fluid reply-wrapper">
-                                <div class="span2">
-                                    <img class="portrait" src="{{ reply.author.get_profile.thumbnail.url }}">
-
-                                    <div class="post-author">
-                                        <a href="{{ reply.author.get_profile.get_absolute_url }}">
-                                            {{ reply.author.get_profile.nickname }}
-                                        </a>
-                                    </div>
-
-                                    <div class="post-date meta">
-                                        {{ reply.date_published|date:"P" }} <br>
-                                        {{ reply.date_published|date:"M d, Y" }}
-                                    </div>
-                                </div>
-                                <div class="span10">
-                                    <div class="post-content">
-                                        {{ reply.content|safe }}
-                                    </div>
-                                </div>
-
-                            </div>
-                        {% endfor %}
-                    </div>
                 </div>
             {% endfor %}
         </ul>
+
+        <div class="pagination">
+    <span class="step-links">
+        {% if posts.has_previous %}
+            <a href="?page={{ posts.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+        </span>
+
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+        </div>
 
         <div class="post-box">
             <fieldset>

@@ -17,6 +17,9 @@ class Category(models.Model):
     def __unicode__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return ""
+
 
 
 class Topic(models.Model):
@@ -42,6 +45,9 @@ class Topic(models.Model):
 
     def get_subscribe_content(self):
         return "<a href=%s>Click here to view</a>" % self.get_absolute_url()
+
+    def get_last_post(self):
+        return self.post_set.order_by('-date_published')[0]
 
 
 class Post(models.Model):

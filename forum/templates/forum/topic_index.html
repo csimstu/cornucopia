@@ -10,40 +10,54 @@
 
     <div class="span2"></div>
     <div class="span8">
-        {% if topic_list %}
-            <ul class="topic-list">
-                {% for topic in topic_list %}
-                    <li>
-                        <h3>
-                            <a class="topic-title"
-                               href="{% url 'forum:topic_detail' topic_id=topic.id %}">
-                                {{ topic.title }}
-                            </a>
-                        </h3>
+        <ul class="topic-list">
+            {% for topic in topics %}
+                <li>
+                    <h3>
+                        <a class="topic-title"
+                           href="{% url 'forum:topic_detail' topic_id=topic.id %}">
+                            {{ topic.title }}
+                        </a>
+                    </h3>
 
-                        <div class="meta">
-                                            <span>{{ topic.post_cnt }}
-                                                post{{ topic.post_cnt|pluralize }}
+                    <div class="meta">
+                                            <span>{{ topic.post_set.count }}
+                                                post{{ topic.post_set.count|pluralize }}
                                             </span>
                                             <span>
                                                 <i class="icon-edit"></i>
-                                                <a href="{% url 'accounts:view_profile' user_id=topic.last_editor_id %}">
-                                                {{ topic.last_editor }}
+                                                <a href="{% url 'accounts:view_profile' user_id=topic.get_last_post.author.id %}">
+                                                    {{ topic.get_last_post.author.get_profile.nickname }}
                                                 </a>
                                             </span>
                                             <span>
                                                 <i class="icon-time"></i>
-                                                {{ topic.last_edited_time|date:"P, M d" }}
+                                                {{ topic.get_last_post.date_published|date:"P M d" }}
                                             </span>
                                             <span>
                                                 <i class="icon-tag"></i>
-                                                {{ topic.category }}
+                                                {{ topic.category.title }}
                                             </span>
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if topics.has_previous %}
+                    <a href="?page={{ topics.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+            Page {{ topics.number }} of {{ topics.paginator.num_pages }}.
+        </span>
+
+                {% if topics.has_next %}
+                    <a href="?page={{ topics.next_page_number }}">next</a>
+                {% endif %}
+        </div>
+        </span>
     </div>
 
 {% endblock %}
