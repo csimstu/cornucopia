@@ -24,9 +24,9 @@
 2+. forum reply needs to be beautified
 3-. dashboard subscribe
 4+. profile trace(recent activity)
-5. friend grouping & managing(session) & remove friend(bidirectional) + reminder
+5+. friend grouping & managing(session) & remove friend(bidirectional) + reminder
 6. topic abstract
-7. tag += hot tag
+7-. tag += hot tag
 8. traces += connection
 9+. change password
 10+. forget password(hash + send mail)

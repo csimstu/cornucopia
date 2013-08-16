@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static "xadmin/xadmin_base.css" %}">
     {% block xadmin_head %}
     {% endblock %}
 {% endblock %}
@@ -38,8 +39,10 @@
         <!--/span-->
 
         <div class="span10">
-            {% block xadmin_content %}
-            {% endblock %}
+            <div class="row-fluid main-content">
+                {% block xadmin_content %}
+                {% endblock %}
+            </div>
         </div>
     </div>
 

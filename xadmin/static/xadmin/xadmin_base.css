@@ -1,0 +1,21 @@
+.xadmin-headline {
+    border-bottom: rgba(0,0,0,0.1) inset;
+    padding-bottom: 5px;
+}
+
+.main-content {
+    padding-right: 100px;
+}
+
+.label-headline {
+    font-family: Alegreya, serif;
+    font-size: 1.5em;
+    font-weight: 700;
+    padding-bottom: 5px;
+    border-bottom: rgba(0,0,0,0.3) solid 1px;
+    margin: 20px 0;
+}
+
+input[type="text"], textarea {
+    font-family: Oxygen, sans-serif;
+}
