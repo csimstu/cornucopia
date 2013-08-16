@@ -33,7 +33,7 @@
 
 ---------------------------------------------------------------------------------
 1+. forum & pages index pagination
-2. add archive(division by date) + *search
+2-. add archive(division by date) + *search
 3. articles classification(by tag)
 4. view topics/posts/comments/articles of a specific person
 5. optimize redirect (#)
