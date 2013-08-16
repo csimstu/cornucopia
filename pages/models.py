@@ -32,7 +32,7 @@ class Article(models.Model):
     author = models.ForeignKey(User)
     date_published = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=settings.ARTICLE_TITLE_LENGTH_LIMIT)
-    content = models.CharField(max_length=settings.ARTICLE_LENGTH_LIMIT)
+    content = models.TextField(max_length=settings.ARTICLE_LENGTH_LIMIT)
     tags = models.ManyToManyField(Tag)
     abstract = models.CharField(max_length=settings.ABSTRACT_LENGTH_LIMIT)
 

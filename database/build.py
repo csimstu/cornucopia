@@ -5,10 +5,11 @@ name_list = ['andrew', 'mike', 'ferona', 'john',
              'smith', 'nyx', 'rubic', 'bat', 'spectre']
 
 try:
-    with open(settings.DATABASES['default']['NAME']):
-        pass
-    print 'Database already exists.'
-except IOError:
+    #from django.contrib.auth.models import User
+    #User.objects.get(id=1)
+    #print 'Database already exists.'
+    raise Exception
+except Exception:
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "TeenHope.settings")
     from django.core.management import call_command
 

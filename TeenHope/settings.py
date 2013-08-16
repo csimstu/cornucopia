@@ -20,11 +20,11 @@ PROJECT_PATH = os.path.join(os.path.dirname(__file__), os.pardir)
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.path.join(PROJECT_PATH, 'database', 'db.sqlite3'), # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'cornucopians', # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
+        'USER': 'cornucopians',
+        'PASSWORD': 'ilove305',
         'HOST': '', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '', # Set to empty string for default.
     }
@@ -184,10 +184,10 @@ TOPIC_PER_PAGE = 5
 POST_PER_PAGE = 5
 USERNAME_LENGTH_LIMIT = 20
 PROFILE_NAME_LENGTH_LIMIT = 20
-CATEGORY_TITLE_LENGTH_LIMIT = 50
+CATEGORY_TITLE_LENGTH_LIMIT = 100
 CATEGORY_LABEL_LENGTH_LIMIT = 20
 CATEGORY_DESCRIPTION_LENGTH_LIMIT = 200
-TOPIC_TITLE_LENGTH_LIMIT = 50
+TOPIC_TITLE_LENGTH_LIMIT = 100
 POST_LENGTH_LIMIT = 10000
 REPLY_LENGTH_LIMIT = 500
 
@@ -196,15 +196,15 @@ WEBSITE_LENGTH_LIMIT = 50
 RENREN_LENGTH_LIMIT = 50
 QQ_LENGTH_LIMIT = 20
 PHONE_LENGTH_LIMIT = 20
-BIOGRAPHY_LENGTH_LIMIT = 200
-MOTTO_LENGTH_LIMIT = 50
+BIOGRAPHY_LENGTH_LIMIT = 10000
+MOTTO_LENGTH_LIMIT = 1000
 GROUP_NAME_LENGTH_LIMIT = 50
 
 DEFAULT_USER_THUMBNAIL = os.path.join(STATIC_URL, 'accounts', 'default_portrait.jpg')
 
 # Pages constants
 TAG_LENGTH_LIMIT = 50
-ARTICLE_TITLE_LENGTH_LIMIT = 50
+ARTICLE_TITLE_LENGTH_LIMIT = 100
 ARTICLE_LENGTH_LIMIT = 50000
 ABSTRACT_LENGTH_LIMIT = 1000
 COMMENT_LENGTH_LIMIT = 500
