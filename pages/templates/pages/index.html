@@ -6,9 +6,33 @@
 {% block pages_content %}
     <div class="row-fluid">
         <div class="span7 offset2 main-wrapper">
+            <div class="pagination pull-right">
+                <ul>
+                    {% if articles.has_previous %}
+                        <li><a href="?page={{ articles.previous_page_number }}">«</a></li>
+                    {% else %}
+                        <li class="disabled"><a>«</a></li>
+                    {% endif %}
+
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Page {{ articles.number }} of {{ articles.paginator.num_pages }}
+                        </a>
+                    </li>
+
+                    {% if articles.has_next %}
+                        <li><a href="?page={{ articles.next_page_number }}">»</a></li>
+                    {% else %}
+                        <li class="disabled"><a>»</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div style="clear:both"></div>
             <div class="content">
                 <ul class="article-list">
-                    {% for article in article_list %}
+                    {% for article in articles %}
                         <li>
                             <h2>
                                 <a class="article-title"

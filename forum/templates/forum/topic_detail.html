@@ -64,13 +64,20 @@
             })
 
             $('.forum-reply-btn').click(function () {
-                cform = $(this).siblings(".reply-box");
-                var tmp = $('.reply-box:visible');
-                if (tmp[0] != cform[0]) {
-                    tmp.hide(1000);
-                }
-                cform.toggle(1000);
+                var cform = $(this).parent().siblings(".reply-box");
+                cform.slideToggle(700);
             })
+            $('.reply-list').hide();
+            $('.reply-toggle-btn').click(function () {
+                var reply_list = $(this).parent().siblings('.reply-list');
+                reply_list.slideToggle(700);
+                var icon = $(this).find('i').attr('class');
+                if (icon.search(/up/) != -1)
+                    icon = icon.replace(/up/, 'down');
+                else
+                    icon = icon.replace(/down/, 'up');
+                $(this).find('i').attr('class', icon);
+            });
         })
     </script>
 {% endblock %}
@@ -118,9 +125,23 @@
                                 {{ post.content|safe }}
                             </div>
 
-                            <a post_id="{{ post.id }}" class="reply-toggle-btn btn btn-warning pull-right">
-                                reply <i class="icon-level-down"></i>
-                            </a>
+                            <div class="btn-group pull-right" style="margin-top: 10px;">
+                                {% if post.reply_set.all.count %}
+                                    <a class="reply-toggle-btn btn btn-warning">
+                                        show reply(<strong>{{ post.reply_set.all.count }}</strong>) <i
+                                            class="icon-level-down"></i>
+                                    </a>
+                                {% else %}
+                                    <a class="btn btn-warning disabled">
+                                    no reply yet
+                                    </a>
+                                {% endif %}
+                                <a id="pop-up-reply-box" class="forum-reply-btn btn btn-primary">
+                                    <i class="icon-long-arrow-left"></i> reply
+                                </a>
+                            </div>
+                            <div style="clear:both"></div>
+
 
                             <div class="reply-list span12">
                                 {% for reply in post.reply_set.all %}
@@ -147,18 +168,15 @@
 
                                     </div>
                                 {% endfor %}
-                                <div class="reply-box" style="display:none;">
-                                    <form method="POST"> {% csrf_token %}
-                                        <textarea id="reply_textarea_{{ post.id }}"></textarea>
-                                        <input post_id="{{ post.id }}" class="reply-submit-btn btn btn-success"
-                                               type="submit" value="Submit">
-                                    </form>
-                                </div>
-                                <a id="pop-up-reply-box" class="forum-reply-btn btn btn-primary pull-right">
-                                    <i class="icon-long-arrow-left"></i> Reply
-                                </a>
                             </div>
 
+                            <div class="reply-box span12" style="display:none;">
+                                <form method="POST"> {% csrf_token %}
+                                    <textarea id="reply_textarea_{{ post.id }}"></textarea>
+                                    <input post_id="{{ post.id }}" class="reply-submit-btn btn btn-success"
+                                           type="submit" value="Submit">
+                                </form>
+                            </div>
 
                         </div>
                     </div>
@@ -168,21 +186,30 @@
             {% endfor %}
         </ul>
 
-        <div class="pagination">
-    <span class="step-links">
-        {% if posts.has_previous %}
-            <a href="?page={{ posts.previous_page_number }}">previous</a>
-        {% endif %}
+          <div class="pagination pull-right">
+            <ul>
+                {% if posts.has_previous %}
+                    <li><a href="?page={{ posts.previous_page_number }}">«</a></li>
+                {% else %}
+                    <li class="disabled"><a>«</a></li>
+                {% endif %}
 
-        <span class="current">
-            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
-        </span>
+                </li>
 
-        {% if posts.has_next %}
-            <a href="?page={{ posts.next_page_number }}">next</a>
-        {% endif %}
-    </span>
+                <li>
+                    <a href="#">
+                        Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+                    </a>
+                </li>
+
+                {% if posts.has_next %}
+                    <li><a href="?page={{ posts.next_page_number }}">»</a></li>
+                {% else %}
+                    <li class="disabled"><a>»</a></li>
+                {% endif %}
+            </ul>
         </div>
+        <div style="clear:both"></div>
 
         <div class="post-box">
             <fieldset>

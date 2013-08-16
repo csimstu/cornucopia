@@ -43,10 +43,6 @@
     box-shadow: 0 0 4px rgba(0,0,0,0.3);
 }
 
-#pop-up-reply-box {
-    margin: 20px 0 0 0;
-}
-
 #post-submit-btn {
     margin: 20px 0 0 0;
     font-size: 20px;
@@ -57,7 +53,8 @@
     padding: 20px 30px;
     border: rgba(0,0,0,0.05) solid 1px;
     background: rgba(0,0,0,0.02);
-    overflow: hidden;
+    overflow-y: scroll;
+    max-height: 400px;
 }
 
 .reply-box {
@@ -72,6 +69,7 @@
     margin: 10px 0px;
     padding: 10px 0px;
     border-bottom: rgba(0,0,0,0.05) solid 1px;
+
 }
 .reply-wrapper .date {
     color: rgba(0,0,0,0.4);
@@ -83,5 +81,5 @@
 }
 
 .reply-toggle-btn {
-    margin: 5px 0 0 0;
+    /*margin: 5px 0 0 0;*/
 }
