@@ -113,19 +113,25 @@ def add_connections(request):
     return render(request, 'xadmin/add_connections.html',
                   {'form': form})
 
+from network.models import FriendGroup,FriendShip
+
 @login_required
 def manage_connections(request):
     user = request.user
-    friend_list = user.relationlist.friends.all()
-    paginator = Paginator(friend_list, 10)
-    page = request.GET.get('page')
+    group_list = FriendGroup.objects.filter(holder = user).order_by("name")
 
-    try:
-        friends = paginator.page(page)
-    except PageNotAnInteger, EmptyPage:
-        friends = paginator.page(1)
+    groups = []
+    for g in group_list:
+        cgr = {}
+        cgr["name"] = g.name
+        cgr["id"] = g.id
+        cgr["friends"] = []
+        for f in user.relationlist.friendship_set.filter(group = g).order_by("target"):
+            cgr["friends"].append(f.target)
 
-    return render(request, 'xadmin/manage_connections.html', {'friends': friends})
+        groups.append(cgr)
+
+    return render(request, 'xadmin/manage_connections.html', {'groups' : groups})
 
 from xadmin.forms import NewTopicForm
 
