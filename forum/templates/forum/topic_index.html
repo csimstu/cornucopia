@@ -42,22 +42,29 @@
                 </li>
             {% endfor %}
         </ul>
-
-        <div class="pagination">
-            <span class="step-links">
+        <div class="pagination pull-right">
+            <ul>
                 {% if topics.has_previous %}
-                    <a href="?page={{ topics.previous_page_number }}">previous</a>
+                    <li><a href="?page={{ topics.previous_page_number }}">«</a></li>
+                {% else %}
+                    <li class="disabled"><a>«</a></li>
                 {% endif %}
 
-                <span class="current">
-            Page {{ topics.number }} of {{ topics.paginator.num_pages }}.
-        </span>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Page {{ topics.number }} of {{ topics.paginator.num_pages }}
+                    </a>
+                </li>
 
                 {% if topics.has_next %}
-                    <a href="?page={{ topics.next_page_number }}">next</a>
+                    <li><a href="?page={{ topics.next_page_number }}">»</a></li>
+                {% else %}
+                    <li class="disabled"><a>»</a></li>
                 {% endif %}
+            </ul>
         </div>
-        </span>
     </div>
 
 {% endblock %}

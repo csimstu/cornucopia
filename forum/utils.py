@@ -8,7 +8,7 @@ def paginate_topic_list(topic_list, GET_data):
     page = GET_data.get('page')
     try:
         topics = paginator.page(page)
-    except PageNotAnInteger, EmptyPage:
+    except (PageNotAnInteger, EmptyPage):
         topics = paginator.page(1)
     return topics
 
@@ -18,6 +18,6 @@ def paginate_post_list(post_list, GET_data):
     page = GET_data.get('page')
     try:
         posts = paginator.page(page)
-    except PageNotAnInteger, EmptyPage:
+    except (PageNotAnInteger, EmptyPage):
         posts = paginator.page(1)
     return posts

@@ -3,14 +3,14 @@ from django.http import HttpResponseRedirect, Http404
 from pages.models import *
 from pages.forms import *
 
-
+from utils import paginate_article_list
 def index(request):
     reversed_article_list = Article.objects.order_by('-date_published')
     article_list = []
     for x in reversed_article_list:
         article_list.append(x)
     return render(request, 'pages/index.html',
-                  {'article_list': article_list,
+                  {'articles': paginate_article_list(article_list, request.GET),
                    'main_title': 'Latest Articles'})
 
 
