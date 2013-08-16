@@ -4,6 +4,8 @@ from pages.models import *
 from pages.forms import *
 from datetime import date
 from django.db.models import Q
+from django.contrib import messages
+from django.core.urlresolvers import reverse
 
 from utils import paginate_article_list
 def index(request):
@@ -18,6 +20,7 @@ def index(request):
     
     if tags:
         tags = [t.lower() for t in tags.split(",")]
+
         tag = []
         for t in Tag.objects.all():
             if t.title.lower() in tags:
@@ -40,23 +43,26 @@ def index(request):
         if author:
             reversed_article_list = reversed_article_list.filter(author = author)
     
-    if pub_time_start:
-        tmp = [int(x.rstrip()) for x in pub_time_start.split(" ")]
-        pub_time_start = date(tmp[0],tmp[1],tmp[2])
-
-    if pub_time_end:
-        tmp = [int(x.rstrip()) for x in pub_time_end.split(" ")]
-        pub_time_end = date(tmp[0],tmp[1],tmp[2])
-
-    if pub_time_start and pub_time_end:
-        reversed_article_list = reversed_article_list.filter(date_published__range = (
-            pub_time_start,pub_time_end,
-        ))
-    else:
+    try:
         if pub_time_start:
-            reversed_article_list = reversed_article_list.filter(date_published__gt = pub_time_start)
-        elif pub_time_end:
-            reversed_article_list = reversed_article_list.filter(date_published__lt = pub_time_end)
+            tmp = [int(x.rstrip()) for x in pub_time_start.split("/")]
+            pub_time_start = date(tmp[0],tmp[1],tmp[2])
+
+        if pub_time_end:
+            tmp = [int(x.rstrip()) for x in pub_time_end.split("/")]
+            pub_time_end = date(tmp[0],tmp[1],tmp[2])
+
+        if pub_time_start and pub_time_end:
+            reversed_article_list = reversed_article_list.filter(date_published__range = (
+                pub_time_start,pub_time_end,
+            ))
+        else:
+            if pub_time_start:
+                reversed_article_list = reversed_article_list.filter(date_published__gt = pub_time_start)
+            elif pub_time_end:
+                reversed_article_list = reversed_article_list.filter(date_published__lt = pub_time_end)
+    except ValueError:
+        messages.error(request,"Invalid date!")
 
     
     GET_data = request.GET.copy()
@@ -69,7 +75,9 @@ def index(request):
 
     return render(request, 'pages/index.html',
                   {'articles': paginate_article_list(article_list, request.GET),
-                   'main_title': 'Latest Articles'})
+                   'main_title': 'Latest Articles',
+                   'GET_data' : GET_data,
+                })
 
 
 def detail(request, article_id):
