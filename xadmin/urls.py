@@ -25,6 +25,10 @@ urlpatterns = patterns('',
                        url(r'^chpsw_sendmail$',views.chpsw_sendmail,name="chpsw_sendmail"),
                        url(r'^chpsw_ckhash$',views.chpsw_ckhash,name="chpsw_ckhash"),
                        url(r'^chpsw_doupdate$',views.chpsw_doupdate,name="chpsw_doupdate"),
+                       url(r'^mancon_remove$',views.mancon_remove,name="mancon_remove"),
+                       url(r'^mancon_newgroup$',views.mancon_newgroup,name="mancon_newgroup"),
+                       url(r'^mancon_edit_groupname/(?P<group_id>\d+)$',views.mancon_edit_groupname,name="mancon_edit_groupname"),
+                       url(r'^mancon_move_selected/(?P<group_id>\d+)$',views.mancon_move_selected,name="mancon_move_selected"),
+                       url(r'^mancon_move_single/(?P<group_id>\d+)$',views.mancon_move_single,name="mancon_move_single"),
+                       url(r'^mancon_clear_group/(?P<group_id>\d+)$',views.mancon_clear_group,name="mancon_clear_group"),
 )
-
-

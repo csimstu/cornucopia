@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from forum.models import *
 from pages.models import *
 from network.models import RelationList, Message
-
+from django.http import Http404
 
 @login_required
 def dashboard(request):
@@ -489,3 +489,114 @@ def chpsw_doupdate(request):
                 messages.success(request,"Change password succesfully!")
                 return HttpResponseRedirect(reverse("xadmin:inbox"))
     return HttpResponse("Failed!")
+
+
+import json
+
+@login_required
+def mancon_remove(request):
+    if request.method == "POST":
+        ck_list = request.POST.get("ck_list")
+        ck_list = json.loads(ck_list)
+
+        for rm in ck_list:
+            if rm["type"] == "group":
+                pass
+            elif rm["type"] == "friend":
+                pass
+
+    raise Http404()
+
+@login_required
+def mancon_newgroup(request):
+    if request.method == "POST":
+        groupname = request.POST.get("ck_list")
+        if not groupname or len(groupname) > settings.MAX_GROUPNAME_LENGTH:
+            messages.error(request,"The length of groupname is illegal!")
+        else:
+            grouplist = FriendGroup.objects.filter(holder = request.user)
+            if grouplist.filter(name = groupname):
+                messages.error(request,"The group %s already exists!" % groupname)
+            else:
+                FriendGroup(holder = request.user,name = groupname).save()
+                messages.success(request,"Success!")
+        return HttpResponseRedirect(reverse("xadmin:manage_connections"))
+    raise Http404()
+
+@login_required
+def mancon_edit_groupname(request,group_id):
+    if request.method == "POST":
+        groupname = request.POST.get("ck_list")
+        group_id = int(group_id)
+
+        grp = FriendGroup.objects.get(id = group_id)
+        if grp and grp.holder == request.user:
+            grp.name = groupname
+            grp.save()
+            messages.success(request,"Change Group Name Succesfully!")
+        else:
+            messages.error(request,"Change Group Name Failed!")
+        return HttpResponseRedirect(reverse("xadmin:manage_connections"))
+    raise Http404()
+
+def _get_default_group(user):
+    return FriendGroup.objects.filter(holder = user).order_by("date_created")[0]
+
+def _move_friend_to_group(user,friend,group):
+    fsh = user.relationlist.friendship_set.get(target = friend)
+    fsh.group = group
+    fsh.save()
+
+@login_required
+def mancon_move_selected(request,group_id):
+    if request.method == "POST":
+        grp = FriendGroup.objects.filter(holder = request.user,id = int(group_id))
+        if not grp:
+            raise Http404()
+        grp = grp[0]
+
+        ck_list = request.POST.get("ck_list")
+        ck_list = json.loads(ck_list)
+
+        for fr in ck_list:
+            if fr["type"] != "friend":
+                continue
+            fr = request.user.relationlist.friends.get(id = int(fr["id"]))
+            if fr:
+                _move_friend_to_group(request.user,fr,grp)
+        messages.success(request,"Move Successfully!")
+        return HttpResponseRedirect(reverse("xadmin:manage_connections"))
+    raise Http404()
+
+@login_required
+def mancon_move_single(request,group_id):
+    if request.method == "POST":
+        grp = FriendGroup.objects.filter(holder = request.user,id = int(group_id))
+        if not grp:
+            raise Http404()
+        grp = grp[0]
+
+        friend_id = int(request.POST.get("ck_list"))
+        friend = request.user.relationlist.friends.get(id = friend_id)
+        if not friend:
+            messages.error(request,"Friend not found!")
+        else:
+            _move_friend_to_group(request.user,friend,grp)
+            messages.success(request,"Move Successfully")
+        return HttpResponseRedirect(reverse("xadmin:manage_connections"))
+    raise Http404()
+
+from network.views import _remove_friend
+
+@login_required
+def mancon_clear_group(request,group_id):
+    grp = FriendGroup.objects.filter(holder = request.user,id = int(group_id))
+    if not grp:
+        raise Http404()
+    grp = grp[0]
+    for fsh in request.user.relationlist.friendship_set.filter(group = grp):
+        _remove_friend(request,request.user,fsh.target)
+
+    return HttpResponseRedirect(reverse("xadmin:manage_connections"))
+
+    raise Http404()

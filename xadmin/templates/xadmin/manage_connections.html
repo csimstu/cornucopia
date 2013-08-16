@@ -34,14 +34,6 @@
         }
 
         $(function () {
-            $('.remove-friend').click(function () {
-                return window.confirm(this.title || 'Delete this friend?');
-            });
-
-            $('.remove-group').click(function() {
-                return window.confirm(this.title || 'Delete this group?');
-            });
-
             function get_friend_by_group(group_id) {
                 list = $("tr.group-row-" + group_id);
                 return list;
@@ -76,15 +68,76 @@
                 }
             });
             
-            function post_request(url) {
+            function post_request(url,val) {
                 form = $("#hidden-form form");
                 form.attr("action",url);
-                form.find("input[name='ck_list']").attr("value",get_checked_list());
+                form.find("input[name='ck_list']").attr("value",val);
                 form.submit();
             }
 
             $("#remove-button").click(function() {
-                post_request();
+                post_request("{% url 'xadmin:mancon_remove' %}",get_checked_list());
+            });
+
+            $("#new-button").click(function() {
+                form = $('#hidden-modal-form');
+                form.hide();
+                $("button.modal-submit-button").unbind("click");
+                form.find("#hidden-modal-button").attr("id","newgroup-submit-button");
+                form.find("#hidden-modal-title").html("New Group Name:");
+                form.find("input").attr("name","groupname");
+                $("#hidden-modal-form").modal("show");
+
+                $('#newgroup-submit-button').click(function() {
+                    val = $("#hidden-modal-form input[name='groupname']").val();
+                    post_request("{% url 'xadmin:mancon_newgroup' %}",val);
+                });
+            });
+
+            $("button.edit-group-button").click(function() {
+                form = $("#hidden-modal-form");
+                form.hide();
+                $("button.modal-submit-button").unbind("click");
+                form.find("#hidden-modal-button").attr("id","edit-group-submit-button");
+                form.find("#hidden-modal-title").html("Edit Group Name:");
+                form.find("input").attr("name","groupname");
+                $("#hidden-modal-form").modal("show");
+
+                group_id = $(this).parent().parent().attr("id").substr("6");
+
+                $("#edit-group-submit-button").click(function() {
+                    val = $("#hidden-modal-form input[name='groupname']").val();
+                    post_request("{% url 'xadmin:mancon_edit_groupname' group_id=12345 %}".replace(/12345/,group_id),val);
+                });
+            });
+
+            $("#move-button").click(function() {
+                $("#hidden-modal-movegroup-form").modal("show");
+                $("#hidden-modal-movegroup-form button").unbind("click");
+                
+                $("#hidden-modal-movegroup-form button").click(function() {
+                    group_id = $("#hidden-modal-movegroup-form select[name='group_id']").val();
+                    post_request("{% url 'xadmin:mancon_move_selected' group_id=12345 %}".replace(/12345/,group_id),get_checked_list());
+                });
+            })
+
+            
+
+            $("button.move-friend").click(function() {
+                $("#hidden-modal-movegroup-form").modal("show");
+                $("#hidden-modal-movegroup-form button").unbind("click");
+                
+                friend_id = $(this).parent().parent().attr("id").substr(7);
+
+                $("#hidden-modal-movegroup-form button").click(function() {
+                    group_id = $("#hidden-modal-movegroup-form select[name='group_id']").val();
+                    post_request("{% url 'xadmin:mancon_move_single' group_id=12345 %}".replace(/12345/,group_id),friend_id);
+                });
+            });
+
+
+            $("a.clear-group").click(function() {
+                return window.confirm("Are you sure to clear this group?(This will remove all the firends under this group)");
             });
         })
 
@@ -101,12 +154,11 @@
                 <div class="btn-toobar pull-left">
                     <div class="btn-group">
                         <button class="btn" id="remove-button">Remove Selected</button>
-                        <button class="btn">Send Message</button>
+                        <button class="btn" id="sendmsg-button">Send Message</button>
                     </div>
                     <div class="btn-group">
-                        <button class="btn">Move Selected</button>
-                        <button class="btn">New Group</button>
-                        <button class="btn">Clear Empty</button>
+                        <button class="btn" id="move-button">Move Selected</button>
+                        <button class="btn" id="new-button">New Group</button>
                     </div>
                 </div>
             </div>
@@ -129,24 +181,26 @@
                             <input type="checkbox" /></td>
                         </td>
                         <td colspan="3" class="group-name-column group-unfolded">
-                            {{ group.name }}
+                            {{ group.name }}  ({{ group.friends|length }})
                         </td>
-                        <td><a class="btn btn-danger remove-group"
-                                href="#">
-                            <i class="icon-remove"></i>
-                            </a>
-                            <a class="btn btn-danger clean-group"
-                                href="#">
+                        <td><a class="btn btn-danger clear-group"
+                                href="{% url 'xadmin:mancon_clear_group' group.id %}">
                                 <i class="icon-eraser"></i>
                             </a>
-                            <a class="btn btn-danger rename-group"
-                                href="#">
-                                <i class="icon-edit"></i>
+                            {% if group.name != "default group" %}
+                            <a class="btn btn-danger remove-group"
+                                href="">
+                            <i class="icon-remove"></i>
                             </a>
+                            {% endif %}
+
+                            <button class="btn btn-primary rename-group edit-group-button">
+                                <i class="icon-edit"></i>
+                            </button>
                         </td>
                     </tr>
                     {% for friend in group.friends %}
-                    <tr class="friends-row group-row-{{group.id}}" id="friend-{{friend.id}}">
+                    <tr class="friends-row group-row-{{group.id}} hide" id="friend-{{friend.id}}">
                         <td class="checkbox-column"><input type="checkbox" /></td>
                         <td><img src="{{ friend.get_profile.get_icon_url }}"/></td>
                         <td>
@@ -157,9 +211,8 @@
                         <td><a class="btn btn-danger remove-friend"
                             href="{% url 'network:remove_friend' %}?term={{ friend.id }}">
                             <i class="icon-unlink"></i></a>
-                            <a class="btn btn-danger move-firend"
-                                href="#">
-                                <i class="icon-move"></i></a>
+                        <button class="btn btn-danger move-friend">
+                                <i class="icon-move"></i></button>
                         </td>
                     </tr>
                     {% endfor %}
@@ -169,10 +222,34 @@
 
         </div>
         </div>
-        <div id="hidden-form">
+        <div id="hidden-form" style="display:none">
             <form action="" method="POST">
                 {% csrf_token %}
                 <input type="text" name="ck_list" />
             </form>
+        </div>
+        <div id="hidden-modal-form" class="modal hide fade">
+            <div class="modal-body">
+                <h3 id="hidden-modal-title">New Group Name:</h3>
+                <input type="text" name="" class="input-block-level"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="hidden-modal-button" class="btn btn-primary modal-submit-button">
+                    submit
+                </button>
+            </div>
+        </div>
+        <div id="hidden-modal-movegroup-form" class="modal hide fade">
+            <div class="modal-body">
+                <h3>Choose a Group:</h3>
+                <select name="group_id">
+                    {% for group in groups %}
+                    <option value="{{group.id}}">{{group.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primarry">submit</button>
+            </div>
         </div>
 {% endblock %}
