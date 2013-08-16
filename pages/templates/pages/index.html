@@ -80,5 +80,49 @@
                 </ul>
             </div>
         </div>
+
+        <div class="span3">
+            <form method="GET" class="input-block-level" action="{% url 'pages:index' %}">
+                <div class="input-append" style="width:100%">
+                    <input type="text" class="span8" style="height:30px;" name="title"
+                           placeholder="Enter the title you want to search">
+
+                    <div class="btn-group">
+                        <button class="btn"><i class="icon-angle-down"></i></button>
+                        <button type="submit" class="btn">Search</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="id_abstract">in abstract</label>
+
+                    <div class="controls">
+                        <input id="abstract" type="text" name="abstract">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="id_tags">tags</label>
+
+                    <div class="controls">
+                        <input id="tags" type="text" name="tags">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="id_pub_time_start">Date from</label>
+
+                    <div class="controls">
+                        <input id="pub_time_start" type="text" name="pub_time_start">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="id_pub_time_end">Date to</label>
+
+                    <div class="controls">
+                        <input id="pub_time_end" type="text" name="pub_time_end">
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 {% endblock %}
