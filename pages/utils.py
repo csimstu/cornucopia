@@ -11,3 +11,11 @@ def paginate_article_list(article_list, GET_data):
         articles = paginator.page(1)
     return articles
 
+def is_same_day(day1,day2): pass
+def is_same_month(day1,day2): pass
+
+def format_month_string(datetime):
+    return str(datetime.year) + " " + str(datetime.month)
+
+def format_day_string(datetime):
+    return str(datetime.day)

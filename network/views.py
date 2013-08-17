@@ -93,6 +93,19 @@ def send_message_single(request):
         return HttpResponse("Message to %s sent." % receiver.get_profile().nickname)
     raise Http404()
 
+import json
+
+def send_message_selected(request):
+    user = request.user
+    if request.method == 'POST':
+        receiver_list = json.loads(request.POST['recv_list'])
+        for recv in receiver_list:
+            if recv["type"] == "friend":
+                receiver = User.objects.get(id = recv["id"])
+                send_message(user,receiver,request.POST['subject'],request.POST['content'])
+        return HttpResponse("Messages sent")
+    raise Http404()
+
 
 def _remove_friend(request,user1,user2):
     send_message(user1, user2, 'Canceling connection',
