@@ -74,19 +74,36 @@ def index(request):
     for x in reversed_article_list:
         article_list.append(x)
 
-    archive = {}
+    archive = []
+    cmonth_arch = []
+    cday_arch = []
+
+    cur_month = ""
+    cur_day = ""
 
     for x in reversed_article_list.order_by("-date_published"):
         cdate = x.date_published
         mstr = format_month_string(cdate)
         dstr = format_day_string(cdate)
 
-        if not archive.has_key(mstr):
-            archive[mstr] = {}
-        if not archive[mstr].has_key(dstr):
-            archive[mstr][dstr] = []
+        if mstr == cur_month:
+            if dstr == cur_day:
+                cday_arch.append(x)
+            else:
+                cmonth_arch.append(cday_arch)
+                cur_day = dstr
+                cday_arch = [x]
+        else:
+            cur_month = mstr
+            cmonth_arch.append(cday_arch)
+            archive.append(cmonth_arch)
+            cday_arch = [x]
+            cmonth_arch = [cday_arch]
+    
+    cmonth_arch.append(cday_arch)
+    archive.append(cmonth_arch)
 
-        archive[mstr][dstr].append(x)
+
 
     return render(request, 'pages/index.html',
                   {'articles': paginate_article_list(article_list, request.GET),
