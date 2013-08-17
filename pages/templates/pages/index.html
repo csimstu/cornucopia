@@ -3,17 +3,50 @@
 {% block pages_head %}
     <link rel="stylesheet" type="text/css" href="{% static "pages/index.css" %}">
     <script>
-        $(function() {
+        $(function () {
             $('.additional-limit').hide();
-            $('#search-toggle-btn').click(function() {
+            $('#search-toggle-btn').click(function () {
                 $('.additional-limit').fadeToggle(700);
+            })
+            $('.archive-list').click(function() {
+                sublist = $(this).siblings('ul');
+                sublist.slideToggle(700);
             })
         })
     </script>
 {% endblock %}
 {% block pages_content %}
     <div class="row-fluid">
-        <div class="span7 offset2 main-wrapper">
+        <div class="span2 archive">
+            <ul>
+                {% for key, value in archive %}
+                    <li>
+                        <a class="archive-list">
+                            {{ key }}
+                        </a>
+                        <ul>
+                            {% for key2, value2 in value %}
+                                <li>
+                                    <a class="archive-list">
+                                        {{ key2 }}
+                                    </a>
+                                    <ul>
+                                        {% for article in value2 %}
+                                            <li>
+                                                <a href={{ article.get_absolute_url }}>
+                                                    {{ article.title }}
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="span7 main-wrapper">
             <div class="pagination pull-right">
                 <ul>
                     {% if articles.has_previous %}
@@ -94,7 +127,7 @@
                 <div class="input-append" style="width:100%">
                     <input type="text" class="span8" style="height:30px;" name="title"
                            placeholder="Title here"
-                            value="{{ GET_data.title }}">
+                           value="{{ GET_data.title }}">
 
                     <div class="btn-group">
                         <a id="search-toggle-btn" class="btn"><i class="icon-angle-down"></i></a>
@@ -108,7 +141,7 @@
                         <div class="controls">
                             <input id="abstract" type="text" name="abstract" class="input-block-level"
                                    placeholder="Abstract here"
-                                    value="{{ GET_data.abstract }}">
+                                   value="{{ GET_data.abstract }}">
                         </div>
                     </div>
 
@@ -118,7 +151,7 @@
                         <div class="controls">
                             <input id="tags" type="text" name="tags" class="input-block-level"
                                    placeholder="Tags here (spaced by ',')"
-                                    value="{{ GET_data.tags }}">
+                                   value="{{ GET_data.tags }}">
                         </div>
                     </div>
                     <div class="control-group">
@@ -127,7 +160,7 @@
                         <div class="controls">
                             <input id="pub_time_start" type="text" name="pub_time_start" class="input-block-level"
                                    placeholder="e.g. '2012/12/21', inclusively"
-                                    value="{{ GET_data.pub_time_start }}">
+                                   value="{{ GET_data.pub_time_start }}">
                         </div>
                     </div>
                     <div class="control-group">
@@ -136,7 +169,7 @@
                         <div class="controls">
                             <input id="pub_time_end" type="text" name="pub_time_end" class="input-block-level"
                                    placeholder="e.g. '2012/12/21', inclusively"
-                                    value="{{ GET_data.pub_time_end }}">
+                                   value="{{ GET_data.pub_time_end }}">
                         </div>
                     </div>
                 </div>

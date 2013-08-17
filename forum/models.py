@@ -21,12 +21,12 @@ class Category(models.Model):
         return ""
 
 
-
 class Topic(models.Model):
     category = models.ForeignKey(Category, default=1)     # one topic belongs to only one kind
     title = models.CharField(max_length=settings.TOPIC_TITLE_LENGTH_LIMIT)         # title of the topic
     date_published = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User)
+    rank = models.IntegerField(default=0)
 
     def __unicode__(self):
         return "Topic: " + self.title

@@ -120,10 +120,14 @@ My recent projects include a Multiplayer Browser game (http://alqazar.com) " \
     article2.date_published = datetime.datetime.now()
     article2.save()
 
-if __name__ == "__main__":
+
+def main():
     recreate_db()
     print "Syncing DB..."
     call_command('syncdb', interactive=False)
     print "Adding test data..."
     add_test_data()
     print "Building database successfully."
+
+if __name__ == "__main__":
+    main()

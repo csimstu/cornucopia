@@ -47,6 +47,8 @@ def specific_category_index(request, label):
 def topic_detail(request, topic_id):
     user = request.user
     topic = get_object_or_404(Topic, id=topic_id)
+    topic.rank += 1
+    topic.save()
     has_subscribe = False
     if user.is_authenticated():
         has_subscribe = user.subscribelist.topics.filter(id=topic.id).count() > 0
@@ -92,17 +94,28 @@ def post_reply(request, post_id):
     raise Http404()
 
 from pages.models import Article
-
+import urllib2
+import re
+from django.utils import timezone
+import datetime
 
 def home(request):
-    reversed_topic_list = Topic.objects.order_by('-date_published')[:settings.HOT_TOPICS_COUNT_LIMIT]
+    reversed_topic_list = Topic.objects.filter(date_published__gt=timezone.now() - datetime.timedelta(days=7)).\
+        order_by('-rank')[:settings.HOT_TOPICS_COUNT_LIMIT]
     topic_list = reversed_topic_list
     article_list = []
     reversed_article_list = Article.objects.order_by('-date_published')[:settings.HIGHLIGHT_ARTICLE_COUNT_LIMIT]
     for x in reversed_article_list:
         article_list.append(x)
 
+    quote_raw = urllib2.urlopen('http://www.quoteworld.org/quote/quote.php?action=random_quote').read()
+    quote_re = re.search(r"\'(.*)<br>'.*<a.*>(.*)</a>", quote_raw, flags=re.S)
+    quote_content = quote_re.group(1)
+    quote_author = quote_re.group(2)
+
     return render(request, 'home.html', {
         'hot_topics': topic_list,
         'hot_articles': article_list,
+        'quote_content': quote_content,
+        'quote_author': quote_author,
     })
