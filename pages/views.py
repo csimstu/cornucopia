@@ -107,12 +107,19 @@ def index(request):
         archive.append(cmonth_arch)
 
 
+    month_count = []
+    for mon in archive:
+        length = 0
+        for day in mon:
+            length += len(day)
+        month_count.append(length)
 
     return render(request, 'pages/index.html',
                   {'articles': paginate_article_list(article_list, request.GET),
                    'main_title': 'Latest Articles',
                    'GET_data' : GET_data,
                    'archive' : archive,
+                   'month_count' : month_count,
                 })
 
 
