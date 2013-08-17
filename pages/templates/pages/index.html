@@ -8,7 +8,11 @@
             $('#search-toggle-btn').click(function () {
                 $('.additional-limit').fadeToggle(700);
             })
-            $('.archive-list').click(function() {
+            $('.archive-level1').click(function() {
+                sublist = $(this).siblings('.row-fluid');
+                sublist.slideToggle(700);
+            })
+            $('.archive-level2').click(function () {
                 sublist = $(this).siblings('ul');
                 sublist.slideToggle(700);
             })
@@ -17,36 +21,8 @@
 {% endblock %}
 {% block pages_content %}
     <div class="row-fluid">
-        <div class="span2 archive">
-            <ul>
-                {% for key, value in archive %}
-                    <li>
-                        <a class="archive-list">
-                            {{ key }}
-                        </a>
-                        <ul>
-                            {% for key2, value2 in value %}
-                                <li>
-                                    <a class="archive-list">
-                                        {{ key2 }}
-                                    </a>
-                                    <ul>
-                                        {% for article in value2 %}
-                                            <li>
-                                                <a href={{ article.get_absolute_url }}>
-                                                    {{ article.title }}
-                                                </a>
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="span7 main-wrapper">
+
+        <div class="span7 offset1 main-wrapper">
             <div class="pagination pull-right">
                 <ul>
                     {% if articles.has_previous %}
@@ -122,7 +98,7 @@
             </div>
         </div>
 
-        <div class="span3">
+        <div class="span4">
             <form method="GET" class="input-block-level" action="{% url 'pages:index' %}">
                 <div class="input-append" style="width:100%">
                     <input type="text" class="span8" style="height:30px;" name="title"
@@ -135,6 +111,16 @@
                     </div>
                 </div>
                 <div class="additional-limit">
+                    <div class="control-group">
+                        <label class="control-label" for="id_author">Author</label>
+
+                        <div class="controls">
+                            <input id="author" type="text" name="author" class="input-block-level"
+                                   placeholder="Author"
+                                   value="{{ GET_data.author }}">
+                        </div>
+                    </div>
+
                     <div class="control-group">
                         <label class="control-label" for="id_abstract">In abstract</label>
 
@@ -174,6 +160,41 @@
                     </div>
                 </div>
             </form>
+            <div class="archive">
+                <ul class="nav nav-tabs nav-stacked">
+                    {% for list1 in archive %}
+                        <li>
+                            <a class="archive-level1">
+                                {{ list1.0.0.date_published|date:"M, Y" }}
+                            </a>
+
+                            <div class="row-fluid hide">
+                                <div class="day-nav-wrapper span11 offset1">
+                                    <ul class="nav nav-tabs nav-stacked">
+                                        {% for list2 in list1 %}
+                                            <li>
+                                                <a class="archive-level2">
+                                                    {{ list2.0.date_published|date:"dS" }}
+                                                    <strong>({{ list2|length }})</strong>
+                                                </a>
+                                                <ul class="archive-articles-wrapper hide">
+                                                    {% for article in list2 %}
+                                                        <li class="archive-article-title">
+                                                            <a class="" href={{ article.get_absolute_url }}>
+                                                                {{ article.title }}
+                                                            </a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
 {% endblock %}

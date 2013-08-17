@@ -95,13 +95,16 @@ def index(request):
                 cday_arch = [x]
         else:
             cur_month = mstr
-            cmonth_arch.append(cday_arch)
-            archive.append(cmonth_arch)
+            cur_day = dstr
+            if cday_arch:
+                cmonth_arch.append(cday_arch)
+                archive.append(cmonth_arch)
             cday_arch = [x]
-            cmonth_arch = [cday_arch]
-    
-    cmonth_arch.append(cday_arch)
-    archive.append(cmonth_arch)
+            cmonth_arch = []
+
+    if cday_arch:
+        cmonth_arch.append(cday_arch)
+        archive.append(cmonth_arch)
 
 
 

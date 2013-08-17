@@ -120,6 +120,31 @@ My recent projects include a Multiplayer Browser game (http://alqazar.com) " \
     article2.date_published = datetime.datetime.now()
     article2.save()
 
+    article3 = article1
+    article3.pk = None
+
+    article3.save()
+    article3.date_published = datetime.datetime.now() - datetime.timedelta(days=1)
+    article3.save()
+
+    article4 = article1
+    article4.pk = None
+
+    article4.save()
+
+    article4.date_published = datetime.datetime.now() - datetime.timedelta(days=40)
+    article4.save()
+
+    Article.objects.create(title="Creative And Innovative Navigation Designs ",
+
+                                      author=llx,
+                                      content="A website has a personality - it is a "
+                                              "reflection of the person or organization behin"
+                                              "d it. When people visit your website, you want it to st"
+                                              "and out from the crowd, to be memorable. You want people to c"
+                                              "ome back and use your website or get in touch with you. So, ...",
+    )
+
 
 def main():
     recreate_db()
