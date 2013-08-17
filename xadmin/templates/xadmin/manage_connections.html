@@ -34,6 +34,8 @@
         }
 
         $(function () {
+            CKEDITOR.replace("message-content");
+
             function get_friend_by_group(group_id) {
                 list = $("tr.group-row-" + group_id);
                 return list;
@@ -148,6 +150,49 @@
             $("a.remove-group").click(function () {
                 return window.confirm("Are you sure to remove the group?(This will move all the friends under this group into default group)");
             });
+            
+            $("#sendmsg-button").click(function() {
+                $("#hidden-modal-sendmsg").modal("show");
+                $("#send-message-submit-btn").unbind("click");
+
+                $("#send-message-submit-btn").click(function() {
+                    $.ajax({
+                        type : "POST",
+                        url : "{% url 'network:send_message_selected' %}",
+                        data : {
+                            recv_list: get_checked_list(),
+                            subject : $("#message-subject").val(),
+                            content : CKEDITOR.instances['message-content'].getData()
+                        }
+                    }).done(function (msg) {
+                        $('#hidden-modal-sendmsg').modal("hide");
+                        show_message(msg,"success");
+                    });
+                });
+            });
+
+
+            $(".send-message").click(function() {
+                $("#hidden-modal-sendmsg").modal("show");
+                $("#send-message-submit-btn").unbind("click");
+                
+                recv_id = $(this).parent().parent().attr("id").substr(7);
+
+                $("#send-message-submit-btn").click(function() {
+                    $.ajax({
+                        type : "POST",
+                        url : "{% url 'network:send_message' %}",
+                        data : {
+                            receiver_id : recv_id,
+                            subject : $("#message-subject").val(),
+                            content : CKEDITOR.instances['message-content'].getData()
+                        },
+                    }).done(function (msg) {
+                        $("#hidden-modal-sendmsg").modal("hide");
+                        show_message(msg,"success");
+                    });
+                });
+            });
         })
 
 
@@ -222,8 +267,10 @@
                             <td><a class="btn btn-danger remove-friend"
                                    href="{% url 'network:remove_friend' %}?term={{ friend.id }}">
                                 <i class="icon-unlink"></i></a>
-                                <button class="btn btn-danger move-friend">
+                                <button class="btn btn-primary move-friend">
                                     <i class="icon-move"></i></button>
+                                <button class="btn btn-primary send-message">
+                                    <i class="icon-envelope"></i></button>
                             </td>
                         </tr>
                     {% endfor %}
@@ -261,6 +308,19 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-primarry">submit</button>
+        </div>
+    </div>
+    <div id="hidden-modal-sendmsg" class="modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h3>Messaging ...</h3>
+        </div>
+        <div class="modal-body">
+            <input type="text" id="message-subject" class="input-block-level" placeholder="subject ..">
+            <textarea id="message-content" placeholder="Enter your message here"></textarea>
+        </div>
+        <div class="modal-footer">
+            <a id="send-message-submit-btn" class="btn btn-primary">Send Message</a>
         </div>
     </div>
 {% endblock %}

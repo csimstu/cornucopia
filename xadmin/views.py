@@ -457,7 +457,10 @@ def chpsw_ckhash(request):
     if request.method == "GET":
         usr = request.GET.get("usr")
         key = request.GET.get("key")
-        es = EmailHash.objects.get(holder = User.objects.get(username = usr))
+        try:
+            es = EmailHash.objects.get(holder = User.objects.get(username = usr))
+        except Exception:
+            raise Http404
         
         time_dt = datetime.now() - es.gen_date
         if es and es.hash_str == key and time_dt.total_seconds() <= settings.CHECK_MAIL_LIVE_SPAN:
@@ -479,9 +482,12 @@ def chpsw_doupdate(request):
             username = cpf.cleaned_data['username']
             hash_key = cpf.cleaned_data['hash_key']
             newpswrd = cpf.cleaned_data['password']
-
-            user = User.objects.get(username = username)
-            es = EmailHash.objects.get(holder = user)
+            
+            try:
+                user = User.objects.get(username = username)
+                es = EmailHash.objects.get(holder = user)
+            except Exception:
+                raise Http404
 
             if es and es.hash_str == hash_key:
                 user.set_password(newpswrd)
@@ -491,6 +497,8 @@ def chpsw_doupdate(request):
                 login(request,user)
 
                 messages.success(request,"Change password succesfully!")
+                es.delete()
+
                 return HttpResponseRedirect(reverse("xadmin:inbox"))
         else:
             return render(request,"xadmin/change_password.html", {
