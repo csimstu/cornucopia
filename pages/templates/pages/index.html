@@ -1,5 +1,6 @@
 {% extends "pages/pages_base.html" %}
 {% load staticfiles %}
+{% load sum_month_cnt %}
 {% block pages_head %}
     <link rel="stylesheet" type="text/css" href="{% static "pages/index.css" %}">
     <script>
@@ -166,6 +167,7 @@
                         <li>
                             <a class="archive-level1">
                                 {{ list1.0.0.date_published|date:"M, Y" }}
+                                <strong>({{ list1|sum_month_cnt }})</strong>
                             </a>
 
                             <div class="row-fluid hide">

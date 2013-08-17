@@ -2,7 +2,7 @@
 import os
 from django.core.urlresolvers import reverse
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (

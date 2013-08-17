@@ -119,7 +119,6 @@ def index(request):
                    'main_title': 'Latest Articles',
                    'GET_data' : GET_data,
                    'archive' : archive,
-                   'month_count' : month_count,
                 })
 
 
