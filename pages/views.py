@@ -83,7 +83,10 @@ def index(request):
 
         if not archive.has_key(mstr):
             archive[mstr] = {}
-        archive[mstr][dstr] = x
+        if not archive[mstr].has_key(dstr):
+            archive[mstr][dstr] = []
+
+        archive[mstr][dstr].append(x)
 
     return render(request, 'pages/index.html',
                   {'articles': paginate_article_list(article_list, request.GET),
