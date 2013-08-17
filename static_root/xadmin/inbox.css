@@ -1,0 +1,17 @@
+.inbox-row:hover {
+    cursor: pointer;
+}
+
+.row-bold {
+    font-weight: bold;
+}
+
+.form-wrapper {
+    width: 200px;
+    display: block;
+    padding-top: 10px;
+}
+
+.form-wrapper * {
+    margin-right: 5px;
+}

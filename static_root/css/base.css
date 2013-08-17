@@ -1,0 +1,140 @@
+/* import fonts from google */
+@import url(http://fonts.googleapis.com/css?family=Alegreya:400italic,400,700|Pathway+Gothic+One|Oxygen:400,300,700);
+@font-face {
+	font-family: 'FontAwesome';
+	src: url('../font/font-awesome/font/fontawesome-webfont.eot'); /* IE9 Compat Modes */
+	src: url('../font/font-awesome/font/fontawesome-webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+             url('../font/font-awesome/font/fontawesome-webfont.woff') format('woff'), /* Modern Browsers */
+             url('../font/font-awesome/font/fontawesome-webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
+             url('../font/font-awesome/font/fontawesome-webfont.svg#YourWebFontName') format('svg'); /* Legacy iOS */
+   }
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Oxygen', sans-serif;
+    margin-top: 100px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Alegreya', serif;
+}
+
+.subscript {
+    font-size: xx-small;
+    vertical-align: bottom;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.transparent {
+    opacity: 0.9;
+}
+
+.navbar-img {
+    height: 30px;
+    margin-right: 5px;
+}
+
+.navbar a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.navbar-user-btn {
+    margin-left: 5px;
+}
+
+.login-box-label {
+    font-size: 24px;
+}
+
+#profile-link {
+    margin: 0 10px 0 0;
+}
+
+.messages-list {
+    position: fixed;
+    top: 60px;
+    left: 50%;
+}
+
+.inbox-subscript {
+    position: relative;
+    background: white;
+    margin-left: -10px;
+    padding: 1px;
+    border: 1px solid #dedede -moz-border-radium : 5 px;
+    -webkit-border-radius: 5px;
+}
+
+.paper-wrapper {
+    background: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.short-headline {
+    border-bottom: 1px solid #d8dfe5;
+    margin: 0 0 0.5em 0;
+    text-transform: lowercase;
+    padding-bottom: 9px;
+    line-height: normal;
+}
+
+.short-headline span {
+    border-bottom: 5px solid #d8dfe5;
+    padding-bottom: 10px;
+}
+
+.meta {
+    color: #BEBEBE;
+    font-size: 12px;
+    word-spacing: 0.1em;
+}
+
+.meta i {
+    color: coral;
+}
+
+.meta>span:after {
+    content: "|";
+}
+
+.meta>span:last-child:after {
+    content: "";
+}
+
+footer {
+    margin-top: 50px;
+    padding: 50px 0;
+    color: white;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    text-align: center;
+    background: url('../img/backgrounds/tweed.png');
+    height: 100%;
+}
+
+ul.errorlist {
+    list-style: none;
+    border: #ff0000 solid 1px;
+    padding: 1px 5px;
+    font-size: 0.8em;
+}
+
+ul.errorlist li {
+    line-height: 1em;
+}
+
+.yellow {
+    background: yellow;
+}
