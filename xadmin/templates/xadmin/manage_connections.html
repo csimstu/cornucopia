@@ -258,7 +258,7 @@
                     {% for friend in group.friends %}
                         <tr class="friends-row group-row-{{ group.id }} hide" id="friend-{{ friend.id }}">
                             <td class="checkbox-column"><input type="checkbox"/></td>
-                            <td><img src="{{ friend.get_profile.get_icon_url }}"/></td>
+                            <td><img width="32px" src="{{ friend.get_profile.thumbnail.url }}"/></td>
                             <td>
                                 <a href="{{ friend.get_profile.get_absolute_url }}">
                                 {{ friend.get_profile.nickname }}</td>

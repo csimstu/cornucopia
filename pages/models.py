@@ -16,18 +16,6 @@ class Tag(models.Model):
         return self.article_set.count()
 
 
-from django.db.models.signals import post_save
-
-
-def auto_create_default_tag(sender, **kwargs):
-    user = kwargs["instance"]
-    if kwargs["created"]:
-        Tag.objects.create(author=user, title="default")
-
-
-post_save.connect(auto_create_default_tag, sender=User)
-
-
 class Article(models.Model):
     author = models.ForeignKey(User)
     date_published = models.DateTimeField(auto_now_add=True)

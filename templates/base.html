@@ -127,6 +127,7 @@
                             {% endif %}
 
                         </a>
+                        <a class="navbar-user-btn" href="{% url 'xadmin:dashboard' %}"><i class="icon-gears icon-large"></i></a>
                         <a class="navbar-user-btn" href="{% url 'accounts:logout' %}?next={{ request.get_full_path }}">
                             <i class="icon-signout icon-large"></i>
                         </a>

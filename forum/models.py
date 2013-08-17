@@ -18,7 +18,7 @@ class Category(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return ""
+        return reverse('forum:specific_category_index', kwargs={'label': self.label})
 
 
 class Topic(models.Model):

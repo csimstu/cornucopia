@@ -120,7 +120,7 @@
                     <div class="btn-group form-wrapper">
                         <form class="form-search" method="GET" action="{% url 'xadmin:inbox_search' %}">
                             <input type="checkbox" name="is_marked"><label class="checkbox">marked?</label>
-                            <input type="checkbox" name="is_unread"><label class="checkbox">unread?</label>
+                            <input type="checkbox" name="is_unread" checked="checked"><label class="checkbox">unread?</label>
                             <input type="text" class="input-medium search-query input-block-level" name="content">
                             <button type="submit" class="btn">Search</button>
                         </form>

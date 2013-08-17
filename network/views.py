@@ -6,63 +6,6 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-
-def search_user_thumb_list(request):
-    if request.is_ajax():
-        q = request.GET.get('term', '')
-        user_list = User.objects.filter(username__icontains=q)
-        results = []
-        for user in user_list:
-            user_json = {}
-            user_json['label'] = user.get_profile().nickname
-            user_json['value'] = user.username
-            user_json['icon_url'] = user.get_profile().thumbnail.url
-            user_json['id'] = user.id
-            results.append(user_json)
-        data = json.dumps(results)
-        return HttpResponse(data, mimetype='application/json')
-    raise Http404()
-
-
-def search_user_thumb_list_exclude(request):
-    user = request.user
-    if request.is_ajax():
-        q = request.GET.get('term', '')
-        user_list = User.objects.filter(username__icontains=q)
-        user_list = user_list.exclude(id__in=[t.id for t in user.relationlist.friends.all()])
-        user_list = user_list.exclude(id=user.id)
-
-        results = []
-        for user in user_list:
-            user_json = {}
-            user_json['label'] = user.get_profile().nickname
-            user_json['value'] = user.username
-            user_json['icon_url'] = user.get_profile().thumbnail.url
-            user_json['id'] = user.id
-            results.append(user_json)
-        data = json.dumps(results)
-        return HttpResponse(data, mimetype='application/json')
-    raise Http404()
-
-
-def get_user_thumb_by_id(request):
-    if request.is_ajax():
-        q = request.GET.get('term', '')
-        results = []
-        if q is not None and q != "":
-            for x in q.split(','):
-                user = User.objects.get(id=int(x))
-                user_json = {}
-                user_json['label'] = user.get_profile().nickname
-                user_json['value'] = user.username
-                user_json['icon_url'] = user.get_profile().thumbnail.url
-                user_json['id'] = user.id
-                results.append(user_json)
-
-        return HttpResponse(json.dumps(results), mimetype='application/json')
-    raise Http404()
-
-
 from network.models import Message
 from django.contrib import messages
 from network.models import FriendShip
@@ -103,7 +46,7 @@ def send_message_selected(request):
             if recv["type"] == "friend":
                 receiver = User.objects.get(id = recv["id"])
                 send_message(user,receiver,request.POST['subject'],request.POST['content'])
-        return HttpResponse("Messages sent")
+        return HttpResponse("Messages sent.")
     raise Http404()
 
 

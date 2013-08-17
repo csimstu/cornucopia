@@ -34,7 +34,7 @@ def dashboard(request):
                   })
 
 
-from django.core.paginator import Paginator, PageNotAnInteger
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from xadmin.utils import get_ck_list,encode_ck_list
 
 @login_required
@@ -64,7 +64,7 @@ from django.shortcuts import get_object_or_404
 def show_msg_in_inbox(request, msg_id):
     msg = get_object_or_404(Message, id=msg_id)
     if msg.receiver.id != request.user.id:
-        raise Http404
+        raise Http404()
     msg.unread = False
     msg.save()
     return render(request, 'xadmin/show_msg_in_inbox.html', {'msg': msg})
@@ -72,48 +72,48 @@ def show_msg_in_inbox(request, msg_id):
 
 from forms import NewMessageForm,AddConnectionsForm
 import datetime
-from django.http import HttpResponseRedirect,HttpResponse
-
-
-@login_required()
-def send_msg(request):
-    user = request.user
-    if request.method == 'POST':
-        form = NewMessageForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            subject = cd['subject']
-            content = cd['content']
-            for x in cd['receivers'].split(','):
-                receiver = User.objects.get(id=int(x))
-                Message.objects.create(sender=user, receiver=receiver,
-                                       subject=subject, content=content,
-                                       type="MSG", unread=True)
-            return HttpResponseRedirect(reverse('xadmin:inbox'))
-    else:
-        form = NewMessageForm()
-    return render(request, 'xadmin/send_msg.html',
-                  {'form': form})
+from django.http import HttpResponseRedirect, HttpResponse
+#
+#
+# @login_required()
+# def send_msg(request):
+#     user = request.user
+#     if request.method == 'POST':
+#         form = NewMessageForm(request.POST)
+#         if form.is_valid():
+#             cd = form.cleaned_data
+#             subject = cd['subject']
+#             content = cd['content']
+#             for x in cd['receivers'].split(','):
+#                 receiver = User.objects.get(id=int(x))
+#                 Message.objects.create(sender=user, receiver=receiver,
+#                                        subject=subject, content=content,
+#                                        type="MSG", unread=True)
+#             return HttpResponseRedirect(reverse('xadmin:inbox'))
+#     else:
+#         form = NewMessageForm()
+#     return render(request, 'xadmin/send_msg.html',
+#                   {'form': form})
 
 from network.utils import send_friend_invitation
-
-@login_required()
-def add_connections(request):
-    user = request.user
-    if request.method == 'POST':
-        form = AddConnectionsForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            if cd['friends'] != "":
-                for x in cd['friends'].split(','):
-                    friend = User.objects.get(id=int(x))
-                    send_friend_invitation(user,friend)
-
-            return HttpResponseRedirect(reverse('xadmin:inbox'))
-    else:
-        form = AddConnectionsForm()
-    return render(request, 'xadmin/add_connections.html',
-                  {'form': form})
+#
+# @login_required()
+# def add_connections(request):
+#     user = request.user
+#     if request.method == 'POST':
+#         form = AddConnectionsForm(request.POST)
+#         if form.is_valid():
+#             cd = form.cleaned_data
+#             if cd['friends'] != "":
+#                 for x in cd['friends'].split(','):
+#                     friend = User.objects.get(id=int(x))
+#                     send_friend_invitation(user,friend)
+#
+#             return HttpResponseRedirect(reverse('xadmin:inbox'))
+#     else:
+#         form = AddConnectionsForm()
+#     return render(request, 'xadmin/add_connections.html',
+#                   {'form': form})
 
 from network.models import FriendGroup,FriendShip
 
@@ -209,7 +209,7 @@ def recent_traces(request):
 
     try:
         traces = paginator.page(page)
-    except PageNotAnInteger, EmptyPage:
+    except (PageNotAnInteger, EmptyPage):
         traces = paginator.page(1)
 
     return render(request, 'xadmin/recent_traces.html', {'traces': traces})
@@ -285,7 +285,7 @@ def on_checkbox(request):
             ck_list.append(ck_id)
 
         request.session[settings.CKBOX_SESSION_NAME] = encode_ck_list(ck_list)
-    return HttpResponse("")
+    raise Http404()
 
 
 def _ckbox_select(request,page,flag):
@@ -306,7 +306,7 @@ def _ckbox_select(request,page,flag):
         if flag:
             ck_list.append(m.id)
     request.session[settings.CKBOX_SESSION_NAME] = encode_ck_list(ck_list)
-    return HttpResponse("")
+    raise Http404()
 
 
 @login_required
@@ -331,7 +331,7 @@ def _ckbox_mark_flag(request,flag):
         a = Message.objects.get(id = ck_id)
         a.important = flag
         a.save()
-    return HttpResponse("")
+    raise Http404()
 
 @login_required
 def ckbox_mark(request):
@@ -361,7 +361,7 @@ def inbox_search(request):
             page = request.GET.get("page")
             try:
                 msgs = paginator.page(page)
-            except PageNotAnInteger,EmptyPage:
+            except (PageNotAnInteger,EmptyPage):
                 msgs = paginator.page(1)
             
             GET_data = request.GET.copy()
@@ -377,8 +377,7 @@ def inbox_search(request):
             messages.error(request,"Error : Invalid search!")
         return HttpResponseRedirect(reverse("xadmin:inbox"))
 
-    return HttpRepsonse("")
-
+    raise Http404()
 
 def _inbox_mark_one_flag(request,flag):
     if request.method == 'GET':
@@ -386,7 +385,7 @@ def _inbox_mark_one_flag(request,flag):
         m = Message.objects.get(id = msg_id)
         m.important = flag
         m.save()
-    return HttpResponse("")
+    raise Http404()
 
 @login_required
 def inbox_mark_one(request):
@@ -469,7 +468,7 @@ def chpsw_ckhash(request):
                 "key" : key,
                 'form': ChangePasswordForm,
             })
-    return HttpResponse("")
+    raise Http404()
 
 
 
@@ -506,7 +505,7 @@ def chpsw_doupdate(request):
                 "key": request.POST['hash_key'],
                 'form': cpf,
             })
-    return HttpResponse("Failed!")
+    raise Http404()
 
 
 import json

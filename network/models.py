@@ -57,6 +57,15 @@ class FriendShip(models.Model):
         return "You and %s become friends." % self.target.get_profile().nickname
 
 
+class Trace(models.Model):
+    user = models.ForeignKey(User)
+    url = models.CharField(max_length=settings.URL_LENGTH_LIMIT)
+    description = models.CharField(max_length=settings.TRACE_DESCRIPTION_LENGTH_LIMIT)
+    date = models.DateTimeField(auto_now_add=True)
+
+
+
+
 from django.db.models.signals import post_save, pre_save
 
 
@@ -85,13 +94,6 @@ def auto_create_relation_list(sender, **kwargs):
 
 
 post_save.connect(auto_create_relation_list, sender=User)
-
-
-class Trace(models.Model):
-    user = models.ForeignKey(User)
-    url = models.CharField(max_length=settings.URL_LENGTH_LIMIT)
-    description = models.CharField(max_length=settings.TRACE_DESCRIPTION_LENGTH_LIMIT)
-    date = models.DateTimeField(auto_now_add=True)
 
 
 # Add listeners in order to create trace messages

@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 from django.contrib import auth
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 from forms import LoginForm
 
@@ -25,7 +26,7 @@ def login(request):
         'login_form': form,
     })
 
-
+@login_required()
 def logout(request):
     auth.logout(request)
     if 'next' in request.GET:
