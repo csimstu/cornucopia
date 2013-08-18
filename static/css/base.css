@@ -139,3 +139,9 @@ ul.errorlist li {
 .yellow {
     background: yellow;
 }
+
+.footer-warning {
+    text-transform: none;
+    margin: 50px;
+
+}

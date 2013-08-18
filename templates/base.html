@@ -64,6 +64,8 @@
             $('.messages-list').hide().fadeIn(500);
 
             $('.errorlist li').prepend('<i class="icon-exclamation"></i> &nbsp;');
+            show_message("<strong>Warning!</strong> This site is still under construction. See footer below for more info.",
+            "warning");
         });
     </script>
 
@@ -83,7 +85,7 @@
     <div class="navbar-inner">
         <div class="container">
             <a class="brand" href="{% url 'home' %}">
-                <strong>Cornucopia</strong></a>
+                <strong>Cornucopians</strong></a>
 
             <div class="nav-collapse">
                 <ul class="nav">
@@ -158,12 +160,22 @@
 {% endblock %}
 
 
-<footer>
+<footer style="height: 100%;">
     <div class="container">
         <div class="row">
-            <article class="span12">
-                <span>cornucopia © 2013</span>
-            </article>
+            <div class="span12">
+                <span>cornucopians © 2013</span>
+            </div>
+            <div class="span12 footer-warning">
+                This site currently is for testing only. Please do not leave important
+                information here since the database will be cleared totally once officially
+                published. If you find some bugs, or suggestions for improvement, please
+                kindly send an email to <strong>csimstu@gmail.com</strong> or
+                <strong>rapidhere@gmail.com</strong>. Thank you for visiting.<br>
+                If you are interested in supporting us or details in development, please visit
+                <a href="https://github.com/csimstu/cornucopia">our project at github</a>.
+                Contributors are welcome.
+            </div>
         </div>
     </div>
 </footer>
