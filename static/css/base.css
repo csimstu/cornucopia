@@ -64,6 +64,7 @@ a:hover {
     position: fixed;
     top: 60px;
     left: 50%;
+    z-index: 9999;
 }
 
 .inbox-subscript {

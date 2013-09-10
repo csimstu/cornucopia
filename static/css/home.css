@@ -1,12 +1,12 @@
 /* Main Slider
 -------------------------------------------------- */
 #feature_slider {
-    height:720px;
     height: 480px;
     background: #262626;
     z-index: 1;
     margin-top: -20px;
 }
+
 #feature_slider h1 {
     font-weight: 100;
     color: #ccc;
@@ -45,7 +45,6 @@
     background: rgb(0, 0, 0);
     border-radius: 10px;
     display: block;
-    /*border: 1px solid #fff;*/
     opacity: .7;
     -webkit-transition: opacity .1s linear;
     -moz-transition: opacity .1s linear;
@@ -88,78 +87,94 @@
 /* Custom styles for each slide */
 
 /* Slide 1 */
-.slide#showcasing .info {
+.slide#cornucopia .info {
     position: absolute;
     top: 160px;
     left: 13%;
-    width: 30%;
+    width: 60%;
     display: none;
     z-index: 10;
 }
-.slide#showcasing .info h2 {
+.slide#cornucopia .info h2 {
     color: #fff;
     font-size: 50px;
-    font-weight: normal;
+    font-weight: bold;
     line-height: 56px;
     text-shadow: 1px 1px 1px rgb(49, 57, 61);
 }
+.slide#cornucopia .info div {
+    color: #fff;
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: normal;
+    text-shadow: 1px 1px 1px rgb(49, 57, 61);
+}
 /* Slide 2 */
-.slide#ideas .info {
+.slide#together .info {
+    position: relative;
+    top: 60px;
+    left: 10%;
+    width: 80%;
+    text-align: center;
+}
+.slide#together .info h2 {
+    color: #fff;
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 56px;
+    text-shadow: 1px 1px 1px rgb(49, 57, 61);
+}
+.slide#together .info div {
+    color: #fff;
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: normal;
+    text-shadow: 1px 1px 1px rgb(49, 57, 61);
+}
+
+/* Slide 3 */
+.slide#window .info {
+    position: absolute;
+    top: 150px;
+    right: 6%;
+    width: 40%;
+}
+.slide#window .info h2 {
+    color: #fff;
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 56px;
+    text-shadow: 1px 1px 1px rgb(49, 57, 61);
+}
+.slide#window .info div {
+    color: #fff;
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: normal;
+    text-shadow: 1px 1px 1px rgb(49, 57, 61);
+}
+
+/* Slide 4 */
+.slide#journey .info {
     position: relative;
     top: 110px;
     text-align: center;
 }
-.slide#ideas .info h2 {
+.slide#journey .info h2 {
     color: #fff;
-    font-weight: normal;
-}
-
-/* Slide 3 */
-.slide#tour .info {
-    position: absolute;
-    top: 150px;
-    right: 6%;
-    width: 24%;
-}
-.slide#tour .info h2 {
-    color: #fff;
-    font-size: 45px;
-    font-weight: normal;
-    text-shadow: 1px 1px 1px #3b3262;
-    line-height: 57px;
-}
-.slide#tour .info a {
-    color: #fff;
+    font-size: 50px;
     font-weight: bold;
-    background-color: #2a205d;
-    padding: 13px 30px;
-    font-size: 19px;
-    border-radius: 5px;
-    margin-top: 40px;
-    display: inline-block;
-    -webkit-transition: opacity .1s linear;
-    -moz-transition: opacity .1s linear;
-    transition: opacity .1s linear;
-}
-.slide#tour .info a:hover { }
-
-/* Slide 4 */
-.slide#responsive .info {
-    position: absolute;
-    top: 170px;
-    right: 9%;
-    width: 25%;
-}
-.slide#responsive .info h2 {
-    color: #fff;
-    font-size: 47px;
-    font-weight: normal;
-    text-shadow: 1px 1px 1px #3b3262;
     line-height: 56px;
+    text-shadow: 1px 1px 1px rgb(49, 57, 61);
 }
-.slide#responsive .info h2 strong {
-    font-size: 42px;
+.slide#journey .info div {
+    color: #fff;
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: normal;
+    text-shadow: 1px 1px 1px rgb(49, 57, 61);
 }
+/* End of Slides */
 
 .slide .info h2 { }
 .slide .info {
