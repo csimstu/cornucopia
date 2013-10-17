@@ -138,7 +138,6 @@ from django.contrib.auth.decorators import login_required
 import datetime
 
 
-
 @login_required()
 def new_comment(request, article_id):
     user = request.user
