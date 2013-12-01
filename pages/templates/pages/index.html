@@ -71,7 +71,11 @@
                                 </li>
                                 <li>
                                     <i class="icon-comment"></i>
-                                    {{ article.comment_set.count }} comment{{ article.comment_set.count|pluralize }}
+
+                                    <a href="{% url 'pages:detail' article.id %}#comment-list">
+                                        {{ article.comment_set.count }}
+                                        comment{{ article.comment_set.count|pluralize }}
+                                    </a>
                                 </li>
                                 <li>
                                     <i class="icon-tags"></i>
@@ -108,7 +112,7 @@
 
                     <div class="btn-group">
                         <a id="search-toggle-btn" class="btn"><i class="icon-angle-down"></i></a>
-                        <input type="submit" class="btn btn-danger">Search</input>
+                        <input type="submit" class="btn btn-danger" value="Search"></input>
                     </div>
                 </div>
                 <div class="additional-limit">
@@ -162,6 +166,7 @@
                 </div>
             </form>
             <div class="archive">
+                <h3>Archive</h3>
                 <ul class="nav nav-tabs nav-stacked">
                     {% for list1 in archive %}
                         <li>

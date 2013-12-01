@@ -91,7 +91,7 @@
             <div class="content-wrapper">
                 {{ article.content|safe }}
             </div>
-            <ul class="comment-list">
+            <ul id="comment-list">
                 {% for comment in article.comment_set.all %}
                     <div class="comment" id="comment_{{ comment.id }}">
                         <div class="comment-meta">
