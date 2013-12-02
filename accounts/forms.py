@@ -40,6 +40,12 @@ class RegistrationForm(forms.Form):
             raise forms.ValidationError("Username being occupied.")
         return tmp
 
+    def clean_email(self):
+        tmp = self.cleaned_data['email']
+        if User.objects.filter(email=tmp).count():
+            raise forms.ValidationError("Email has been used.")
+        return tmp
+
     def clean(self):
         cleaned_data = super(RegistrationForm, self).clean()
         username = cleaned_data.get('username')

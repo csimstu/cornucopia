@@ -116,3 +116,13 @@ def listen_to_post(sender, **kwargs):
 
 post_save.connect(listen_to_post, sender=Post)
 
+def listen_to_category(sender, **kwargs):
+    cat = kwargs["instance"]
+    llx = User.objects.get(id=1)
+    if kwargs["created"]:
+        topic = Topic.objects.create(category=cat, title="Placeholder for category %s" % cat.title,
+                                         author=llx)
+        Post.objects.create(topic=topic, author=llx,
+                                       content="This topic has no meaning. Simply for placeholding. Please DO NOT reply.")
+
+post_save.connect(listen_to_category, sender=Category)

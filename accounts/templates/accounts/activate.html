@@ -1,11 +1,6 @@
-{% extends "base.html" %}
-{% load staticfiles %}
+{% extends 'accounts/accounts.html' %}
 {% load widget_tweaks %}
-{% block title %} Activate Your Account {% endblock %}
-{% block head %}
-    <link rel="stylesheet" type="text/css" href="{% static "css/accounts.css" %}">
-{% endblock %}
-{% block content %}
+{% block accounts_content %}
     <div>
         Please check your Mail-Box to activate your account.
     </div>

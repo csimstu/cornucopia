@@ -3,7 +3,9 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "TeenHope.settings")
 from django.db import connection
 from TeenHope import settings
 from django.core.management import call_command
-
+from django.contrib.auth.models import User
+from forum.models import Category
+from forum.models import Topic, Post, Reply
 
 def recreate_db():
     print "Wiping database..."
@@ -15,15 +17,17 @@ def recreate_db():
                    + dbinfo["NAME"] + "; USE " + dbinfo["NAME"] + ";")
     print "Done."
 
+def add_default_data():
+
+    llx = User.objects.create_superuser('csimstu', 'csimstu@gmail.com', '1')
+    default_cat = Category.objects.create(title="Uncategorized", label="uncategorized")
 
 def add_test_data():
 
     name_list = ['andrew', 'mike', 'ferona', 'john',
              'smith', 'nyx', 'rubic', 'bat', 'spectre']
-    from django.contrib.auth.models import User
 
-    llx = User.objects.create_superuser('csimstu', 'csimstu@gmail.com', '1')
-
+    llx = User.objects.get(username="csimstu")
     # creating detailed bio for llx
     prof = llx.get_profile()
     prof.first_name = "Lingxiao"
@@ -52,16 +56,12 @@ My recent projects include a Multiplayer Browser game (http://alqazar.com) " \
     from network.models import Message
     import datetime
 
+
     for x in range(0, 50):
         Message.objects.create(sender=user[2], receiver=llx, unread=True,
                                subject="Drone message #%d" % x,
                                type="MSG")
 
-    from forum.models import Category
-    from forum.models import Topic, Post, Reply
-
-
-    default_cat = Category.objects.create(title="Uncategorized", label="uncategorized")
     cat_new = Category.objects.create(title="A New Category", label="a_new_category")
 
     for cat in Category.objects.all():
@@ -150,8 +150,10 @@ def main():
     recreate_db()
     print "Syncing DB..."
     call_command('syncdb', interactive=False)
-    print "Adding test data..."
-    add_test_data()
+    print "Adding default data..."
+    add_default_data()
+    #print "Adding test data..."
+    #add_test_data()
     print "Building database successfully."
 
 if __name__ == "__main__":
