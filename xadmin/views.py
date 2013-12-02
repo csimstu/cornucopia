@@ -403,11 +403,11 @@ import random
 import time
 import urllib
 
-def _chpsw_sendmail(request,user,rurl):
+def _sendmail(request, user, rurl, subject, ckhash_url, content):
     user_email = user.email
     chpsw_url = "http://"
     chpsw_url += request.META['HTTP_HOST']
-    chpsw_url += reverse("xadmin:chpsw_ckhash")
+    chpsw_url += ckhash_url 
     
     old_hash_list = EmailHash.objects.filter(holder = user)
     if old_hash_list:
@@ -430,11 +430,10 @@ def _chpsw_sendmail(request,user,rurl):
         "usr" : user.username,
     })
 
-    subject = "Change Password"
     html_content = """
-        <p>Click the URL to change the password:</p>
+        %s
         <a href="%s">%s</a>
-    """ % (chpsw_url,chpsw_url)
+    """ % (content, chpsw_url,chpsw_url)
     
     msg = EmailMultiAlternatives(subject,html_content,settings.EMAIL_HOST_USER,[user_email])
     msg.attach_alternative(html_content, "text/html")
@@ -445,8 +444,23 @@ def _chpsw_sendmail(request,user,rurl):
 
 @login_required
 def chpsw_sendmail(request):
-    return _chpsw_sendmail(request,request.user,reverse("xadmin:inbox"))
+    return _chpsw_sendmail(request, request.user, reverse("xadmin:inbox"), "Change Password", reverse("xadmin:chpsw_ckhash"),
+        r"""
+        <p>Click the URL to change the password:</p>
+        """
+    )
 
+def _check_hash(usr, key):
+    try:
+        es = EmailHash.objects.get(holder = User.objects.get(username = usr))
+    except:
+        raise Http404
+
+    time_dt = datetime.now() - es.gen_date
+    if es and es.hash_str == key and time_dt.total_seconds() <= settings.CHECK_MAIL_LIVE_SPAN:
+        return True 
+                
+    return False
 
 from django.contrib.auth.models import User
 from datetime import datetime
@@ -456,21 +470,15 @@ def chpsw_ckhash(request):
     if request.method == "GET":
         usr = request.GET.get("usr")
         key = request.GET.get("key")
-        try:
-            es = EmailHash.objects.get(holder = User.objects.get(username = usr))
-        except Exception:
-            raise Http404
         
-        time_dt = datetime.now() - es.gen_date
-        if es and es.hash_str == key and time_dt.total_seconds() <= settings.CHECK_MAIL_LIVE_SPAN:
+        if _check_hash(usr, key):
             return render(request,"xadmin/change_password.html",{
                 "usr" : usr,
                 "key" : key,
                 'form': ChangePasswordForm,
             })
-    raise Http404()
-
-
+        else:
+            raise Http404()
 
 from django.contrib.auth import login,authenticate
 
@@ -643,3 +651,39 @@ def mancon_remove(request):
         return HttpResponseRedirect(reverse("xadmin:manage_connections"))
 
     raise Http404()
+
+def activate_send_email(request, user):
+    rurl = request.GET.get('next', reverse('home'))
+    _sendmail(request, user, rurl, "Activate your account", reverse("xadmin:activate_ckhash"),
+        r"""
+        <p>Click the URL to activate your account:</p>
+        """
+    )
+
+from accounts.models import User
+from django.contrib import auth
+def activate_ckhash(request):
+    if request.method == 'GET':
+        usr = request.GET.get('usr')
+        key = request.GET.get('key')
+        
+        if _check_hash(usr, key):
+            try:
+                usr = User.objects.get(username = usr)
+                usr.is_active = True
+                usr.save()
+                
+                # A trick
+                # http://stackoverflow.com/questions/2787650/manually-logging-in-a-user-without-password
+                usr.backend = 'django.contrib.auth.backends.ModelBackend'
+                auth.login(request, usr)
+
+                es = EmailHash.objects.get(holder = usr)
+                es.delete()
+                messages.success(request, "Activate Account Successflly!")
+            except Exception:
+                raise #Http404
+            
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            raise Http404()

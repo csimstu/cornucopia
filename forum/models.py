@@ -54,7 +54,7 @@ class Post(models.Model):
     topic = models.ForeignKey(Topic)    # a post belongs to only one topic
     author = models.ForeignKey(User)    # the writer of the post
     date_published = models.DateTimeField(auto_now_add=True)         # time published
-    content = models.CharField(
+    content = models.TextField(
         max_length=settings.POST_LENGTH_LIMIT)        # content of the post, no limited char number
 
     def __unicode__(self):

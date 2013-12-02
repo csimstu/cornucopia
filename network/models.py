@@ -30,7 +30,7 @@ class Message(models.Model):
     sender = models.ForeignKey(User, related_name='+')
     receiver = models.ForeignKey(User, related_name='+')
     subject = models.CharField(max_length=settings.MESSAGE_SUBJECT_LENGTH_LIMIT)
-    content = models.CharField(max_length=settings.MESSAGE_LENGTH_LIMIT)
+    content = models.TextField(max_length=settings.MESSAGE_LENGTH_LIMIT)
     date_sent = models.DateTimeField(auto_now_add=True)
     MESSAGE_CHOICES = (
         ('MSG', 'message'),

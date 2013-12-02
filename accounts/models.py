@@ -29,7 +29,6 @@ class Profile(models.Model):
 
         return Message.objects.filter(receiver=self.user, unread=True).count()
 
-
     def get_absolute_url(self):
         return reverse('accounts:view_profile', kwargs={'user_id': self.id})
 

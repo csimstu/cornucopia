@@ -3,6 +3,7 @@ from django.contrib import auth
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from forms import LoginForm
 
@@ -14,11 +15,14 @@ def login(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = auth.authenticate(username=username, password=password)
-            auth.login(request, user)
-            if 'next' in request.GET:
-                return HttpResponseRedirect(request.GET['next'])
+            if user.is_active:
+                auth.login(request, user)
+                if 'next' in request.GET:
+                    return HttpResponseRedirect(request.GET['next'])
+                else:
+                    return HttpResponseRedirect(reverse('home'))
             else:
-                return HttpResponseRedirect(reverse('home'))
+                return activate(request)
     else:
         form = LoginForm()
 
@@ -45,12 +49,15 @@ def register(request):
             user = User.objects.create_user(
                 form.cleaned_data['username'], form.cleaned_data['email'], form.cleaned_data['password']
             )
+            user.is_active = False
             user.save()
-            user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
-            auth.login(request, user)
-            if 'next' in request.GET:
-                return HttpResponseRedirect(request.GET['next'])
-            return HttpResponseRedirect(reverse('home'))
+
+            return activate(request, user)
+
+            #auth.login(request, user)
+            #if 'next' in request.GET:
+            #    return HttpResponseRedirect(request.GET['next'])
+            #return HttpResponseRedirect(reverse('home'))
     else:
         form = RegistrationForm()
 
@@ -58,6 +65,10 @@ def register(request):
         'register_form': form,
     })
 
+def activate(request, user):
+    from xadmin.views import activate_send_email
+    activate_send_email(request, user)
+    return render(request, 'accounts/activate.html')
 
 from django.shortcuts import get_object_or_404
 from forum.models import *
